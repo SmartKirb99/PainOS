@@ -24,7 +24,7 @@ func _warn_password():
 	Global.viewport = get_window()
 	Global.popup = Popup.new()
 	Global.popup.borderless = false
-	Global.popup.unresizable = false
+	Global.popup.unresizable = true
 	Global.popup.size = Global.viewport.size * 0.25
 	Global.popup.position = (Global.viewport.size - Global.popup.size) * 0.5
 	Global.popup.exclusive = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=12 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
 [ext_resource type="Texture2D" uid="uid://b4oqhvhvgoph" path="res://Non OpSys/Photos/Start Button.png" id="2_e0dnv"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://Non OpSys/Scripts/StartChecking.gd" id="4_flwbo"]
 [ext_resource type="Texture2D" uid="uid://b34pa4hwc11bt" path="res://Non OpSys/Photos/Green.png" id="5_4ys46"]
 [ext_resource type="Script" path="res://Non OpSys/Scripts/SetPositionToMouse.gd" id="6_jvggm"]
+[ext_resource type="Script" path="res://Non OpSys/Scripts/OpenNotebook.gd" id="6_p5gyf"]
+[ext_resource type="Script" path="res://Non OpSys/Scripts/QuitOS.gd" id="7_jiexn"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
@@ -19,7 +21,7 @@
 position = Vector2(960, 540)
 texture = ExtResource("1_n670g")
 
-[node name="Button" type="Button" parent="."]
+[node name="Start Button" type="Button" parent="."]
 offset_left = -1.0
 offset_top = 970.0
 offset_right = 407.0
@@ -52,19 +54,28 @@ shape = SubResource("RectangleShape2D_5prdb")
 position = Vector2(2, 1)
 texture = ExtResource("5_4ys46")
 
-[node name="Button" type="Button" parent="Funny Start Menu"]
+[node name="Notebook" type="Button" parent="Funny Start Menu"]
 offset_left = -120.0
 offset_top = -239.0
 offset_right = -35.0
 offset_bottom = -208.0
 text = "Notebook"
+script = ExtResource("6_p5gyf")
 
-[node name="Button2" type="Button" parent="Funny Start Menu"]
+[node name="File Manager" type="Button" parent="Funny Start Menu"]
 offset_left = -120.0
 offset_top = -196.0
 offset_right = -12.0
 offset_bottom = -165.0
 text = "File Manager"
+
+[node name="Shut Down Button" type="Button" parent="Funny Start Menu"]
+offset_left = -126.0
+offset_top = 185.0
+offset_right = 129.0
+offset_bottom = 253.0
+text = "Power Off"
+script = ExtResource("7_jiexn")
 
 [node name="Maus" type="Area2D" parent="."]
 script = ExtResource("6_jvggm")

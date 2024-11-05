@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bf3dbhntaxle"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Window" type="Window" parent="."]
+title = "Notebook"
+initial_position = 1
+size = Vector2i(500, 500)
+min_size = Vector2i(300, 300)
+max_size = Vector2i(1920, 1080)
+keep_title_visible = true
+
+[node name="Button" type="Button" parent="Window"]
+offset_right = 35.0
+offset_bottom = 31.0
+text = "File"
+
+[node name="Button2" type="Button" parent="Window"]
+anchors_preset = -1
+offset_left = 40.0
+offset_right = 78.0
+offset_bottom = 31.0
+size_flags_horizontal = 0
+text = "Edit"
+
+[node name="TextEdit" type="TextEdit" parent="Window"]
+custom_minimum_size = Vector2(300, 300)
+layout_direction = 1
+anchors_preset = -1
+anchor_left = 0.004
+anchor_top = 0.096
+anchor_right = 1.112
+anchor_bottom = 0.446
+placeholder_text = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true
