@@ -5,7 +5,7 @@ var last_guess
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
-	_load_data_from_file("res://User Data/User.poslogin")
+	_load_data_from_file("res://User Data/User.painoperatingsystemlogin")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.

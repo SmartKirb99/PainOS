@@ -2,7 +2,7 @@ extends LineEdit
 var password
 ## Called when the node enters the scene tree for the first time.
 func _ready():
-	LoginScreen._load_data_from_file("res://User Data/User.poslogin") # Replace with function body.
+	LoginScreen._load_data_from_file("res://User Data/User.painoperatingsystemlogin") # Replace with function body.
 	print("Something")
 
 
@@ -17,7 +17,7 @@ func _getPassword():
 		elif self.text != LoginScreen.password:
 			_warn_password()
 			LoginScreen.last_guess = self.text
-			LoginScreen._save_data_to_file("res://User Data/User.poslogin")
+			LoginScreen._save_data_to_file("res://User Data/User.painoperatingsystemlogin")
 
 ## Warns when password is incorrect
 func _warn_password():
