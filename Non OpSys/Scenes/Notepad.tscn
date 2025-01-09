@@ -5,40 +5,46 @@
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 300.0
-offset_bottom = 500.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_rqoie")
-metadata/_edit_use_anchors_ = true
 
 [node name="TextEdit" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
-anchors_preset = -1
-offset_top = 35.0
-offset_right = 300.0
-offset_bottom = 518.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 0
 placeholder_text = "e e e e e e e e e e e e e e e e e e e e e e e e eeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 wrap_mode = 1
 scroll_smooth = true
-metadata/_edit_use_anchors_ = true
 
-[node name="Button2" type="Button" parent="."]
-offset_left = 40.0
-offset_right = 78.0
+[node name="Open Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 81.0
+offset_right = 119.0
 offset_bottom = 31.0
 size_flags_horizontal = 0
-text = "Edit"
+text = "Open File"
 
-[node name="Button" type="Button" parent="."]
+[node name="Save Button" type="Button" parent="."]
+layout_mode = 0
 offset_right = 35.0
 offset_bottom = 31.0
-text = "File"
+text = "Save File"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Save File"
+position = Vector2i(300, 300)
 size = Vector2i(457, 159)
 root_subfolder = "U"

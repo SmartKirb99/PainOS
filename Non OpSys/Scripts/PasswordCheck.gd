@@ -22,19 +22,19 @@ func _getPassword():
 ## Warns when password is incorrect
 func _warn_password():
 	Global.viewport = get_window()
-	Global.popup = Popup.new()
-	Global.popup.borderless = false
-	Global.popup.unresizable = true
-	Global.popup.size = Global.viewport.size * 0.25
-	Global.popup.position = (Global.viewport.size - Global.popup.size) * 0.5
-	Global.popup.exclusive = false
-	Global.popup.popup_window = false
-	Global.popup.name = "Invalid"
-	Global.popup.visible = true
-	Global.popup.transient = true
-	Global.popup_control = Global.PopUpScene.instantiate()
-	Global.popup_control.position = Vector2i(0,0)
-	Global.popup_control.size = Global.popup.size
-	Global.popup.add_child(Global.popup_control)
-	Global.popup.close_requested.connect(func(): Global.popup.visible = false)
-	Global.viewport.add_child(Global.popup)
+	Global.window = Window.new()
+	Global.window.borderless = false
+	Global.window.unresizable = true
+	Global.window.size = Global.viewport.size * 0.25
+	Global.window.position = (Global.viewport.size - Global.window.size) * 0.5
+	Global.window.exclusive = false
+	Global.window.window_window = false
+	Global.window.name = "Invalid"
+	Global.window.visible = true
+	Global.window.transient = true
+	Global.window_control = Global.PopUpScene.instantiate()
+	Global.window_control.position = Vector2i(0,0)
+	Global.window_control.size = Global.window.size
+	Global.window.add_child(Global.window_control)
+	Global.window.close_requested.connect(func(): Global.window.visible = false)
+	Global.viewport.add_child(Global.window)
