@@ -25,14 +25,13 @@ offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 0
-placeholder_text = "e e e e e e e e e e e e e e e e e e e e e e e e eeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 wrap_mode = 1
 scroll_smooth = true
 
 [node name="Open Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 81.0
-offset_right = 119.0
+offset_left = 103.0
+offset_right = 184.0
 offset_bottom = 31.0
 size_flags_horizontal = 0
 text = "Open File"
@@ -41,10 +40,25 @@ text = "Open File"
 layout_mode = 0
 offset_right = 35.0
 offset_bottom = 31.0
-text = "Save File"
+text = "Save As File"
 
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Save File"
+[node name="Save File" type="FileDialog" parent="."]
+title = "Save As File"
 position = Vector2i(300, 300)
-size = Vector2i(457, 159)
+size = Vector2i(457, 400)
+min_size = Vector2i(200, 400)
 root_subfolder = "U"
+
+[node name="Open File" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(300, 300)
+size = Vector2i(457, 400)
+min_size = Vector2i(200, 400)
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U"
+
+[connection signal="pressed" from="Open Button" to="." method="_on_open_button_pressed"]
+[connection signal="pressed" from="Save Button" to="." method="_on_save_button_pressed"]
+[connection signal="file_selected" from="Save File" to="." method="_on_save_file_file_selected"]
+[connection signal="file_selected" from="Open File" to="." method="_on_open_file_file_selected"]

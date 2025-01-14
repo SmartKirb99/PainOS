@@ -10,6 +10,7 @@ func _process(delta):
 	pass
 
 func _on_button_press():
+	Global.inWindow = true
 	Global.viewport = get_window()
 	Global.window = Window.new()
 	Global.window.borderless = false
@@ -18,15 +19,16 @@ func _on_button_press():
 	Global.window.position = (Global.viewport.size - Global.window.size) * 0.5
 	Global.window.exclusive = false
 	Global.window.popup_window = true
-	Global.window.title = "Notebook"
+	Global.window.title = "File Manager"
 	Global.window.visible = true
 	Global.window.transient = true
-	Global.window_control = Global.FunnyNotepad.instantiate()
+	Global.window_control = Global.FileManagement.instantiate()
 	Global.window_control.position = Vector2i(0,0)
 	Global.window_control.size = Global.window.size
 	Global.window.add_child(Global.window_control)
-	Global.window.min_size = Vector2i(640, 360)
+	Global.window.min_size = Vector2i(800, 360)
 	Global.window.max_size = Vector2i(1600, 900)
 	Global.window.close_requested.connect(func(): Global.window.visible = false)
 	Global.viewport.add_child(Global.window)
+
 

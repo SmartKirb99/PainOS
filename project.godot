@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="PainOS"
-run/main_scene="res://Non OpSys/Scenes/LoadingYourPain.tscn"
+run/main_scene="res://Non OpSys/Scenes/The UI I guess.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -21,6 +21,7 @@ config/icon="res://Non OpSys/Photos/OSIcon.png"
 
 Global="*res://Non OpSys/Scripts/Global.gd"
 LoginScreen="*res://Non OpSys/Scripts/Whole Screen, which also loads your login stuff.gd"
+FileGlobals="*res://Non OpSys/Scripts/autoload/fileGlobals.gd"
 
 [display]
 
