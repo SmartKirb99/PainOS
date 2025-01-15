@@ -2,6 +2,7 @@ extends Control
 var username
 var password
 var last_guess
+var counter : int
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,3 +51,13 @@ func _save_data_to_file(file_path: String):
 		file.close()
 	else:
 		print("Failed to open file for writing: ", file_path)
+
+
+func _on_line_edit_text_submitted(new_text):
+	if $LineEdit.text == password:
+		get_tree().change_scene_to_file("res://Non OpSys/Scenes/The UI I guess.tscn")
+	else:
+		last_guess = $LineEdit.text
+		_save_data_to_file("res://User Data/User.painoperatingsystemlogin")
+		counter = counter + 1
+		$WrongGuesses/Label.text = str(counter)

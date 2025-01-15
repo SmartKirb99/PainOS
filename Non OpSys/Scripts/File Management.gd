@@ -18,13 +18,7 @@ func _ready():
 	set_layout()
 	for i in FileGlobals.pinned:
 		add_pinned_button(i)
-		
-func _process(delta):
-	if Global.inWindow == true:
-		size = Global.window.size
-		#print(size)
-	else:
-		pass
+
 func add_pinned_button(arr:Array):
 	var nButton = Button.new()
 	nButton.text = arr[0]
@@ -72,15 +66,20 @@ func set_layout():
 
 
 func _on_up_pressed():
-	if file: path = path.get_base_dir()
-	path = path.get_base_dir()
-	set_layout()
+	if path.ends_with("res://U"): pass
+	else:
+		if file: path = path.get_base_dir()
+		if !path.ends_with("res://U"): path = path.get_base_dir()
+		set_layout()
 
 
 func _on_path_text_submitted(new_text:String):
 	if new_text.is_absolute_path():
-		path = new_text
-		set_layout()
+		if (new_text).begins_with("res://U"):
+			path = new_text
+			set_layout()
+		else:
+			Npath.clear
 	else:
 		Npath.clear()
 
@@ -100,18 +99,5 @@ func _on_pin_pressed():
 	FileGlobals.pinned.append([name, npath])
 	add_pinned_button([name, npath])
 
-
-func _on_add_pressed():
-	$add_folder.hide()
-	if file: path = path.get_base_dir()
-	var dir = DirAccess.open(path)
-	dir.make_dir_absolute(path + "/" + $add_folder/newname.text)
-	set_layout()
-
-
-func _on_cancel_folder_pressed():
-	$add_folder.hide
-
-
 func _on_new_folder_pressed():
-	$add_folder.show()
+	pass

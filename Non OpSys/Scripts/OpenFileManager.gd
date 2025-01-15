@@ -1,5 +1,7 @@
 extends Button
-
+var window: Window
+var viewport: Window
+var window_control: Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.connect("pressed", Callable(self, "_on_button_press")) # Replace with function body.
@@ -10,25 +12,25 @@ func _process(delta):
 	pass
 
 func _on_button_press():
-	Global.inWindow = true
-	Global.viewport = get_window()
-	Global.window = Window.new()
-	Global.window.borderless = false
-	Global.window.unresizable = false
-	Global.window.size = Global.viewport.size * 0.25
-	Global.window.position = (Global.viewport.size - Global.window.size) * 0.5
-	Global.window.exclusive = false
-	Global.window.popup_window = true
-	Global.window.title = "File Manager"
-	Global.window.visible = true
-	Global.window.transient = true
-	Global.window_control = Global.FileManagement.instantiate()
-	Global.window_control.position = Vector2i(0,0)
-	Global.window_control.size = Global.window.size
-	Global.window.add_child(Global.window_control)
-	Global.window.min_size = Vector2i(800, 360)
-	Global.window.max_size = Vector2i(1600, 900)
-	Global.window.close_requested.connect(func(): Global.window.visible = false)
-	Global.viewport.add_child(Global.window)
+	#inWindow = true
+	viewport = get_window()
+	window = Window.new()
+	window.borderless = false
+	window.unresizable = false
+	window.size = viewport.size * 0.25
+	window.position = (viewport.size - window.size) * 0.5
+	window.exclusive = false
+	window.popup_window = true
+	window.title = "File Manager"
+	window.visible = true
+	window.transient = true
+	window_control = Global.FileManagement.instantiate()
+	window_control.position = Vector2i(0,0)
+	window_control.size = window.size
+	window.add_child(window_control)
+	window.min_size = Vector2i(800, 360)
+	window.max_size = Vector2i(1600, 900)
+	window.close_requested.connect(func(): window.visible = false)
+	viewport.add_child(window)
 
 
