@@ -14,10 +14,11 @@ signal done(path:String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	path = "res://U/Desktop"
+	path = "res://U/"
 	set_layout()
 	for i in FileGlobals.pinned:
 		add_pinned_button(i)
+		
 
 func add_pinned_button(arr:Array):
 	var nButton = Button.new()

@@ -9,11 +9,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if window != null:
-		window_control.size = window.size
+	pass
 
 func _on_button_press():
-	#inWindow = true
 	viewport = get_window()
 	window = Window.new()
 	window.borderless = false
@@ -22,16 +20,16 @@ func _on_button_press():
 	window.position = (viewport.size - window.size) * 0.5
 	window.exclusive = false
 	window.popup_window = true
-	window.title = "File Manager"
+	window.title = "Undeluxe Browser"
 	window.visible = true
 	window.transient = true
-	window_control = Global.FileManagement.instantiate()
-	window_control.position = Vector2i(0,0)
-	window_control.size = window.size
+	window_control = Global.Internet.instantiate()
 	window.add_child(window_control)
-	window.min_size = Vector2i(800, 360)
+	window.min_size = Vector2i(640, 360)
 	window.max_size = Vector2i(1600, 900)
 	window.close_requested.connect(func(): window.visible = false)
 	viewport.add_child(window)
 
-
+func get_window_params():
+	viewport.get_window()
+	return window.size

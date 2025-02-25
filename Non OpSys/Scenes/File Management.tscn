@@ -24,15 +24,17 @@ grow_vertical = 2
 color = Color(0.0750795, 0.167872, 0.148977, 1)
 
 [node name="Bar" type="ColorRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
 offset_left = 180.0
 offset_right = 220.0
-offset_bottom = 1082.0
+offset_bottom = 2.0
 color = Color(0.016483, 0.0578091, 0.04822, 1)
 
 [node name="Bar2" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 12
+anchors_preset = -1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -63,9 +65,11 @@ columns = 6
 [node name="pinned or smth" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_top = 58.0
+anchor_top = 0.018
+anchor_bottom = 0.018
+offset_top = 38.56
 offset_right = 177.0
-offset_bottom = 1080.0
+offset_bottom = 1060.56
 
 [node name="VBoxContainer" type="VBoxContainer" parent="pinned or smth"]
 layout_mode = 2
@@ -90,13 +94,15 @@ text = "Exit"
 
 [node name="name" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 226.0
-offset_top = -134.0
-offset_right = 262.0
-offset_bottom = -111.0
+offset_left = 234.0
+offset_top = -125.0
+offset_right = 234.0
+offset_bottom = -102.0
+grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(4.71389, 4.71389)
 text = "Path"
@@ -116,14 +122,12 @@ grow_vertical = 0
 
 [node name="Actions" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
+anchors_preset = -1
+anchor_right = 0.992
 anchor_bottom = 1.0
-offset_left = -237.0
-offset_top = -127.0
-offset_right = -126.0
+offset_left = 1683.0
+offset_top = 953.0
+offset_right = -110.64
 offset_bottom = -55.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -138,6 +142,8 @@ layout_mode = 2
 text = "Close"
 
 [node name="FileDialog" type="FileDialog" parent="."]
+title = "Create a new Folder"
+position = Vector2i(545, 545)
 size = Vector2i(392, 159)
 root_subfolder = "U"
 

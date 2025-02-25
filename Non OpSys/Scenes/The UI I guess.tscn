@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=15 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
 [ext_resource type="Texture2D" uid="uid://b4oqhvhvgoph" path="res://Non OpSys/Photos/Start Button.png" id="2_e0dnv"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Non OpSys/Scripts/OpenNotebook.gd" id="6_p5gyf"]
 [ext_resource type="Script" path="res://Non OpSys/Scripts/OpenFileManager.gd" id="7_aafjx"]
 [ext_resource type="Script" path="res://Non OpSys/Scripts/QuitOS.gd" id="7_jiexn"]
+[ext_resource type="Script" path="res://Non OpSys/Scripts/Undeluxe Browsing.gd" id="9_1tcox"]
+[ext_resource type="Texture2D" uid="uid://m7u073e7jxqu" path="res://Non OpSys/Photos/Jalex.png" id="10_qqmxk"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
@@ -79,6 +81,14 @@ offset_bottom = 253.0
 text = "Power Off"
 script = ExtResource("7_jiexn")
 
+[node name="Undeluxe Browsing" type="Button" parent="Funny Start Menu"]
+offset_left = -119.0
+offset_top = -158.0
+offset_right = 39.0
+offset_bottom = -127.0
+text = "Undeluxe Browsing"
+script = ExtResource("9_1tcox")
+
 [node name="Maus" type="Area2D" parent="."]
 script = ExtResource("6_jvggm")
 
@@ -86,5 +96,9 @@ script = ExtResource("6_jvggm")
 scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_wjuxh")
 debug_color = Color(0.0813338, 0.612861, 5.77569e-07, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="Maus"]
+visible = false
+texture = ExtResource("10_qqmxk")
 
 [connection signal="area_exited" from="Funny Start Menu" to="Maus" method="_on_funny_start_menu_area_exited"]
