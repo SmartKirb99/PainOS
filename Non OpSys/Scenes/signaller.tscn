@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dadw738orlqh6"]
+
+[ext_resource type="Script" path="res://Non OpSys/Scripts/signaller.gd" id="1_aokie"]
+
+[node name="Signaling" type="Control"]
+layout_mode = 3
+anchor_left = -0.069
+anchor_top = 0.07
+anchor_right = -0.045
+anchor_bottom = 0.128
+offset_left = 0.480011
+offset_top = 0.400002
+offset_right = 0.400002
+offset_bottom = -0.240005
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aokie")

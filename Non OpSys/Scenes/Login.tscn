@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfdnnoyoloaru"]
+[gd_scene load_steps=5 format=3 uid="uid://bfdnnoyoloaru"]
 
 [ext_resource type="Script" path="res://Non OpSys/Scripts/Whole Screen, which also loads your login stuff.gd" id="1_awyeh"]
 [ext_resource type="Texture2D" uid="uid://og8qqk3roah7" path="res://Non OpSys/Photos/loginscreen.png" id="1_c0q4l"]
 [ext_resource type="Script" path="res://Non OpSys/Scripts/UsernameSetup.gd" id="3_b1fqk"]
+[ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="4_utnes"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -58,5 +59,8 @@ theme_override_font_sizes/font_size = 64
 text = "Nubert"
 horizontal_alignment = 1
 script = ExtResource("3_b1fqk")
+
+[node name="Signaling" parent="." instance=ExtResource("4_utnes")]
+layout_mode = 1
 
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]

@@ -80,7 +80,6 @@ skew = 0.418879
 sprite_frames = SubResource("SpriteFrames_3q8vj")
 animation = &"Loading"
 autoplay = "Loading"
-frame_progress = 0.48484
 script = ExtResource("14_x3rym")
 
 [node name="Title" type="Sprite2D" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bxggjemrt62ak"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/UndexluxeBrowser.gd" id="1_d8k03"]
+[ext_resource type="Script" path="res://Non OpSys/Scripts/CEF.gd" id="1_x8h4f"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,34 +9,130 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_d8k03")
+script = ExtResource("1_x8h4f")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="CEF" type="GDCef" parent="."]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
 anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
+anchor_bottom = 1.0
+size_flags_vertical = 3
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+[node name="HBox" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="New" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "New empty document"
+text = "New"
+
+[node name="Home" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "Go to home page"
+text = "Home"
+
+[node name="URL" type="Label" parent="Panel/VBox/HBox"]
+layout_mode = 2
+mouse_filter = 0
+text = "URL:"
+
+[node name="TextEdit" type="LineEdit" parent="Panel/VBox/HBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+tooltip_text = "Type your desired URl and then click on the go button"
+
+[node name="Go" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "Load a page given its URL"
+text = "Go"
+
+[node name="Refresh" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "Reload the page"
+text = "Refresh"
+
+[node name="Prev" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "Go to previous page"
+text = "<"
+
+[node name="Next" type="Button" parent="Panel/VBox/HBox"]
+layout_mode = 2
+tooltip_text = "Go to next page"
+text = ">"
+
+[node name="TabBar" type="Label" parent="Panel/VBox/HBox"]
+layout_mode = 2
+mouse_filter = 0
+text = "Opened:"
+
+[node name="BrowserList" type="OptionButton" parent="Panel/VBox/HBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+tooltip_text = "Select opened pages"
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+expand_mode = 1
+stretch_mode = 3
+
+[node name="HBox2" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="BGColor" type="Button" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+tooltip_text = "Inject java script changing the body color of the html page"
+text = "Body color"
+
+[node name="Radio" type="Button" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+tooltip_text = "Load a page with sound"
+text = "Radio"
+
+[node name="RoutingAudio" type="CheckBox" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+tooltip_text = "Route CEF audio to Godot and apply a sound effect"
+text = " Audio routing"
+
+[node name="Mute" type="CheckBox" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+text = "Mute sound"
+
+[node name="Info2" type="Label" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 0
+text = "Info:"
+horizontal_alignment = 3
+
+[node name="Info" type="Label" parent="Panel/VBox/HBox2"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "https://godotengine.org"
+mouse_filter = 0
 
-[node name="Button" type="Button" parent="HBoxContainer"]
-layout_mode = 2
-text = "Go(Dot)"
+[node name="ColorPopup" type="Popup" parent="."]
+auto_translate_mode = 1
+size = Vector2i(298, 471)
 
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
-[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="ColorPicker" type="ColorPicker" parent="ColorPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+edit_alpha = false
+presets_visible = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+auto_translate_mode = 1

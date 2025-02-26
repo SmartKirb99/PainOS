@@ -1,5 +1,7 @@
 extends Area2D
-
+## Mouse
+##
+## Essentially a simulated mouse
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -144,7 +144,7 @@ text = "Close"
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Create a new Folder"
 position = Vector2i(545, 545)
-size = Vector2i(392, 159)
+size = Vector2i(392, 175)
 root_subfolder = "U"
 
 [connection signal="pressed" from="Special Buttons/Pin" to="." method="_on_pin_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bf3dbhntaxle"]
+[gd_scene load_steps=3 format=3 uid="uid://bf3dbhntaxle"]
 
 [ext_resource type="Script" path="res://Non OpSys/Scripts/Notepad.gd" id="1_rqoie"]
+[ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="2_d0eee"]
 
 [node name="Control" type="Control"]
 custom_minimum_size = Vector2(300, 300)
@@ -58,7 +59,15 @@ ok_button_text = "Open"
 file_mode = 0
 root_subfolder = "U"
 
+[node name="Signaling" parent="." instance=ExtResource("2_d0eee")]
+layout_mode = 1
+offset_left = -145.0
+offset_top = 123.0
+offset_right = -2002.0
+offset_bottom = -826.0
+
 [connection signal="pressed" from="Open Button" to="." method="_on_open_button_pressed"]
 [connection signal="pressed" from="Save Button" to="." method="_on_save_button_pressed"]
 [connection signal="file_selected" from="Save File" to="." method="_on_save_file_file_selected"]
 [connection signal="file_selected" from="Open File" to="." method="_on_open_file_file_selected"]
+[connection signal="notepad_open_file" from="Signaling" to="." method="_on_signaling_notepad_open_file" binds= ["file_location"]]

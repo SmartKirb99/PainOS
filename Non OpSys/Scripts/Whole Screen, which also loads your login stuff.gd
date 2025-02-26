@@ -1,7 +1,15 @@
 extends Control
+## Login Stuff
+##
+## Handles everything located in the login screen
+
+## The username
 var username
+## The password
 var password
+## The last guess that somebody put in
 var last_guess
+## Counts how many times the user has put in a wrong password
 var counter : int
 
 ## Called when the node enters the scene tree for the first time.
@@ -52,7 +60,7 @@ func _save_data_to_file(file_path: String):
 	else:
 		print("Failed to open file for writing: ", file_path)
 
-
+## Checks if the text in the lineEdit node is the password, don't worry, the password cannot be seen as the lineEdit node has secret turned on, making the password just look like the Greek Letter Delta
 func _on_line_edit_text_submitted(new_text):
 	if $LineEdit.text == password:
 		get_tree().change_scene_to_file("res://Non OpSys/Scenes/The UI I guess.tscn")

@@ -1,2 +1,4 @@
 # Godot 4+ specific ignores
 .godot/
+cef_artifacts\~libgdcef.dll
+cef_artifacts\libcef.dll
