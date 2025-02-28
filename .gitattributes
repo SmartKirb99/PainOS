@@ -1,2 +1,4 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+cef_artifacts/libcef.dll filter=lfs diff=lfs merge=lfs -text
+cef_artifacts/~libgdcef.dll filter=lfs diff=lfs merge=lfs -text
