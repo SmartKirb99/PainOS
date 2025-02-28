@@ -98,7 +98,8 @@ func _on_open_pressed():
 		if Global.inUI == true:
 			Signals.file_opened = path
 			Signals.call_notepad.emit()
-			await Signals.notepad_open_file.emit()
+			await get_tree().create_timer(1).timeout
+			Signals.notepad_open_file.emit()
 		else:
 			print("Uhh, this does not appear to work within File Manager")
 
