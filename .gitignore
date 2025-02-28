@@ -2,3 +2,5 @@
 .godot/
 cef_artifacts\~libgdcef.dll
 cef_artifacts\libcef.dll
+cef_artifacts/libcef.dll
+cef_artifacts/~libgdcef.dll
