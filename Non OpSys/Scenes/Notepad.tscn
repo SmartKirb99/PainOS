@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bf3dbhntaxle"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/Notepad.gd" id="1_rqoie"]
+[ext_resource type="Script" uid="uid://b7v5q1n2wlhhu" path="res://Non OpSys/Scripts/Notepad.gd" id="1_rqoie"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="2_d0eee"]
 
 [node name="Control" type="Control"]

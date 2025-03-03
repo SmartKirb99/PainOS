@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dadw738orlqh6"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/signaller.gd" id="1_aokie"]
+[ext_resource type="Script" uid="uid://qo5jdovcr58s" path="res://Non OpSys/Scripts/signaller.gd" id="1_aokie"]
 
 [node name="Signaling" type="Control"]
 layout_mode = 3

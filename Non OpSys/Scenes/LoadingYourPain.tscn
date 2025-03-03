@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://da1v60bc4y255" path="res://Non OpSys/Loading/Layer 1_loadcircle10.png" id="11_kkj1f"]
 [ext_resource type="Texture2D" uid="uid://b1qagkyxfy2sc" path="res://Non OpSys/Loading/Layer 1_loadcircle11.png" id="12_csql1"]
 [ext_resource type="Texture2D" uid="uid://ceq6jn5hye0r" path="res://Non OpSys/Loading/Layer 1_loadcircle12.png" id="13_puuhh"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/Wait.gd" id="14_x3rym"]
+[ext_resource type="Script" uid="uid://drqlphrrw2r7k" path="res://Non OpSys/Scripts/Wait.gd" id="14_x3rym"]
 [ext_resource type="Texture2D" uid="uid://ct3ck8qlodlo5" path="res://Non OpSys/Photos/Title.png" id="15_5s87x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3q8vj"]

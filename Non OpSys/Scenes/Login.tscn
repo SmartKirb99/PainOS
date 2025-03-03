@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfdnnoyoloaru"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/Whole Screen, which also loads your login stuff.gd" id="1_awyeh"]
+[ext_resource type="Script" uid="uid://diiysl1dkdjet" path="res://Non OpSys/Scripts/Whole Screen, which also loads your login stuff.gd" id="1_awyeh"]
 [ext_resource type="Texture2D" uid="uid://og8qqk3roah7" path="res://Non OpSys/Photos/loginscreen.png" id="1_c0q4l"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/UsernameSetup.gd" id="3_b1fqk"]
+[ext_resource type="Script" uid="uid://dinonolu2qp4n" path="res://Non OpSys/Scripts/UsernameSetup.gd" id="3_b1fqk"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="4_utnes"]
 
 [node name="Control" type="Control"]

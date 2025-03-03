@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cg0dpkfqho8xs"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/CEF.gd" id="1_jpgyc"]
+[ext_resource type="Script" uid="uid://dsxhjacit7s6y" path="res://Non OpSys/Scripts/CEF.gd" id="1_jpgyc"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -141,8 +141,8 @@ presets_visible = false
 [connection signal="pressed" from="Panel/VBox/HBox/Go" to="." method="_on_go_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Prev" to="." method="_on_Prev_pressed"]
-[connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Next_pressed"]
+[connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Prev_pressed"]
 [connection signal="item_selected" from="Panel/VBox/HBox/BrowserList" to="." method="_on_BrowserList_item_selected"]
 [connection signal="gui_input" from="Panel/VBox/TextureRect" to="." method="_on_TextureRect_gui_input"]
 [connection signal="resized" from="Panel/VBox/TextureRect" to="." method="_on_texture_rect_resized"]

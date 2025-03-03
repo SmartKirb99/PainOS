@@ -1,4 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdnwud71l2ytl"]
+[gd_scene load_steps=8 format=3 uid="uid://bdnwud71l2ytl"]
+
+[ext_resource type="Script" uid="uid://c3un7nmh7anqu" path="res://Non OpSys/Scripts/PScribble/scribble_control.gd" id="1_j7vik"]
+[ext_resource type="Script" uid="uid://dihs4r7ch82d4" path="res://Non OpSys/Scripts/PScribble/toolage_panel.gd" id="2_on4cv"]
+[ext_resource type="Texture2D" uid="uid://byhykriflmog4" path="res://Non OpSys/Photos/Pencil.png" id="3_ggebs"]
+[ext_resource type="Texture2D" uid="uid://dg8r4so25neiv" path="res://Non OpSys/Photos/Eraser.png" id="4_q3e2k"]
+[ext_resource type="Texture2D" uid="uid://cm2jtp50u83cn" path="res://Non OpSys/Photos/Rectangle.png" id="5_61gbt"]
+[ext_resource type="Texture2D" uid="uid://cqt54sruu7y3s" path="res://Non OpSys/Photos/Circle.png" id="6_7sa3i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inh7e"]
 bg_color = Color(1, 1, 1, 1)
@@ -19,15 +26,203 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_inh7e")
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="SaveFileDialog" type="FileDialog" parent="."]
 root_subfolder = "U"
 
 [node name="ScribbleControl" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_j7vik")
 
 [node name="ToolagePanel" type="Panel" parent="."]
 layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 293.0
+script = ExtResource("2_on4cv")
+
+[node name="Tools" type="Label" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 750.0
+offset_right = 1121.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "Selected Tool: The Underground"
+
+[node name="Pencil" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 36.0
+offset_right = 126.0
+offset_bottom = 156.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/Pencil"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("3_ggebs")
+
+[node name="Eraser" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 36.0
+offset_right = 260.0
+offset_bottom = 156.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/Eraser"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_q3e2k")
+
+[node name="Rectangle" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 162.0
+offset_right = 126.0
+offset_bottom = 282.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/Rectangle"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_61gbt")
+
+[node name="Circle" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 162.0
+offset_right = 260.0
+offset_bottom = 282.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/Circle"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_7sa3i")
+
+[node name="BrushColor" type="Label" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1548.0
+offset_top = 8.0
+offset_right = 1919.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 24
+text = "Current Color"
+
+[node name="BrushColorPick" type="ColorPickerButton" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1544.0
+offset_top = 49.0
+offset_right = 1863.0
+offset_bottom = 95.0
+
+[node name="BrushSettings" type="Control" parent="ToolagePanel"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BrushSize" type="Label" parent="ToolagePanel/BrushSettings"]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 36.0
+offset_right = 365.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 24
+text = "Brush Size: 32px"
+
+[node name="BrushSizeResizer" type="HScrollBar" parent="ToolagePanel/BrushSettings"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 78.0
+offset_right = 704.0
+offset_bottom = 103.0
+min_value = 2.0
+step = 1.0
+value = 32.0
+
+[node name="BrushShape" type="Label" parent="ToolagePanel/BrushSettings"]
+layout_mode = 0
+offset_left = 1121.0
+offset_top = 113.0
+offset_right = 1328.0
+offset_bottom = 147.0
+theme_override_font_sizes/font_size = 24
+text = "Brush Type: Circle"
+
+[node name="ShapeBox" type="Button" parent="ToolagePanel/BrushSettings"]
+layout_mode = 0
+offset_left = 1111.0
+offset_top = 162.0
+offset_right = 1230.0
+offset_bottom = 281.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/BrushSettings/ShapeBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_61gbt")
+
+[node name="ShapeCircle" type="Button" parent="ToolagePanel/BrushSettings"]
+layout_mode = 0
+offset_left = 1246.0
+offset_top = 162.0
+offset_right = 1365.0
+offset_bottom = 281.0
+
+[node name="TextureRect" type="TextureRect" parent="ToolagePanel/BrushSettings/ShapeCircle"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_7sa3i")
+
+[node name="BackgroundColor" type="Label" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1550.0
+offset_top = 108.0
+offset_right = 1757.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 24
+text = "Background Color"
+
+[node name="BGColorPick" type="ColorPickerButton" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1548.0
+offset_top = 144.0
+offset_right = 1858.0
+offset_bottom = 183.0
+color = Color(1, 1, 1, 1)
+
+[node name="Stats" type="Label" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1560.0
+offset_top = 204.0
+offset_right = 1756.0
+offset_bottom = 227.0
+theme_override_colors/font_color = Color(0.473976, 0.473976, 0.473976, 1)
+theme_override_font_sizes/font_size = 24
+text = "Objects On Screen: 00000"
+
+[node name="Undo" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 1605.0
+offset_top = 243.0
+offset_right = 1813.0
+offset_bottom = 274.0
+text = "Undo just the prior stroke"
+
+[node name="Save" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 831.0
+offset_top = 38.0
+offset_right = 1039.0
+offset_bottom = 69.0
+text = "Save This Current Picture"
+
+[node name="Clear" type="Button" parent="ToolagePanel"]
+layout_mode = 0
+offset_left = 831.0
+offset_top = 78.0
+offset_right = 1039.0
+offset_bottom = 109.0
+text = "Clear the Entire Frame"

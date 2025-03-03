@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7roednj23kkh"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/File Management.gd" id="1_vc2ip"]
+[ext_resource type="Script" uid="uid://c2yy5o5u8xtoy" path="res://Non OpSys/Scripts/File Management.gd" id="1_vc2ip"]
 [ext_resource type="StyleBox" uid="uid://csrt1dlpscbo6" path="res://Non OpSys/Other Files/folder_box.tres" id="2_piub0"]
 
 [node name="Control" type="Control"]

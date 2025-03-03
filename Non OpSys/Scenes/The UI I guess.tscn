@@ -1,17 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=18 format=3 uid="uid://tp87usjd5q35"]
 
-[ext_resource type="Script" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
+[ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
 [ext_resource type="Texture2D" uid="uid://b4oqhvhvgoph" path="res://Non OpSys/Photos/Start Button.png" id="2_e0dnv"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/BringUpStartMenu.gd" id="3_g42u2"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/StartChecking.gd" id="4_flwbo"]
+[ext_resource type="Script" uid="uid://3sgydql1hmjk" path="res://Non OpSys/Scripts/BringUpStartMenu.gd" id="3_g42u2"]
+[ext_resource type="Script" uid="uid://bqhiss00f0qtd" path="res://Non OpSys/Scripts/StartChecking.gd" id="4_flwbo"]
 [ext_resource type="Texture2D" uid="uid://b34pa4hwc11bt" path="res://Non OpSys/Photos/Green.png" id="5_4ys46"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/SetPositionToMouse.gd" id="6_jvggm"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/OpenNotebook.gd" id="6_p5gyf"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/OpenFileManager.gd" id="7_aafjx"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/QuitOS.gd" id="7_jiexn"]
-[ext_resource type="Script" path="res://Non OpSys/Scripts/Undeluxe Browsing.gd" id="9_1tcox"]
+[ext_resource type="Script" uid="uid://bi5kdykxmldip" path="res://Non OpSys/Scripts/SetPositionToMouse.gd" id="6_jvggm"]
+[ext_resource type="Script" uid="uid://da7fj154v6fuu" path="res://Non OpSys/Scripts/OpenNotebook.gd" id="6_p5gyf"]
+[ext_resource type="Script" uid="uid://b55k0kir4bp7x" path="res://Non OpSys/Scripts/OpenFileManager.gd" id="7_aafjx"]
+[ext_resource type="Script" uid="uid://bhf4xkm7ehwr8" path="res://Non OpSys/Scripts/QuitOS.gd" id="7_jiexn"]
+[ext_resource type="Script" uid="uid://c28bgnbr5atfk" path="res://Non OpSys/Scripts/Undeluxe Browsing.gd" id="9_1tcox"]
 [ext_resource type="Texture2D" uid="uid://m7u073e7jxqu" path="res://Non OpSys/Photos/Jalex.png" id="10_qqmxk"]
+[ext_resource type="Script" uid="uid://drtjoksydhy0o" path="res://Non OpSys/Scripts/open_p_scribble.gd" id="11_l5h4f"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="13_0akwv"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
@@ -98,6 +99,15 @@ offset_right = 39.0
 offset_bottom = -127.0
 text = "Undeluxe Browsing"
 script = ExtResource("9_1tcox")
+
+[node name="P Scribble" type="Button" parent="Funny Start Menu"]
+z_index = 10
+offset_left = -119.0
+offset_top = -122.0
+offset_right = -49.0
+offset_bottom = -91.0
+text = "Scribble"
+script = ExtResource("11_l5h4f")
 
 [node name="Maus" type="Area2D" parent="."]
 script = ExtResource("6_jvggm")
