@@ -1,9 +1,9 @@
 extends Panel
 
 @onready var brush_settings = $BrushSettings
-@onready var label_brush_size = brush_settings.get_node(^"BrushSize")
-@onready var label_brush_shape = brush_settings.get_node(^"BrushShape")
-@onready var label_stats = $Stats
+@onready var label_brush_size = brush_settings.get_node(^"LabelBrushSize")
+@onready var label_brush_shape = brush_settings.get_node(^"LabelBrushShape")
+@onready var label_stats = $LabelStats
 @onready var label_tools = $LabelTools
 
 @onready var _parent = get_parent()
@@ -13,21 +13,21 @@ extends Panel
 func _ready():
 	# Assign all of the needed signals for the oppersation buttons.
 	$ButtonUndo.pressed.connect(button_pressed.bind("undo_stroke"))
-	$Save.pressed.connect(button_pressed.bind("save_picture"))
-	$Clear.pressed.connect(button_pressed.bind("clear_picture"))
+	$ButtonSave.pressed.connect(button_pressed.bind("save_picture"))
+	$ButtonClear.pressed.connect(button_pressed.bind("clear_picture"))
 
 	# Assign all of the needed signals for the brush buttons.
-	$Pencil.pressed.connect(button_pressed.bind("mode_pencil"))
-	$Eraser.pressed.connect(button_pressed.bind("mode_eraser"))
-	$Rectangle.pressed.connect(button_pressed.bind("mode_rectangle"))
-	$Circle.pressed.connect(button_pressed.bind("mode_circle"))
-	$BrushSettings/ShapeBox.pressed.connect(button_pressed.bind("shape_rectangle"))
-	$BrushSettings/ShapeCircle.pressed.connect(button_pressed.bind("shape_circle"))
+	$ButtonToolPencil.pressed.connect(button_pressed.bind("mode_pencil"))
+	$ButtonToolEraser.pressed.connect(button_pressed.bind("mode_eraser"))
+	$ButtonToolRectangle.pressed.connect(button_pressed.bind("mode_rectangle"))
+	$ButtonToolCircle.pressed.connect(button_pressed.bind("mode_circle"))
+	$BrushSettings/ButtonShapeBox.pressed.connect(button_pressed.bind("shape_rectangle"))
+	$BrushSettings/ButtonShapeCircle.pressed.connect(button_pressed.bind("shape_circle"))
 
 	# Assign all of the needed signals for the other brush settings (and ColorPickerBackground).
-	$BrushColorPick.color_changed.connect(brush_color_changed)
-	$BGColorPick.color_changed.connect(background_color_changed)
-	$BrushSettings/BrushSizeResizer.value_changed.connect(brush_size_changed)
+	$ColorPickerBrush.color_changed.connect(brush_color_changed)
+	$ColorPickerBackground.color_changed.connect(background_color_changed)
+	$BrushSettings/HScrollBarBrushSize.value_changed.connect(brush_size_changed)
 
 	# Assign the "file_selected" signal in SaveFileDialog.
 	save_dialog.file_selected.connect(save_file_selected)
@@ -84,7 +84,7 @@ func button_pressed(button_name):
 	if tool_name != null:
 		label_tools.text = "Selected tool: " + tool_name
 	if shape_name != null:
-		label_brush_shape.text = "Brush shape: " + shape_name
+		label_brush_shape.text = "" + shape_name
 
 
 func brush_color_changed(color):
