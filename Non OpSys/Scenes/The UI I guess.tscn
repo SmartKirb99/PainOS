@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=18 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://c28bgnbr5atfk" path="res://Non OpSys/Scripts/Undeluxe Browsing.gd" id="9_1tcox"]
 [ext_resource type="Texture2D" uid="uid://m7u073e7jxqu" path="res://Non OpSys/Photos/Jalex.png" id="10_qqmxk"]
 [ext_resource type="Script" uid="uid://drtjoksydhy0o" path="res://Non OpSys/Scripts/open_p_scribble.gd" id="11_l5h4f"]
-[ext_resource type="Script" uid="uid://byvb8bchq6u2m" path="res://Non OpSys/Scripts/open_test_browser.gd" id="11_niclm"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="13_0akwv"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
@@ -100,15 +99,6 @@ offset_right = 39.0
 offset_bottom = -127.0
 text = "Undeluxe Browsing"
 script = ExtResource("9_1tcox")
-
-[node name="Test Browser" type="Button" parent="Funny Start Menu"]
-z_index = 10
-offset_left = -119.0
-offset_top = -85.0
-offset_right = 39.0
-offset_bottom = -54.0
-text = "Undeluxe Browsing EX"
-script = ExtResource("11_niclm")
 
 [node name="P Scribble" type="Button" parent="Funny Start Menu"]
 z_index = 10
