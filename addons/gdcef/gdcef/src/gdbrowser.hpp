@@ -254,6 +254,13 @@ private: // CEF interfaces
             m_owner.onLoadEnd(browser, frame, httpStatusCode);
         }
 
+        virtual void OnLoadEnd1(CefRefPtr<CefBrowser> browser,
+                               CefRefPtr<CefFrame> frame,
+                               int httpStatusCode) override
+        {
+            m_owner.onLoadEnd1(browser, frame, httpStatusCode);
+        }
+
         // ---------------------------------------------------------------------
         //! \brief Called when a navigation fails or is canceled. This method
         //! may be called by itself if before commit or in combination with
@@ -759,6 +766,10 @@ private:
     //! \brief Called by GDBrowserView::Impl::OnLoadEnd
     // -------------------------------------------------------------------------
     void onLoadEnd(CefRefPtr<CefBrowser> browser,
+                   CefRefPtr<CefFrame> frame,
+                   int httpStatusCode);
+
+    void onLoadEnd1(CefRefPtr<CefBrowser> browser,
                    CefRefPtr<CefFrame> frame,
                    int httpStatusCode);
 

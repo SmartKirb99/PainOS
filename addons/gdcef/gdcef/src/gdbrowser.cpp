@@ -161,6 +161,8 @@ void GDBrowserView::_bind_methods()
                           PropertyInfo(Variant::OBJECT, "browser")));
     ADD_SIGNAL(
         MethodInfo("on_page_loaded", PropertyInfo(Variant::OBJECT, "browser")));
+    ADD_SIGNAL(
+        MethodInfo("on_page_loaded1", PropertyInfo(Variant::OBJECT, "browser")));
     ADD_SIGNAL(MethodInfo("on_page_failed_loading",
                           PropertyInfo(Variant::INT, "err_code"),
                           PropertyInfo(Variant::STRING, "err_msg"),
@@ -354,6 +356,20 @@ void GDBrowserView::onLoadEnd(CefRefPtr<CefBrowser> /*browser*/,
 
         // Emit signal for Godot script
         emit_signal("on_page_loaded", this);
+    }
+}
+
+void GDBrowserView::onLoadEnd1(CefRefPtr<CefBrowser> /*browser*/,
+                              CefRefPtr<CefFrame> frame,
+                              int httpStatusCode)
+{
+    // Emit signal only when top-level frame has succeeded.
+    if ((httpStatusCode == 200) && (frame->IsMain()))
+    {
+        BROWSER_DEBUG("has ended loading " << frame->GetURL());
+
+        // Emit signal for Godot script
+        emit_signal("on_page_loaded1", this);
     }
 }
 

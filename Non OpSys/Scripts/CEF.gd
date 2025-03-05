@@ -18,6 +18,7 @@ const RADIO_PAGE = "http://streaming.radio.co/s9378c22ee/listen"
 # Memorize if the mouse was pressed
 @onready var mouse_pressed: bool = false
 
+
 # ==============================================================================
 ## Create the home page.
 func create_default_page():

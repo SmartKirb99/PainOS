@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpfhdngn701ey"
-path="res://.godot/imported/line.png-a5b634dbc157cfd5f97835890d7eb9cb.ctex"
+uid="uid://ycfxytrp2a4l"
+path="res://.godot/imported/MacDonalds.png-d510766b04110cf3a2605ee6ab6e6c6e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://U/Pictures/line.png"
-dest_files=["res://.godot/imported/line.png-a5b634dbc157cfd5f97835890d7eb9cb.ctex"]
+source_file="res://U/Pictures/MacDonalds.png"
+dest_files=["res://.godot/imported/MacDonalds.png-d510766b04110cf3a2605ee6ab6e6c6e.ctex"]
 
 [params]
 

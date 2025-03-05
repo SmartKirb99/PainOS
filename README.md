@@ -1,6 +1,6 @@
 # Sprite Painter
 
-    Actually, it's not just sprites it paints.
+	Actually, it's not just sprites it paints.
 
 Image editor right within Godot 4!
 

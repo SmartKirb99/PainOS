@@ -21,6 +21,7 @@ signal clicked_off_start_menu
 @onready var Internet: PackedScene = preload("res://Non OpSys/Scenes/CEF.tscn")
 
 @onready var Scribble: PackedScene = preload("res://Non OpSys/Scenes/p_scribble.tscn")
+@onready var Intertest: PackedScene = preload("res://addons/godot_wry/examples/example.tscn")
 ## Likely meant to check if the user left the start menu on the UI
 signal the_menu_has_been_left
 ## Likely meant to check if the user clicked off the start menu on the UI
