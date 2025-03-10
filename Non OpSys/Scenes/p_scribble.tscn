@@ -56,7 +56,7 @@ offset_left = -0.720093
 offset_right = -0.280151
 offset_bottom = 0.0119972
 theme_override_font_sizes/font_size = 24
-text = "Selected Tool: The Underground"
+text = "Selected Tool: Pencil"
 
 [node name="ButtonToolPencil" type="Button" parent="ToolsPanel"]
 layout_mode = 1

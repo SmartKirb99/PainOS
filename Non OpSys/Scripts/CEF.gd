@@ -108,7 +108,7 @@ func create_browser(url):
 	return browser
 
 # ==============================================================================
-# Search the desired by its name. Return the browser as Godot node or null if not found.
+## Search the desired by its name. Return the browser as Godot node or null if not found.
 func get_browser(name):
 	if not $CEF.is_alive():
 		return null
@@ -126,6 +126,7 @@ func get_browser(name):
 # Create a new browser node. Note: Godot does not show children nodes so you
 # will not see created browsers as sub nodes.
 # ==============================================================================
+##Create a new browser node. Note: Godot does not show children nodes, so you will not see created browsers as sub nodes
 func _on_Add_pressed():
 	var browser = await create_browser("file://" + ProjectSettings.globalize_path(DEFAULT_PAGE))
 	if browser != null:
@@ -135,22 +136,21 @@ func _on_Add_pressed():
 # ==============================================================================
 # Home button pressed: load a local HTML document.
 # ==============================================================================
+## Home button pressed: load a local HTML document.
 func _on_Home_pressed():
 	if current_browser != null:
 		current_browser.load_url(HOME_PAGE)
 	pass
 
 # ==============================================================================
-# Go to the URL given by the text edit widget.
-# ==============================================================================
+## Go to the URL given by the text edit widget.
 func _on_go_pressed():
 	if current_browser != null:
 		current_browser.load_url($Panel/VBox/HBox/TextEdit.text)
 	pass
 
 # ==============================================================================
-# Reload the current page
-# ==============================================================================
+## Reload the current page
 func _on_refresh_pressed():
 	if current_browser == null:
 		return
@@ -158,24 +158,21 @@ func _on_refresh_pressed():
 	pass
 
 # ==============================================================================
-# Go to previously visited page
-# ==============================================================================
+## Go to previously visited page
 func _on_Prev_pressed():
 	if current_browser != null:
 		current_browser.previous_page()
 	pass
 
 # ==============================================================================
-# Go to next visited page
-# ==============================================================================
+## Go to next visited page
 func _on_Next_pressed():
 	if current_browser != null:
 		current_browser.next_page()
 	pass
 
 # ==============================================================================
-# Select the new desired browser from the list of tabs.
-# ==============================================================================
+## Select the new desired browser from the list of tabs.
 func _on_BrowserList_item_selected(index):
 	current_browser = get_browser(str(index))
 	if current_browser != null:
@@ -187,8 +184,7 @@ func _on_BrowserList_item_selected(index):
 ####
 
 # ==============================================================================
-# Color button pressed: present a pop-up to change the background color
-# ==============================================================================
+## Color button pressed: present a pop-up to change the background color
 func _on_BGColor_pressed():
 	if $ColorPopup.visible:
 		$ColorPopup.popup_hide()
@@ -197,8 +193,7 @@ func _on_BGColor_pressed():
 	pass
 
 # ==============================================================================
-# Color picker changed: inject javascript to change the background color
-# ==============================================================================
+## Color picker changed: inject javascript to change the background color
 func _on_ColorPicker_color_changed(color):
 	if current_browser != null:
 		var js_string = 'document.body.style.background = "#%s"' % color.to_html(false)
@@ -206,16 +201,14 @@ func _on_ColorPicker_color_changed(color):
 	pass
 
 # ==============================================================================
-# Radio button pressed: load a page with radio for testing the sound.
-# ==============================================================================
+## Radio button pressed: load a page with radio for testing the sound.
 func _on_radio_pressed():
 	if current_browser != null:
 		current_browser.load_url(RADIO_PAGE)
 	pass
 
 # ==============================================================================
-# Mute/unmute the sound
-# ==============================================================================
+## Mute/unmute the sound
 func _on_mute_pressed():
 	if current_browser == null:
 		return
@@ -228,8 +221,7 @@ func _on_mute_pressed():
 ####
 
 # ==============================================================================
-# Get mouse events and broadcast them to CEF
-# ==============================================================================
+## Get mouse events and broadcast them to CEF
 func _on_TextureRect_gui_input(event):
 	if current_browser == null:
 		return
@@ -263,8 +255,7 @@ func _on_TextureRect_gui_input(event):
 	pass
 
 # ==============================================================================
-# Make the CEF browser reacts from keyboard events.
-# ==============================================================================
+## Make the CEF browser reacts from keyboard events.
 func _input(event):
 	if current_browser == null:
 		return
@@ -295,8 +286,7 @@ func _input(event):
 	pass
 
 # ==============================================================================
-# Windows has resized
-# ==============================================================================
+## Windows has resized
 func _on_texture_rect_resized():
 	if current_browser == null:
 		return
@@ -308,8 +298,7 @@ func _on_texture_rect_resized():
 ####
 
 # ==============================================================================
-# Create a single browser named "current_browser" that is attached as child node to $CEF.
-# ==============================================================================
+## Create a single browser named "current_browser" that is attached as child node to $CEF.
 func _ready():
 	create_default_page()
 
@@ -351,14 +340,12 @@ func _ready():
 	pass
 
 # ==============================================================================
-# $CEF is periodically updated
-# ==============================================================================
+## $CEF is periodically updated
 func _process(_delta):
 	pass
 
 # ==============================================================================
-# CEF audio will be routed to this Godot stream object.
-# ==============================================================================
+## CEF audio will be routed to this Godot stream object.
 func _on_routing_audio_pressed():
 	if current_browser == null:
 		return

@@ -15,7 +15,7 @@ var path:String = ""
 var file :bool = false
 ## I believe this is used to check if something is limited
 var limited = []
-## This signal 
+## This signal checks if you are done or something. I dunno, I copied this script from a file explorer tutorial
 signal done(path:String)
 
 

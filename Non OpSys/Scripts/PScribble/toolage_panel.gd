@@ -1,4 +1,5 @@
 extends Panel
+##@deprecated: use the tool panel script instead
 
 @onready var brush_settings = $BrushSettings
 @onready var label_brush_size = brush_settings.get_node(^"BrushSize")

@@ -39,6 +39,6 @@ func _on_open_file_file_selected(path):
 	var filer = FileAccess.open(path, 1)
 	$TextEdit.text = filer.get_as_text()
 
-
+##Used by file manager and such to open if Notepad is opened
 func _on_signaling_notepad_open_file():
 	print("Did this work")

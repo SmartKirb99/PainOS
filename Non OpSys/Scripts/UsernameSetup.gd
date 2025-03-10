@@ -1,8 +1,9 @@
 extends Label
+##Sets up the username for you
 @onready var rtl = self
 
 
-# Called when the node enters the scene tree for the first time.
+##Sets the label to the username in the login screen
 func _ready():
 	rtl.text = LoginScreen.username
 

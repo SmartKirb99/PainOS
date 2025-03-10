@@ -1,51 +1,63 @@
 extends Control
+##PScribble, the paint app for PainOS
+#Yeah I copied this from the GDPaint demo
 
-# A constant for whether or not we're needing to undo a shape.
+## A constant for whether or not we're needing to undo a shape.
 const UNDO_MODE_SHAPE = -2
-# A constant for whether or not we can undo.
+## A constant for whether or not we can undo.
 const UNDO_NONE = -1
 
-# Enums for the various modes and brush shapes that can be applied.
+## Enums for the various modes and brush shapes that can be applied.
 enum BrushModes {
 	PENCIL,
 	ERASER,
 	CIRCLE_SHAPE,
 	RECTANGLE_SHAPE,
 }
-
+##The shapes we can use for brushes
 enum BrushShapes {
 	RECTANGLE,
 	CIRCLE,
 }
 
-# A list to hold all of the dictionaries that make up each brush.
+## A list to hold all of the dictionaries that make up each brush.
 var brush_data_list = []
 
 # A boolean to hold whether or not the mouse is inside the drawing area, the mouse position last _process call
 # and the position of the mouse when the left mouse button was pressed.
+##Checks if the mouse is in the drawing area
 var is_mouse_in_drawing_area = false
+## The last position the mouse was at
 var last_mouse_pos = Vector2()
+##Gets the start position of the mouse after left click
 var mouse_click_start_pos = null
 
 # A boolean to tell whether we've set undo_elements_list_num, which holds the size of draw_elements_list
 # before a new stroke is added (unless the current brush mode is 'rectangle shape' or 'circle shape', in
 # which case we do things a litte differently. See the undo_stroke function for more details).
+## Checks whether I've set undo_elements_list_num
 var undo_set = false
+##Holds the size of draw_elements_list
 var undo_element_list_num = -1
 
 # The current brush settings: The mode, size, color, and shape we have currently selected.
+##The brush mode, the mode starts as pencil
 var brush_mode = BrushModes.PENCIL
+##The size of the brush
 var brush_size = 32
+##The color of the brush
 var brush_color = Color.BLACK
+##The shape of the brush
 var brush_shape = BrushShapes.CIRCLE;
 
 # The color of the background. We need this for the eraser (see the how we handle the eraser
 # in the _draw function for more details).
+##The color of the background
 var bg_color = Color.WHITE
-
+##The drawing area
 @onready var drawing_area = $"../DrawingAreaBG"
 
-
+##Makes drawing work
 func _process(_delta):
 	var mouse_pos = get_viewport().get_mouse_position()
 
@@ -93,7 +105,7 @@ func _process(_delta):
 	# Store mouse_pos as last_mouse_pos now that we're done with _process.
 	last_mouse_pos = mouse_pos
 
-
+##Check if the mouse is inside the canvas
 func check_if_mouse_is_inside_canvas():
 	# Make sure we have a mouse click starting position.
 	if mouse_click_start_pos != null:
@@ -106,7 +118,7 @@ func check_if_mouse_is_inside_canvas():
 				return true
 	return false
 
-
+##Only undoes the last stroke
 func undo_stroke():
 	# Only undo a stroke if we have one.
 	if undo_element_list_num == UNDO_NONE:
@@ -137,7 +149,7 @@ func undo_stroke():
 	# Redraw the brushes
 	queue_redraw()
 
-
+## Makes the brush_dictionary
 func add_brush(mouse_pos, type):
 	# Make new brush dictionary that will hold all of the data we need for the brush.
 	var new_brush = {}
@@ -189,7 +201,7 @@ func add_brush(mouse_pos, type):
 	brush_data_list.append(new_brush)
 	queue_redraw()
 
-
+##Drawing
 func _draw():
 	# Go through all of the brushes in brush_data_list.
 	for brush in brush_data_list:
@@ -225,7 +237,7 @@ func _draw():
 				# We simply draw a circle using stored in brush.
 				draw_circle(brush.brush_pos, brush.brush_shape_circle_radius, brush.brush_color)
 
-
+##Save the photo
 func save_picture(path):
 	# Wait until the frame has finished before getting the texture.
 	await RenderingServer.frame_post_draw

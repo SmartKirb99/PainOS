@@ -2562,3 +2562,33 @@
 [0305/135527.303:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
 [0305/135527.303:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
 [0305/135527.304:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0305/135626.252:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0305/135626.252:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0305/135626.252:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.252:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.252:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0305/135626.252:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0305/135626.252:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0305/135626.256:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0305/135626.256:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0305/135626.256:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.256:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.256:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0305/135626.256:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0305/135626.256:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0305/135626.258:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0305/135626.368:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0305/135626.368:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0305/135626.368:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.368:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.368:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0305/135626.368:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0305/135626.368:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0305/135626.371:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0305/135626.371:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0305/135626.371:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.371:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0305/135626.371:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0305/135626.371:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0305/135626.371:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0305/135626.372:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization

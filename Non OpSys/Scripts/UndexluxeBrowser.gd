@@ -5,7 +5,7 @@
 # ==============================================================================
 
 extends Control
-
+##@deprecated: use CEF.gd instead
 # URL
 const DEFAULT_PAGE = "user://default_page.html"
 const SAVED_PAGE = "user://saved_page.html"

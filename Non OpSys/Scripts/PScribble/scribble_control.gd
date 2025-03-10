@@ -1,4 +1,6 @@
 extends Control
+## @deprecated: use the paint_control script instead
+
 ## Used to check if the thing being undone is a shape
 const Undo_Mode_Shape = -2
 ## Used to check if the thing being undone is either eraser or pencil

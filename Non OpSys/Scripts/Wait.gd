@@ -1,4 +1,5 @@
 extends AnimatedSprite2D
+##Patience sir, or ma'am, or whatever the formal term for your gender is, or what you prefer
 
 
 # Called when the node enters the scene tree for the first time.
