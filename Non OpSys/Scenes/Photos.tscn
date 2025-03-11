@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4ctpmw6sicl8"]
+
+[ext_resource type="Script" uid="uid://b146s2jpc5l7i" path="res://Non OpSys/Scripts/photos.gd" id="1_16y0n"]
+
+[node name="Photography" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_16y0n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.722
+offset_bottom = 0.239929
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LoadImage" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.322
+anchor_top = 0.923
+anchor_right = 0.706
+anchor_bottom = 1.0
+offset_left = -0.240051
+offset_top = 0.159973
+offset_right = 0.47998
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 48
+text = "Load an Image from your drive"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U"
+
+[connection signal="pressed" from="LoadImage" to="." method="_on_load_image_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

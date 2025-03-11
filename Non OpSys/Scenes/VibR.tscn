@@ -1,0 +1,108 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvhh2epod4j6h"]
+
+[ext_resource type="Script" uid="uid://5hp6eriuslbu" path="res://Non OpSys/Scripts/vib_r_scene.gd" id="1_8nodo"]
+
+[node name="VibR" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8nodo")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="LoadSong" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 956.5
+offset_top = 1007.0
+offset_right = 964.5
+offset_bottom = 1082.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Load Song"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 960.0
+offset_right = 961.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "QuestionNothing.wav"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1154.0
+offset_top = 787.0
+offset_right = 1653.0
+offset_bottom = 854.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Song Time (Seconds): "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LengthOfSong" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1154.0
+offset_top = 841.0
+offset_right = 1573.0
+offset_bottom = 908.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Length (Seconds): "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LastingTimer" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.623
+anchor_right = 0.992
+anchor_bottom = 0.638
+offset_left = 0.48
+offset_top = 0.159973
+offset_right = 0.359863
+offset_bottom = -0.0400391
+max_value = 90001.0
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(0, 36)
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U/Music"
+filters = PackedStringArray("*.wav  ; Waveform Audio File", "*.midi ; Musical Instrument Digital Interface")
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 701.0
+offset_right = 1013.0
+offset_bottom = 776.0
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="Pause" type="Button" parent="."]
+layout_mode = 0
+offset_left = 566.0
+offset_top = 701.0
+offset_right = 713.0
+offset_bottom = 776.0
+theme_override_font_sizes/font_size = 48
+text = "Pause"
+
+[connection signal="pressed" from="LoadSong" to="." method="_on_load_song_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

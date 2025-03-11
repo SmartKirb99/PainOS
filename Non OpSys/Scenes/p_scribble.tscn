@@ -30,6 +30,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1.0
 offset_top = -0.160004
+offset_right = -1.0
+offset_bottom = -1.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_inh7e")
 
 [node name="PaintControl" type="Control" parent="."]

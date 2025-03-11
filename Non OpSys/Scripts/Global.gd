@@ -19,8 +19,10 @@ signal clicked_off_start_menu
 @onready var FileManagement: PackedScene = preload("res://Non OpSys/Scenes/File Management.tscn")
 ## This packed scene just holds the Undeluxe Browser application (Internally called Internet)
 @onready var Internet: PackedScene = preload("res://Non OpSys/Scenes/CEF.tscn")
-
+## This packed scene just holds the PScribble application
 @onready var Scribble: PackedScene = preload("res://Non OpSys/Scenes/p_scribble.tscn")
+## This packed scene just holds the Photos Application
+@onready var Photos: PackedScene = preload("res://Non OpSys/Scenes/Photos.tscn")
 ## Likely meant to check if the user left the start menu on the UI
 signal the_menu_has_been_left
 ## Likely meant to check if the user clicked off the start menu on the UI

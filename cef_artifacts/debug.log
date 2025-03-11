@@ -2592,3 +2592,89 @@
 [0305/135626.371:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
 [0305/135626.371:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
 [0305/135626.372:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0311/123301.097:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0311/123301.098:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0311/123301.098:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.098:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.098:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0311/123301.099:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0311/123301.099:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0311/123301.102:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0311/123301.102:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0311/123301.103:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.103:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.103:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0311/123301.103:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0311/123301.103:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0311/123301.106:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0311/123301.191:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0311/123301.191:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0311/123301.191:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.191:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.191:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0311/123301.191:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0311/123301.191:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0311/123301.193:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0311/123301.193:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0311/123301.193:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.193:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0311/123301.193:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0311/123301.193:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0311/123301.193:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0311/123301.194:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.847:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.850:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.851:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.854:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0311/123313.854:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
