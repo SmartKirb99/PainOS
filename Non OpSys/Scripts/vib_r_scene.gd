@@ -10,12 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if timerRunning == true:
-		update_timer()
 	get_tree().create_timer(1).timeout
-	timerRunning = true
-	get_tree().create_timer(1).timeout
-	timerRunning = false
 	
 	
 
