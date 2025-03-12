@@ -11,3 +11,5 @@ signal call_undeluxe_browser
 signal notepad_open_file
 ##The path of the file opened
 var file_opened
+## Calls the UI to change the background
+signal change_background

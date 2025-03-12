@@ -23,6 +23,8 @@ signal clicked_off_start_menu
 @onready var Scribble: PackedScene = preload("res://Non OpSys/Scenes/p_scribble.tscn")
 ## This packed scene just holds the Photos Application
 @onready var Photos: PackedScene = preload("res://Non OpSys/Scenes/Photos.tscn")
+## This packed scene just holds the VibR Application
+@onready var Vibr: PackedScene = preload("res://Non OpSys/Scenes/VibR.tscn")
 ## Likely meant to check if the user left the start menu on the UI
 signal the_menu_has_been_left
 ## Likely meant to check if the user clicked off the start menu on the UI
@@ -33,3 +35,7 @@ var warning: Popup
 var inWindow:bool = false
 ## Checks if you are in the UI
 var inUI = false
+## The wallpaper of the OS
+var wallpaper
+
+@onready var Settings: PackedScene = preload("res://Non OpSys/Scenes/Settings.tscn")

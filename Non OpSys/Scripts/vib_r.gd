@@ -27,12 +27,12 @@ func _on_button_press():
 	window.position = (viewport.size - window.size) * 0.5
 	window.exclusive = false
 	window.popup_window = true
-	window.title = "Photos"
+	window.title = "VibR"
 	window.visible = true
 	window.transient = true
-	window_control = Global.Photos.instantiate()
+	window_control = Global.Vibr.instantiate()
 	window.add_child(window_control)
-	window.min_size = Vector2i(640, 360)
+	window.min_size = Vector2i(1600, 900)
 	window.max_size = Vector2i(1600, 900)
 	window.close_requested.connect(func(): window.queue_free())
 	viewport.add_child(window)

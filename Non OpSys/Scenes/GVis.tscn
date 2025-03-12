@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh3v65re3wffk"]
+
+[ext_resource type="Script" uid="uid://c045np1yylwn3" path="res://Non OpSys/Scripts/GVis/graph_edit.gd" id="1_fh8eb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+zoom_min = 0.01
+show_zoom_label = true
+script = ExtResource("1_fh8eb")

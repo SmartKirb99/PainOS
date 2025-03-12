@@ -29,13 +29,13 @@ z_index = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.322
-anchor_top = 0.923
+anchor_top = 0.759
 anchor_right = 0.706
-anchor_bottom = 1.0
+anchor_bottom = 0.829
 offset_left = -0.240051
-offset_top = 0.159973
-offset_right = 0.47998
-offset_bottom = -8.0
+offset_top = 0.279907
+offset_right = 0.479858
+offset_bottom = -0.320007
 theme_override_font_sizes/font_size = 48
 text = "Load an Image from your drive"
 
@@ -45,6 +45,7 @@ initial_position = 2
 ok_button_text = "Open"
 file_mode = 0
 root_subfolder = "U"
+filters = PackedStringArray("*.png ; Portable Network Graphics File")
 
 [connection signal="pressed" from="LoadImage" to="." method="_on_load_image_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

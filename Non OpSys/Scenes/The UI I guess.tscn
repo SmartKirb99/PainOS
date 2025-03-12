@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=21 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bgd6ggklmou53" path="res://Non OpSys/Scripts/open_photo_gallery.gd" id="12_niclm"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="13_0akwv"]
 [ext_resource type="Script" uid="uid://dhoq14xrlw5rf" path="res://Non OpSys/Scripts/vib_r.gd" id="13_pre0f"]
+[ext_resource type="Script" uid="uid://cs7xgwfyfb8jr" path="res://Non OpSys/Scripts/open_settings.gd" id="14_bxvq1"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
@@ -26,8 +27,9 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_6heex")
 
-[node name="PlaceholderBackground" type="Sprite2D" parent="."]
-position = Vector2(960, 540)
+[node name="PlaceholderBackground" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("1_n670g")
 
 [node name="Start Button" type="Button" parent="."]
@@ -133,11 +135,20 @@ script = ExtResource("13_pre0f")
 [node name="HelpfulButton" type="Button" parent="Funny Start Menu"]
 visible = false
 z_index = 10
-offset_left = -119.0
-offset_top = -87.0
-offset_right = -49.0
-offset_bottom = -56.0
+offset_left = -273.0
+offset_top = -79.0
+offset_right = -160.0
+offset_bottom = -48.0
 text = "Photo Gallery"
+
+[node name="HelpfulButton2" type="Button" parent="Funny Start Menu"]
+z_index = 10
+offset_left = -119.0
+offset_top = -21.0
+offset_right = -49.0
+offset_bottom = 10.0
+text = "Settings"
+script = ExtResource("14_bxvq1")
 
 [node name="Maus" type="Area2D" parent="."]
 script = ExtResource("6_jvggm")
@@ -157,5 +168,22 @@ offset_top = 219.0
 offset_right = -670.0
 offset_bottom = 219.0
 
+[node name="Button" type="Button" parent="."]
+offset_left = 1740.0
+offset_top = 1027.0
+offset_right = 1903.0
+offset_bottom = 1058.0
+text = "Change Background"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U"
+filters = PackedStringArray("*.png ; PNG File")
+
 [connection signal="area_exited" from="Funny Start Menu" to="Maus" method="_on_funny_start_menu_area_exited"]
 [connection signal="call_notepad" from="Signaling" to="Funny Start Menu/Notebook" method="_on_signaling_call_notepad"]
+[connection signal="change_background" from="Signaling" to="." method="_on_signaling_change_background"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://b53o2chcqapu7"]
+
+[ext_resource type="Script" uid="uid://doul3q0r6w44u" path="res://Non OpSys/Scripts/settings.gd" id="1_iv61p"]
+[ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="2_yum0o"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iv61p")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(500, 500)
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U"
+filters = PackedStringArray("*.png ; Portable Network Graphics File")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.069
+offset_bottom = 0.479996
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Change Background"
+
+[node name="Signaling" parent="." instance=ExtResource("2_yum0o")]
+layout_mode = 1
+offset_left = -126.08
+offset_top = 204.48
+offset_right = -126.16
+offset_bottom = 203.84
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]

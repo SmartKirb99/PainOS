@@ -1,6 +1,118 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvhh2epod4j6h"]
+[gd_scene load_steps=29 format=3 uid="uid://bvhh2epod4j6h"]
 
 [ext_resource type="Script" uid="uid://5hp6eriuslbu" path="res://Non OpSys/Scripts/vib_r_scene.gd" id="1_8nodo"]
+[ext_resource type="Texture2D" uid="uid://bp7sfa0c283rl" path="res://Non OpSys/Photos/Loop/sprite_00.png" id="2_jselv"]
+[ext_resource type="Texture2D" uid="uid://cd2cc8jf7v48l" path="res://Non OpSys/Photos/Loop/sprite_01.png" id="3_15ma7"]
+[ext_resource type="Texture2D" uid="uid://dlq0cmjovofw8" path="res://Non OpSys/Photos/Loop/sprite_02.png" id="4_mwtxl"]
+[ext_resource type="Texture2D" uid="uid://bbhakb7n12nhf" path="res://Non OpSys/Photos/Loop/sprite_03.png" id="5_1euy0"]
+[ext_resource type="Texture2D" uid="uid://bfbdgycaoc3jb" path="res://Non OpSys/Photos/Loop/sprite_04.png" id="6_q6akr"]
+[ext_resource type="Texture2D" uid="uid://bsu4lsnwqa4bx" path="res://Non OpSys/Photos/Loop/sprite_05.png" id="7_aiisl"]
+[ext_resource type="Texture2D" uid="uid://du76uh1qfojl0" path="res://Non OpSys/Photos/Loop/sprite_06.png" id="8_608xx"]
+[ext_resource type="Texture2D" uid="uid://bcbxhd0qr37gc" path="res://Non OpSys/Photos/Loop/sprite_07.png" id="9_121wn"]
+[ext_resource type="Texture2D" uid="uid://colbofqlemn06" path="res://Non OpSys/Photos/Loop/sprite_08.png" id="10_t22qb"]
+[ext_resource type="Texture2D" uid="uid://bgxxadjyhqams" path="res://Non OpSys/Photos/Loop/sprite_09.png" id="11_y3ak2"]
+[ext_resource type="Texture2D" uid="uid://cgfqd3n8lyak0" path="res://Non OpSys/Photos/Loop/sprite_10.png" id="12_frt1d"]
+[ext_resource type="Texture2D" uid="uid://cuw1wuu1hch7w" path="res://Non OpSys/Photos/Loop/sprite_11.png" id="13_sx6up"]
+[ext_resource type="Texture2D" uid="uid://dr4fi270deflq" path="res://Non OpSys/Photos/Loop/sprite_12.png" id="14_ju4nv"]
+[ext_resource type="Texture2D" uid="uid://c3aok1rqr3wwl" path="res://Non OpSys/Photos/Loop/sprite_13.png" id="15_obp0g"]
+[ext_resource type="Texture2D" uid="uid://bmrn5so8qk6mp" path="res://Non OpSys/Photos/Loop/sprite_14.png" id="16_hljfe"]
+[ext_resource type="Texture2D" uid="uid://yucl5rukmqw6" path="res://Non OpSys/Photos/Loop/sprite_15.png" id="17_rspfl"]
+[ext_resource type="Texture2D" uid="uid://pxlm8v3sowrw" path="res://Non OpSys/Photos/Loop/sprite_16.png" id="18_mf8nv"]
+[ext_resource type="Texture2D" uid="uid://cbgion2po082r" path="res://Non OpSys/Photos/Loop/sprite_17.png" id="19_2ewcd"]
+[ext_resource type="Texture2D" uid="uid://bqc28vqxhmgsl" path="res://Non OpSys/Photos/Loop/sprite_18.png" id="20_68dhh"]
+[ext_resource type="Texture2D" uid="uid://d1gsw3v03hh4y" path="res://Non OpSys/Photos/Loop/sprite_19.png" id="21_ol65r"]
+[ext_resource type="Texture2D" uid="uid://cckjdflh4bce5" path="res://Non OpSys/Photos/Loop/sprite_20.png" id="22_7iv3x"]
+[ext_resource type="Texture2D" uid="uid://b2ueqkdhiylmd" path="res://Non OpSys/Photos/Loop/sprite_21.png" id="23_ofcdx"]
+[ext_resource type="Texture2D" uid="uid://vqg0x81e3ent" path="res://Non OpSys/Photos/Loop/sprite_22.png" id="24_ys1g2"]
+[ext_resource type="Texture2D" uid="uid://byq82bqahsu6q" path="res://Non OpSys/Photos/Loop/sprite_23.png" id="25_qax0x"]
+[ext_resource type="Texture2D" uid="uid://d3yl44huc6yuu" path="res://Non OpSys/Photos/Loop/sprite_24.png" id="26_5dnc8"]
+[ext_resource type="Texture2D" uid="uid://dot0s6wixgl3s" path="res://Non OpSys/Photos/Loop/sprite_25.png" id="27_5g234"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p22lg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jselv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_15ma7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mwtxl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1euy0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q6akr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_aiisl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_608xx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_121wn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_t22qb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_y3ak2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_frt1d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_sx6up")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ju4nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_obp0g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_hljfe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rspfl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_mf8nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_2ewcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_68dhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ol65r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_7iv3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ofcdx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ys1g2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_qax0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_5dnc8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_5g234")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="VibR" type="Control"]
 layout_mode = 3
@@ -16,10 +128,14 @@ script = ExtResource("1_8nodo")
 [node name="LoadSong" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 956.5
-offset_top = 1007.0
-offset_right = 964.5
-offset_bottom = 1082.0
+anchor_left = 0.436
+anchor_top = 0.932
+anchor_right = 0.564
+anchor_bottom = 1.0
+offset_left = 119.38
+offset_top = 0.439941
+offset_right = -118.38
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
@@ -28,9 +144,12 @@ text = "Load Song"
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 960.0
-offset_right = 961.0
-offset_bottom = 67.0
+anchor_left = 0.369
+anchor_right = 0.632
+anchor_bottom = 0.062
+offset_left = 251.52
+offset_right = -252.44
+offset_bottom = 0.0399933
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
@@ -41,10 +160,14 @@ vertical_alignment = 1
 [node name="Time" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1154.0
-offset_top = 787.0
-offset_right = 1653.0
-offset_bottom = 854.0
+anchor_left = 0.601
+anchor_top = 0.729
+anchor_right = 0.861
+anchor_bottom = 0.791
+offset_left = 0.0799561
+offset_top = -0.320007
+offset_right = -0.120117
+offset_bottom = -0.280029
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
@@ -55,10 +178,14 @@ vertical_alignment = 1
 [node name="LengthOfSong" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1154.0
-offset_top = 841.0
-offset_right = 1573.0
-offset_bottom = 908.0
+anchor_left = 0.564
+anchor_top = 0.779
+anchor_right = 0.783
+anchor_bottom = 0.841
+offset_left = 1.12
+offset_top = -0.320068
+offset_right = -0.360107
+offset_bottom = -0.280029
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
 text = "Length (Seconds): "
@@ -77,6 +204,8 @@ offset_top = 0.159973
 offset_right = 0.359863
 offset_bottom = -0.0400391
 max_value = 90001.0
+editable = false
+scrollable = false
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -87,22 +216,60 @@ root_subfolder = "U/Music"
 filters = PackedStringArray("*.wav  ; Waveform Audio File", "*.midi ; Musical Instrument Digital Interface")
 
 [node name="Play" type="Button" parent="."]
-layout_mode = 0
-offset_left = 908.0
-offset_top = 701.0
-offset_right = 1013.0
-offset_bottom = 776.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.473
+anchor_top = 0.649
+anchor_right = 0.528
+anchor_bottom = 0.719
+offset_left = -0.160034
+offset_top = 0.0799561
+offset_right = -0.76001
+offset_bottom = -0.52002
 theme_override_font_sizes/font_size = 48
 text = "Play"
 
 [node name="Pause" type="Button" parent="."]
-layout_mode = 0
-offset_left = 566.0
-offset_top = 701.0
-offset_right = 713.0
-offset_bottom = 776.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.295
+anchor_top = 0.649
+anchor_right = 0.371
+anchor_bottom = 0.719
+offset_left = -0.400024
+offset_top = 0.0799561
+offset_right = 0.679932
+offset_bottom = -0.52002
 theme_override_font_sizes/font_size = 48
 text = "Pause"
 
+[node name="Loop" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.632
+anchor_top = 0.649
+anchor_right = 0.696
+anchor_bottom = 0.719
+offset_left = -0.440063
+offset_top = 0.0799561
+offset_right = -0.320068
+offset_bottom = -0.52002
+theme_override_font_sizes/font_size = 48
+text = "Loop"
+
+[node name="LoopCon" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(140, 787)
+sprite_frames = SubResource("SpriteFrames_p22lg")
+autoplay = "default"
+frame_progress = 0.241846
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="LoadSong" to="." method="_on_load_song_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="Loop" to="." method="_on_loop_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
