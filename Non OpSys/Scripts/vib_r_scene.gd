@@ -9,6 +9,8 @@ var time = 00
 ##This is used to check if the song is looping
 var isLooping = false
 
+
+
 ## Prepares the scene by setting the background, and disables the loop button
 func _ready() -> void:
 	RenderingServer.set_default_clear_color("#2a2a2a")
@@ -18,11 +20,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
+##Makes the open file selector pop up when load song is pressed
 func _on_load_song_pressed() -> void:
 	$FileDialog.popup()
 
-
+##When a file is selected
 func _on_file_dialog_file_selected(path: String) -> void:
 	$AudioStreamPlayer.stream = load(path)
 	$Loop.disabled = false
@@ -35,7 +37,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 	$Time.text = "Song Time (Seconds): " + str(time)
 	$LastingTimer.value = 0
 
-## Supposed to update the song time and the HScrollBar
+## Updates the song time and the HScrollBar
 func update_timer():
 	if $AudioStreamPlayer.playing:
 		time += 1
@@ -51,7 +53,7 @@ func _on_audio_stream_player_finished() -> void:
 	else:
 		pass
 
-##Essentially when the button labeled Loop is pressed, it calls this function to loob the song
+##Essentially when the button labeled Loop is pressed, it calls this function to loop the song
 func _on_loop_pressed() -> void:
 	if isLooping == true:
 		isLooping = false
@@ -73,7 +75,8 @@ func _on_play_pressed() -> void:
 ##When the timer node times out
 func _on_timer_timeout() -> void:
 	update_timer()
-	## Reset the song, in seconds, and the HScrollBar node. Really only used with looping on songs
+
+## Reset the song, in seconds, and the HScrollBar node. Really only used with looping on songs
 func _reset_timer():
 	time = 0
 	$Time.text = "Song Time (Seconds): " + str(time)

@@ -41,6 +41,20 @@ mouse_cursor/custom_image="res://Non OpSys/Cursor/Mouse.png"
 
 enabled=PackedStringArray("res://addons/gdcef/plugin.cfg", "res://addons/sprite_painter/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Non OpSys/": "green",
+"res://Non OpSys/Scenes/": "pink",
+"res://Non OpSys/Scripts/": "orange",
+"res://Non OpSys/Shaders/": "red",
+"res://U/": "purple"
+}
+
+[gui]
+
+common/snap_controls_to_pixels=false
+
 [input]
 
 ui_accept={

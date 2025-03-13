@@ -11,6 +11,8 @@ var password
 var last_guess
 ## Counts how many times the user has put in a wrong password
 var counter : int
+##The wallpaper
+var wallpaper
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
@@ -69,3 +71,6 @@ func _on_line_edit_text_submitted(new_text):
 		_save_data_to_file("res://User Data/User.painoperatingsystemlogin")
 		counter = counter + 1
 		$WrongGuesses/Label.text = str(counter)
+		
+func _save_data_to_login():
+	_save_data_to_file("res://User Data/User.painoperatingsystemlogin")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bvhh2epod4j6h"]
+[gd_scene load_steps=32 format=3 uid="uid://bvhh2epod4j6h"]
 
 [ext_resource type="Script" uid="uid://5hp6eriuslbu" path="res://Non OpSys/Scripts/vib_r_scene.gd" id="1_8nodo"]
 [ext_resource type="Texture2D" uid="uid://bp7sfa0c283rl" path="res://Non OpSys/Photos/Loop/sprite_00.png" id="2_jselv"]
@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://byq82bqahsu6q" path="res://Non OpSys/Photos/Loop/sprite_23.png" id="25_qax0x"]
 [ext_resource type="Texture2D" uid="uid://d3yl44huc6yuu" path="res://Non OpSys/Photos/Loop/sprite_24.png" id="26_5dnc8"]
 [ext_resource type="Texture2D" uid="uid://dot0s6wixgl3s" path="res://Non OpSys/Photos/Loop/sprite_25.png" id="27_5g234"]
+[ext_resource type="Script" uid="uid://dwwvaauclfunl" path="res://Non OpSys/Scripts/audiovisualizer.gd" id="28_mwtxl"]
+[ext_resource type="Shader" uid="uid://cglt3kobbyvy7" path="res://Non OpSys/Shaders/audiovisualizer.gdshader" id="29_1euy0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p22lg"]
 animations = [{
@@ -113,6 +115,10 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6akr"]
+shader = ExtResource("29_1euy0")
+shader_parameter/freq_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="VibR" type="Control"]
 layout_mode = 3
@@ -265,6 +271,20 @@ autoplay = "default"
 frame_progress = 0.241846
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="audiovis" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 709.0
+offset_top = 159.0
+offset_right = 1213.0
+offset_bottom = 559.0
+script = ExtResource("28_mwtxl")
+
+[node name="ColorRect" type="ColorRect" parent="audiovis"]
+material = SubResource("ShaderMaterial_q6akr")
+layout_mode = 0
+offset_right = 504.0
+offset_bottom = 400.0
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="LoadSong" to="." method="_on_load_song_pressed"]

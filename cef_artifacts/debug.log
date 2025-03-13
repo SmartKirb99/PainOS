@@ -2711,3 +2711,94 @@
 [0312/113521.503:ERROR:gpu_process_host.cc(999)] GPU process exited unexpectedly: exit_code=-2147483645
 [0312/113521.504:WARNING:gpu_process_host.cc(1433)] The GPU process has crashed 1 time(s)
 [0312/113521.619:WARNING:gpu_process_host.cc(1021)] Reinitialized the GPU process after a crash. The reported initialization time was 0 ms
+[0313/113223.877:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0313/113223.878:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0313/113223.878:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.879:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.879:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0313/113223.880:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0313/113223.880:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0313/113223.884:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0313/113223.884:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0313/113223.884:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.884:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.884:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0313/113223.884:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0313/113223.884:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0313/113223.886:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0313/113223.958:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0313/113223.958:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0313/113223.958:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.958:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.958:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0313/113223.958:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0313/113223.958:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0313/113223.961:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0313/113223.961:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0313/113223.961:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.961:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0313/113223.961:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0313/113223.961:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0313/113223.961:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0313/113223.963:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0313/113225.723:ERROR:dns_config_service.cc(273)] DNS config watch failed.
+[0313/113225.723:ERROR:dns_config_service.cc(273)] DNS config watch failed.
+[0313/113242.264:ERROR:gpu_process_host.cc(999)] GPU process exited unexpectedly: exit_code=-2147483645
+[0313/113242.264:WARNING:gpu_process_host.cc(1433)] The GPU process has crashed 1 time(s)
+[0313/113242.397:WARNING:gpu_process_host.cc(1021)] Reinitialized the GPU process after a crash. The reported initialization time was 0 ms
+[0313/113242.570:ERROR:gpu_process_host.cc(999)] GPU process exited unexpectedly: exit_code=-2147483645
+[0313/113242.570:WARNING:gpu_process_host.cc(1433)] The GPU process has crashed 2 time(s)
+[0313/113242.697:WARNING:gpu_process_host.cc(1021)] Reinitialized the GPU process after a crash. The reported initialization time was 0 ms
+[0313/113309.756:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113309.773:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113310.436:WARNING:browser_info.cc(315)] Returning a speculative frame for [12,5]
+[0313/113310.547:WARNING:browser_info.cc(315)] Returning a speculative frame for [12,5]
+[0313/113310.547:WARNING:browser_info.cc(315)] Returning a speculative frame for [12,5]
+[0313/113310.547:WARNING:browser_info.cc(315)] Returning a speculative frame for [12,5]
+[0313/113310.547:WARNING:browser_info.cc(315)] Returning a speculative frame for [12,5]
+[0313/113310.874:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113310.888:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113310.891:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113310.919:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113310.953:WARNING:obfuscated_file_util.cc(1336)] Failed to get origin+type directory: { uri: filesystem:https://www.youtube.com/temporary/, storage key: { origin: https://www.youtube.com, top-level site: https://google.com, nonce: <null>, ancestor chain bit: Cross-Site }, bucket id: 1 } error:-4
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.753:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113326.754:ERROR:shared_image_manager.cc(328)] SharedImageManager::ProduceMemory: Trying to Produce a Memory representation from a non-existent mailbox.
+[0313/113327.307:WARNING:browser_info.cc(315)] Returning a speculative frame for [13,5]
+[0313/113327.698:WARNING:browser_info.cc(315)] Returning a speculative frame for [13,5]
+[0313/113327.698:WARNING:browser_info.cc(315)] Returning a speculative frame for [13,5]
+[0313/113327.698:WARNING:browser_info.cc(315)] Returning a speculative frame for [13,5]
+[0313/113327.698:WARNING:browser_info.cc(315)] Returning a speculative frame for [13,5]
+[0313/113327.743:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113327.773:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113327.922:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113327.950:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113328.547:ERROR:gpu_channel_manager.cc(959)] Failed to create GLES3 context, fallback to GLES2.
+[0313/113328.547:ERROR:gpu_channel_manager.cc(970)] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
+[0313/113329.836:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113329.868:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113528.851:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113528.864:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113528.881:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113532.088:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113728.473:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0313/113728.494:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
