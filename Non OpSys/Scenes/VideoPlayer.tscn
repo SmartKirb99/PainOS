@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://d4j5h5apfv1c5"]
+[gd_scene load_steps=3 format=3 uid="uid://d4j5h5apfv1c5"]
+
+[ext_resource type="Script" uid="uid://cqgx8ojvkix6" path="res://Non OpSys/Scripts/video_stream_player.gd" id="1_0v6q6"]
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_mm8da"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,6 +13,89 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.92
+offset_bottom = 86.4
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.92)
+stream = SubResource("VideoStreamTheora_mm8da")
+expand = true
+script = ExtResource("1_0v6q6")
+
+[node name="Pause" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.462
+anchor_top = 0.961
+anchor_right = 0.502
+anchor_bottom = 1.0
+offset_left = -0.0400391
+offset_top = 0.119995
+offset_right = 0.159912
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Pause"
+
+[node name="Loop" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.519
+anchor_top = 0.961
+anchor_right = 0.553
+anchor_bottom = 1.0
+offset_left = 0.519897
+offset_top = 0.119995
+offset_right = 0.23999
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Loop"
+
+[node name="OpenFile" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.368
+anchor_top = 0.961
+anchor_right = 0.445
+anchor_bottom = 1.0
+offset_left = 0.439941
+offset_top = 0.119995
+offset_right = 0.599976
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Select Video"
+
+[node name="Cober" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019
+anchor_top = 0.963
+anchor_right = 0.052
+anchor_bottom = 0.987
+offset_left = -0.480003
+offset_top = -0.0400391
+offset_right = 121.16
+offset_bottom = 41.0399
+scale = Vector2(0.35, 0.3875)
+theme_override_font_sizes/font_size = 48
+text = "Looping"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 1
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "U/Movies"
+filters = PackedStringArray("*.ogg ; OGG File")
+
+[connection signal="finished" from="VideoStreamPlayer" to="VideoStreamPlayer" method="_on_finished"]
+[connection signal="button_down" from="Pause" to="VideoStreamPlayer" method="_on_pause_button_down"]
+[connection signal="button_down" from="Loop" to="VideoStreamPlayer" method="_on_loop_button_down"]
+[connection signal="pressed" from="OpenFile" to="VideoStreamPlayer" method="_on_open_file_pressed"]
+[connection signal="file_selected" from="FileDialog" to="VideoStreamPlayer" method="_on_file_dialog_file_selected"]

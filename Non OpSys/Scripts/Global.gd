@@ -37,5 +37,7 @@ var inWindow:bool = false
 var inUI = false
 ## The wallpaper of the OS
 var wallpaper
+## This packed scene just holds the Video Player Application
+@onready var MoviePlayer: PackedScene = preload("res://Non OpSys/Scenes/VideoPlayer.tscn")
 
 @onready var Settings: PackedScene = preload("res://Non OpSys/Scenes/Settings.tscn")

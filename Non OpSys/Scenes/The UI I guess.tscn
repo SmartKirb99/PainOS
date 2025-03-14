@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://bgd6ggklmou53" path="res://Non OpSys/Scripts/open_photo_gallery.gd" id="12_niclm"]
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="13_0akwv"]
 [ext_resource type="Script" uid="uid://dhoq14xrlw5rf" path="res://Non OpSys/Scripts/vib_r.gd" id="13_pre0f"]
-[ext_resource type="Script" uid="uid://cs7xgwfyfb8jr" path="res://Non OpSys/Scripts/open_settings.gd" id="14_bxvq1"]
+[ext_resource type="Script" uid="uid://dmi6v2wjctql1" path="res://Non OpSys/Scripts/open_video_player.gd" id="14_bxvq1"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
@@ -131,6 +131,15 @@ text = "VibR
 "
 script = ExtResource("13_pre0f")
 
+[node name="VideoPlayer" type="Button" parent="Funny Start Menu"]
+z_index = 10
+offset_left = -118.0
+offset_top = -19.0
+offset_right = -5.0
+offset_bottom = 12.0
+text = "Video Player"
+script = ExtResource("14_bxvq1")
+
 [node name="HelpfulButton" type="Button" parent="Funny Start Menu"]
 visible = false
 z_index = 10
@@ -139,15 +148,6 @@ offset_top = -79.0
 offset_right = -160.0
 offset_bottom = -48.0
 text = "Photo Gallery"
-
-[node name="HelpfulButton2" type="Button" parent="Funny Start Menu"]
-z_index = 10
-offset_left = -119.0
-offset_top = -21.0
-offset_right = -49.0
-offset_bottom = 10.0
-text = "Settings"
-script = ExtResource("14_bxvq1")
 
 [node name="Maus" type="Area2D" parent="."]
 script = ExtResource("6_jvggm")
