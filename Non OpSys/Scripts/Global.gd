@@ -40,4 +40,6 @@ var wallpaper
 ## This packed scene just holds the Video Player Application
 @onready var MoviePlayer: PackedScene = preload("res://Non OpSys/Scenes/VideoPlayer.tscn")
 
+@onready var Calendar: PackedScene = preload("res://Non OpSys/Scenes/Calendar/Calendar.tscn")
+## This packed scene just holds the settings scene, currently unused
 @onready var Settings: PackedScene = preload("res://Non OpSys/Scenes/Settings.tscn")

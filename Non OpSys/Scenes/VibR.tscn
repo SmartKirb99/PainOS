@@ -286,6 +286,20 @@ layout_mode = 0
 offset_right = 504.0
 offset_bottom = 400.0
 
+[node name="VScrollBar" type="VScrollBar" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.115
+anchor_top = 0.126
+anchor_right = 0.14
+anchor_bottom = 0.46
+offset_left = 48.2
+offset_top = 360.92
+offset_right = 49.2
+offset_bottom = 361.2
+rotation = -3.14159
+value = 100.0
+
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="pressed" from="LoadSong" to="." method="_on_load_song_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

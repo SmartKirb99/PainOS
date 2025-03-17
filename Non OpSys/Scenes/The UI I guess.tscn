@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=22 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dadw738orlqh6" path="res://Non OpSys/Scenes/signaller.tscn" id="13_0akwv"]
 [ext_resource type="Script" uid="uid://dhoq14xrlw5rf" path="res://Non OpSys/Scripts/vib_r.gd" id="13_pre0f"]
 [ext_resource type="Script" uid="uid://dmi6v2wjctql1" path="res://Non OpSys/Scripts/open_video_player.gd" id="14_bxvq1"]
+[ext_resource type="Script" uid="uid://dn2unt2730wae" path="res://Non OpSys/Scripts/open_calendar.gd" id="15_vggdx"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
@@ -140,6 +141,15 @@ offset_right = -5.0
 offset_bottom = 12.0
 text = "Video Player"
 script = ExtResource("14_bxvq1")
+
+[node name="Calendar" type="Button" parent="Funny Start Menu"]
+z_index = 10
+offset_left = -119.0
+offset_top = 15.0
+offset_right = -6.0
+offset_bottom = 46.0
+text = "Calendar"
+script = ExtResource("15_vggdx")
 
 [node name="HelpfulButton" type="Button" parent="Funny Start Menu"]
 visible = false

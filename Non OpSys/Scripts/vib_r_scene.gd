@@ -19,7 +19,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$AudioStreamPlayer.volume_db = ($VScrollBar.value - 100)
 ##Makes the open file selector pop up when load song is pressed
 func _on_load_song_pressed() -> void:
 	$FileDialog.popup()
