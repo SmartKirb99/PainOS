@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 var cal: Calendar = Calendar.new()
-var year = 2024
+var year = 2025
 
 var months_formatted: Array[String]
 var weekdays_formatted: Array[String]

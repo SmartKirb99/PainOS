@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bt72ebrhuikpt"]
+[gd_scene load_steps=3 format=3 uid="uid://bpkpxjly5b3yy"]
 
-[ext_resource type="Script" uid="uid://7oq2t23kwn62" path="res://addons/calendar_library/demo/calendar_demo.gd" id="1_qxlq3"]
+[ext_resource type="Script" uid="uid://7oq2t23kwn62" path="res://addons/calendar_library/demo/calendar_demo.gd" id="1_ihxrl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_15vha"]
 font_size = 30
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qxlq3")
+script = ExtResource("1_ihxrl")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -178,6 +178,7 @@ text = "Show week numbers"
 layout_mode = 2
 
 [node name="DatePicker" type="Button" parent="Padding/CalendarComponents/VBoxContainer"]
+visible = false
 layout_mode = 2
 toggle_mode = true
 text = "Select date"
