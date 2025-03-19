@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=24 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://dn2unt2730wae" path="res://Non OpSys/Scripts/open_calendar.gd" id="15_vggdx"]
 [ext_resource type="Script" uid="uid://5c3l6o25l7s1" path="res://Non OpSys/Scripts/open_clock.gd" id="16_qwcno"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwcno"]
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_us6rt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5prdb"]
@@ -39,8 +41,24 @@ offset_top = 970.0
 offset_right = 408.0
 offset_bottom = 1378.0
 scale = Vector2(0.25783, 0.25783)
-icon = ExtResource("2_e0dnv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qwcno")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qwcno")
 script = ExtResource("3_g42u2")
+
+[node name="TextureRect" type="TextureRect" parent="Start Button"]
+layout_mode = 0
+offset_right = 408.0
+offset_bottom = 408.0
+texture = ExtResource("2_e0dnv")
 
 [node name="NonStartMenu" type="Area2D" parent="."]
 position = Vector2(956, -1)
@@ -160,6 +178,15 @@ offset_right = -69.0
 offset_bottom = 80.0
 text = "Clock"
 script = ExtResource("16_qwcno")
+
+[node name="Settings" type="Button" parent="Funny Start Menu"]
+z_index = 10
+offset_left = -119.0
+offset_top = 84.0
+offset_right = -49.0
+offset_bottom = 115.0
+disabled = true
+text = "Settings"
 
 [node name="HelpfulButton" type="Button" parent="Funny Start Menu"]
 visible = false
