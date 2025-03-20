@@ -45,3 +45,5 @@ var wallpaper
 @onready var Settings: PackedScene = preload("res://Non OpSys/Scenes/Settings.tscn")
 ## This packed scene holds the clock application
 @onready var Clock: PackedScene = preload("res://Non OpSys/Scenes/Clock.tscn")
+## This packed scene holds the code application called GDColode
+@onready var Code: PackedScene = preload("res://Non OpSys/Scenes/GDColode.tscn")
