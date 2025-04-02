@@ -229,6 +229,12 @@ file_mode = 0
 root_subfolder = "U"
 filters = PackedStringArray("*.png ; PNG File")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 262.0
+offset_top = 967.0
+offset_right = 1723.0
+offset_bottom = 1080.0
+
 [connection signal="area_exited" from="Funny Start Menu" to="Maus" method="_on_funny_start_menu_area_exited"]
 [connection signal="call_notepad" from="Signaling" to="Funny Start Menu/Notebook" method="_on_signaling_call_notepad"]
 [connection signal="change_background" from="Signaling" to="." method="_on_signaling_change_background"]

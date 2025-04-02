@@ -3092,3 +3092,81 @@
 [0319/130758.278:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
 [0319/130758.278:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
 [0319/130758.279:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0402/125250.141:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0402/125250.142:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0402/125250.142:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.144:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.144:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0402/125250.144:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0402/125250.144:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0402/125250.147:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0402/125250.147:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0402/125250.148:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.148:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.148:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0402/125250.148:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0402/125250.148:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0402/125250.150:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0402/125250.246:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0402/125250.246:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0402/125250.246:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.246:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.246:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0402/125250.246:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0402/125250.246:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0402/125250.248:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_surface
+[0402/125250.249:ERROR:angle_platform_impl.cc(44)] vk_renderer.cpp:187 (rx::vk::(anonymous namespace)::VerifyExtensionsPresent): Extension not supported: VK_KHR_win32_surface
+[0402/125250.249:ERROR:angle_platform_impl.cc(44)] Display.cpp:1086 (egl::Display::initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.249:ERROR:gl_display.cc(520)] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ..\..\third_party\angle\src\libANGLE\renderer\vulkan\vk_renderer.cpp, rx::vk::Renderer::enableInstanceExtensions:1763.
+[0402/125250.249:ERROR:gl_display.cc(796)] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+[0402/125250.249:ERROR:gl_display.cc(830)] Initialization of all EGL display types failed.
+[0402/125250.249:ERROR:gl_initializer_win.cc(135)] GLDisplayEGL::Initialize failed.
+[0402/125250.250:ERROR:viz_main_impl.cc(166)] Exiting GPU process due to errors during initialization
+[0402/125300.588:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,5]
+[0402/125300.751:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,14]
+[0402/125300.751:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,14]
+[0402/125300.751:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,14]
+[0402/125300.751:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,14]
+[0402/125300.785:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,5]
+[0402/125300.785:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,5]
+[0402/125300.785:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,5]
+[0402/125300.785:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,5]
+[0402/125300.802:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,17]
+[0402/125300.802:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,17]
+[0402/125300.802:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,17]
+[0402/125300.802:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,17]
+[0402/125300.802:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,8]
+[0402/125300.803:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,8]
+[0402/125300.803:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,8]
+[0402/125300.803:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,8]
+[0402/125300.817:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,11]
+[0402/125300.817:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,11]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,11]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,11]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,20]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,20]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,20]
+[0402/125300.818:WARNING:browser_info.cc(315)] Returning a speculative frame for [6,20]
+[0402/125301.097:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.113:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.115:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.128:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.146:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.169:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.214:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.232:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.259:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.324:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.348:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.373:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.405:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.428:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125301.710:WARNING:obfuscated_file_util.cc(1336)] Failed to get origin+type directory: { uri: filesystem:https://www.youtube.com/temporary/, storage key: { origin: https://www.youtube.com, top-level site: https://godotengine.org, nonce: <null>, ancestor chain bit: Cross-Site }, bucket id: 1 } error:-4
+[0402/125305.102:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125305.120:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.609:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.611:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.612:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.638:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.638:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101
+[0402/125306.638:ERROR:ssl_client_socket_impl.cc(879)] handshake failed; returned -1, SSL error code 1, net_error -101

@@ -7,8 +7,8 @@ extends Control
 func _ready():
 	$"Open File".add_filter("*.txt ; Text File")
 	$"Save File".add_filter("*.txt ; Text File")
-	$"Save File".current_dir = "res://U/Documents"
-	$"Open File".current_dir = "res://U/Documents"
+	$"Save File".current_dir = "user://U/Documents"
+	$"Open File".current_dir = "user://U/Documents"
 	Signals.notepad_open_file.connect(Callable(self, "_on_signalling_notepad_open_file"))
 
 
@@ -20,12 +20,12 @@ func _process(delta):
 
 ## Checks when the button labeled "Open File" is pressed
 func _on_open_button_pressed():
-	$"Open File".current_dir = "res://U/Documents"
+	$"Open File".current_dir = "user://U/Documents"
 	$"Open File".popup()
 
 ## Checks when the button labeled "Save As File" is pressed
 func _on_save_button_pressed():
-	$"Save File".current_dir = "res://U/Documents"
+	$"Save File".current_dir = "user://U/Documents"
 	$"Save File".popup()
 
 ## Used to save files

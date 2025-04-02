@@ -48,6 +48,7 @@ title = "Save As File"
 position = Vector2i(300, 300)
 size = Vector2i(457, 400)
 min_size = Vector2i(200, 400)
+access = 1
 root_subfolder = "U"
 
 [node name="Open File" type="FileDialog" parent="."]
@@ -57,6 +58,7 @@ size = Vector2i(457, 400)
 min_size = Vector2i(200, 400)
 ok_button_text = "Open"
 file_mode = 0
+access = 1
 root_subfolder = "U"
 
 [node name="Signaling" parent="." instance=ExtResource("2_d0eee")]

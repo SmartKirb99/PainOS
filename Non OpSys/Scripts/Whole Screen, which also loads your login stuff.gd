@@ -16,7 +16,7 @@ var wallpaper
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
-	_load_data_from_file("res://User Data/User.painoperatingsystemlogin")
+	_load_data_from_file("user://U/Settings/login.log")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,9 +68,9 @@ func _on_line_edit_text_submitted(new_text):
 		get_tree().change_scene_to_file("res://Non OpSys/Scenes/The UI I guess.tscn")
 	else:
 		last_guess = $LineEdit.text
-		_save_data_to_file("res://User Data/User.painoperatingsystemlogin")
+		_save_data_to_file("user://U/Settings/login.log")
 		counter = counter + 1
 		$WrongGuesses/Label.text = str(counter)
 		
 func _save_data_to_login():
-	_save_data_to_file("res://User Data/User.painoperatingsystemlogin")
+	_save_data_to_file("user://U/Settings/login.log")
