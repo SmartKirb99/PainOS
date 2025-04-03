@@ -48,6 +48,7 @@ func _on_check_box_pressed() -> void:
 
 func _on_setup_pressed() -> void:
 	_save_data_to_file("user://U/Settings/login.log")
+	get_tree().change_scene_to_file("res://Non OpSys/Scenes/Login.tscn")
 	
 	
 func create_login():
