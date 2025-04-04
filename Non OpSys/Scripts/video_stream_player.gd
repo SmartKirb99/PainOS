@@ -12,6 +12,7 @@ extends VideoStreamPlayer
 ##Sets looping of the video to false
 func _ready() -> void:
 	loop = false
+	$"../FileDialog".current_dir = "user://U/Movies"
 ##Pauses/Plays the video, togglable
 func _on_pause_button_down() -> void:
 	paused = !paused

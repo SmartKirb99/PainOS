@@ -31,6 +31,7 @@ func _ready():
 
 	# Assign the "file_selected" signal in SaveFileDialog.
 	save_dialog.file_selected.connect(save_file_selected)
+	
 
 	# Set physics process so we can update the status label.
 	set_physics_process(true)

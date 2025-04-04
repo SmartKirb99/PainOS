@@ -2,10 +2,10 @@ extends Control
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color("#2a2a2a")
+	$FileDialog.current_dir = "user://U/Pictures"
 
 
 func _on_load_image_pressed() -> void:
-	$FileDialog.current_dir = "res://U/Pictures"
 	$FileDialog.popup()
 
 

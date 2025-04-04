@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://tp87usjd5q35"]
+[gd_scene load_steps=32 format=3 uid="uid://tp87usjd5q35"]
 
 [ext_resource type="Script" uid="uid://dbywekyvtellq" path="res://Non OpSys/Scripts/someUI.gd" id="1_6heex"]
 [ext_resource type="Texture2D" uid="uid://bd1i4ju72pyh" path="res://Non OpSys/Photos/Placeholder Background.png" id="1_n670g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://da7fj154v6fuu" path="res://Non OpSys/Scripts/OpenNotebook.gd" id="6_p5gyf"]
 [ext_resource type="Script" uid="uid://b55k0kir4bp7x" path="res://Non OpSys/Scripts/OpenFileManager.gd" id="7_aafjx"]
 [ext_resource type="Script" uid="uid://bhf4xkm7ehwr8" path="res://Non OpSys/Scripts/QuitOS.gd" id="7_jiexn"]
+[ext_resource type="Texture2D" uid="uid://bfc5cgpks7yr" path="res://Non OpSys/Photos/Taskbar/notepad.png" id="8_hscrk"]
 [ext_resource type="Script" uid="uid://c28bgnbr5atfk" path="res://Non OpSys/Scripts/Undeluxe Browsing.gd" id="9_1tcox"]
 [ext_resource type="Texture2D" uid="uid://m7u073e7jxqu" path="res://Non OpSys/Photos/Jalex.png" id="10_qqmxk"]
 [ext_resource type="Script" uid="uid://drtjoksydhy0o" path="res://Non OpSys/Scripts/open_p_scribble.gd" id="11_l5h4f"]
@@ -19,6 +20,13 @@
 [ext_resource type="Script" uid="uid://dmi6v2wjctql1" path="res://Non OpSys/Scripts/open_video_player.gd" id="14_bxvq1"]
 [ext_resource type="Script" uid="uid://dn2unt2730wae" path="res://Non OpSys/Scripts/open_calendar.gd" id="15_vggdx"]
 [ext_resource type="Script" uid="uid://5c3l6o25l7s1" path="res://Non OpSys/Scripts/open_clock.gd" id="16_qwcno"]
+[ext_resource type="Texture2D" uid="uid://cgs66xcuuebel" path="res://Non OpSys/Photos/Taskbar/undeluxebrowsing.png" id="21_wp23s"]
+[ext_resource type="Texture2D" uid="uid://cw3xdy55k24cf" path="res://Non OpSys/Photos/Taskbar/scribble.png" id="22_a622r"]
+[ext_resource type="Texture2D" uid="uid://dj7y5u8wqm3iw" path="res://Non OpSys/Photos/Taskbar/photogallery.png" id="23_sccl3"]
+[ext_resource type="Texture2D" uid="uid://cau7d3ri1bp71" path="res://Non OpSys/Photos/Taskbar/vibr.png" id="24_i50en"]
+[ext_resource type="Texture2D" uid="uid://b8evevsupl3kv" path="res://Non OpSys/Photos/Taskbar/videoplayer.png" id="25_el3uh"]
+[ext_resource type="Texture2D" uid="uid://brup8piada00o" path="res://Non OpSys/Photos/Taskbar/calendar.png" id="26_fbar0"]
+[ext_resource type="Texture2D" uid="uid://c3hlhhkdqwanw" path="res://Non OpSys/Photos/Taskbar/clock.png" id="27_0jyxv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwcno"]
 
@@ -52,13 +60,13 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_qwcno")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_qwcno")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_qwcno")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_qwcno")
+icon = ExtResource("2_e0dnv")
 script = ExtResource("3_g42u2")
 
 [node name="TextureRect" type="TextureRect" parent="Start Button"]
 layout_mode = 0
 offset_right = 408.0
 offset_bottom = 408.0
-texture = ExtResource("2_e0dnv")
 
 [node name="NonStartMenu" type="Area2D" parent="."]
 position = Vector2(956, -1)
@@ -97,6 +105,7 @@ text = "Notebook"
 script = ExtResource("6_p5gyf")
 
 [node name="File Manager" type="Button" parent="Funny Start Menu"]
+visible = false
 z_index = 10
 offset_left = -120.0
 offset_top = -196.0
@@ -118,68 +127,67 @@ script = ExtResource("7_jiexn")
 [node name="Undeluxe Browsing" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = -158.0
+offset_top = -204.0
 offset_right = 39.0
-offset_bottom = -127.0
+offset_bottom = -173.0
 text = "Undeluxe Browsing"
 script = ExtResource("9_1tcox")
 
 [node name="P Scribble" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = -122.0
+offset_top = -168.0
 offset_right = -49.0
-offset_bottom = -91.0
+offset_bottom = -137.0
 text = "Scribble"
 script = ExtResource("11_l5h4f")
 
 [node name="PhotoGallery" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = -87.0
-offset_right = -49.0
-offset_bottom = -56.0
+offset_top = -133.0
+offset_right = -6.0
+offset_bottom = -102.0
 text = "Photo Gallery"
 script = ExtResource("12_niclm")
 
 [node name="VibR" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = -54.0
-offset_right = -49.0
-offset_bottom = -23.0
-text = "VibR
-"
+offset_top = -100.0
+offset_right = -76.0
+offset_bottom = -69.0
+text = "VibR"
 script = ExtResource("13_pre0f")
 
 [node name="VideoPlayer" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -118.0
-offset_top = -19.0
+offset_top = -65.0
 offset_right = -5.0
-offset_bottom = 12.0
+offset_bottom = -34.0
 text = "Video Player"
 script = ExtResource("14_bxvq1")
 
 [node name="Calendar" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = 15.0
+offset_top = -31.0
 offset_right = -6.0
-offset_bottom = 46.0
 text = "Calendar"
 script = ExtResource("15_vggdx")
 
 [node name="Clock" type="Button" parent="Funny Start Menu"]
 z_index = 10
 offset_left = -119.0
-offset_top = 49.0
+offset_top = 3.0
 offset_right = -69.0
-offset_bottom = 80.0
+offset_bottom = 34.0
 text = "Clock"
 script = ExtResource("16_qwcno")
 
 [node name="Settings" type="Button" parent="Funny Start Menu"]
+visible = false
 z_index = 10
 offset_left = -119.0
 offset_top = 84.0
@@ -226,16 +234,96 @@ text = "Change Background"
 title = "Open a File"
 ok_button_text = "Open"
 file_mode = 0
+access = 1
 root_subfolder = "U"
 filters = PackedStringArray("*.png ; PNG File")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = 262.0
+[node name="Taskbar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 618.0
 offset_top = 967.0
-offset_right = 1723.0
+offset_right = 1269.0
 offset_bottom = 1080.0
 
+[node name="Notepad" type="Button" parent="Taskbar"]
+custom_minimum_size = Vector2(81.6, 81.6)
+layout_mode = 2
+offset_top = 114.0
+offset_right = 81.6
+offset_bottom = 195.6
+icon = ExtResource("8_hscrk")
+expand_icon = true
+
+[node name="UndeluxeBrowser" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 81.6
+offset_top = 114.0
+offset_right = 163.2
+offset_bottom = 195.6
+icon = ExtResource("21_wp23s")
+expand_icon = true
+
+[node name="Scribble" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 163.2
+offset_top = 114.0
+offset_right = 244.8
+offset_bottom = 195.6
+icon = ExtResource("22_a622r")
+expand_icon = true
+
+[node name="PhotoGallery" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 244.8
+offset_top = 114.0
+offset_right = 326.4
+offset_bottom = 195.6
+icon = ExtResource("23_sccl3")
+expand_icon = true
+
+[node name="VibR" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 326.4
+offset_top = 114.0
+offset_right = 408.0
+offset_bottom = 195.6
+icon = ExtResource("24_i50en")
+expand_icon = true
+
+[node name="VideoPlayer" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 114.0
+offset_right = 489.6
+offset_bottom = 195.6
+icon = ExtResource("25_el3uh")
+expand_icon = true
+
+[node name="Calendar" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 489.6
+offset_top = 114.0
+offset_right = 571.2
+offset_bottom = 195.6
+icon = ExtResource("26_fbar0")
+expand_icon = true
+
+[node name="Clock" type="Button" parent="Taskbar"]
+layout_mode = 0
+offset_left = 571.2
+offset_top = 114.0
+offset_right = 652.8
+offset_bottom = 195.6
+icon = ExtResource("27_0jyxv")
+expand_icon = true
+
+[node name="Window" type="Window" parent="."]
+position = Vector2i(20, 500)
+visible = false
+
 [connection signal="area_exited" from="Funny Start Menu" to="Maus" method="_on_funny_start_menu_area_exited"]
+[connection signal="pressed" from="Funny Start Menu/Notebook" to="Taskbar" method="_on_notebook_pressed"]
 [connection signal="call_notepad" from="Signaling" to="Funny Start Menu/Notebook" method="_on_signaling_call_notepad"]
 [connection signal="change_background" from="Signaling" to="." method="_on_signaling_change_background"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

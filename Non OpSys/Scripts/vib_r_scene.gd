@@ -15,6 +15,7 @@ var isLooping = false
 func _ready() -> void:
 	RenderingServer.set_default_clear_color("#2a2a2a")
 	$Loop.disabled = true
+	$FileDialog.current_dir = "user://U/Music"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

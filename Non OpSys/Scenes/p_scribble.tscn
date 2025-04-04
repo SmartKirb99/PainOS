@@ -328,4 +328,5 @@ offset_bottom = 0.0039978
 text = "Clear the Entire Frame"
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
+access = 1
 root_subfolder = "U"

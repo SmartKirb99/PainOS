@@ -159,7 +159,7 @@ offset_bottom = 0.0399933
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 48
-text = "QuestionNothing.wav"
+text = "VibR (Song File name goes here)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -218,7 +218,8 @@ title = "Open a File"
 position = Vector2i(0, 36)
 ok_button_text = "Open"
 file_mode = 0
-root_subfolder = "U/Music"
+access = 1
+root_subfolder = "U"
 filters = PackedStringArray("*.wav  ; Waveform Audio File", "*.midi ; Musical Instrument Digital Interface")
 
 [node name="Play" type="Button" parent="."]

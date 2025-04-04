@@ -5,3 +5,4 @@ extends Control
 ##Adds a filter to saving, to save PNG Files
 func _ready():
 	$SaveFileDialog.add_filter("*.png ; Portable Network Graphics File")
+	$SaveFileDialog.current_dir = "user://U/Pictures"

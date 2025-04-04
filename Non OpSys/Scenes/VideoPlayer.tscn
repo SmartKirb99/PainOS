@@ -91,7 +91,8 @@ title = "Open a File"
 initial_position = 1
 ok_button_text = "Open"
 file_mode = 0
-root_subfolder = "U/Movies"
+access = 1
+root_subfolder = "U"
 filters = PackedStringArray("*.ogg ; OGG File")
 
 [connection signal="finished" from="VideoStreamPlayer" to="VideoStreamPlayer" method="_on_finished"]
