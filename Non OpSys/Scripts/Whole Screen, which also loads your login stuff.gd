@@ -74,3 +74,11 @@ func _on_line_edit_text_submitted(new_text):
 		
 func _save_data_to_login():
 	_save_data_to_file("user://U/Settings/login.log")
+
+##Basically makes it so the password is revealed when the checkbox is checked, and vice versa
+func _on_check_box_pressed() -> void:
+	if $CheckBox.button_pressed:
+		$LineEdit.secret = false
+	else:
+		$LineEdit.secret = true
+		

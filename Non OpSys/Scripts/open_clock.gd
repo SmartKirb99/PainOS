@@ -43,3 +43,4 @@ func _on_button_press():
 	self.disabled = true
 	self.text = self.text + " - Open"
 	tween.tween_property(task, "position", Vector2(571.2, 31), 0.5)
+	task.pressed.connect(func(): window.grab_focus())

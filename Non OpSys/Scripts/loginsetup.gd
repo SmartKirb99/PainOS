@@ -8,11 +8,12 @@ extends Control
 @onready var username
 @onready var last_guess = null
 @onready var password
+@onready var wallpaper
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	create_login()
-
+	create_settings()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -48,6 +49,7 @@ func _on_check_box_pressed() -> void:
 
 func _on_setup_pressed() -> void:
 	_save_data_to_file("user://U/Settings/login.log")
+	_save_settings_to_file("user://U/Settings/settings.log")
 	get_tree().change_scene_to_file("res://Non OpSys/Scenes/Login.tscn")
 	
 	
@@ -61,6 +63,19 @@ func _save_data_to_file(file_path: String):
 		file.store_string("Username: %s\n" % user.text)
 		file.store_string("Password: %s\n" % passwordd.text)
 		file.store_string("Last Guessed Password: %s\n" % last_guess)
+		file.close()
+	else:
+		print("Failed to open file for writing: ", file_path)
+		
+func create_settings():
+	var settings_file = "user://U/Settings/settings.log"
+	var access = FileAccess.open(settings_file, FileAccess.WRITE)
+
+
+func _save_settings_to_file(file_path: String):
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	if file:
+		file.store_string("Background Link; %s\n" % wallpaper)
 		file.close()
 	else:
 		print("Failed to open file for writing: ", file_path)

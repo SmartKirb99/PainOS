@@ -596,7 +596,7 @@ GDBrowserView* GDCef::createBrowser(godot::String const& url,
     // Allow browser to download files
     browser->allowDownloads(getConfig(config, "allow_downloads", true));
     browser->setDownloadFolder(
-        getConfig(config, "download_folder", godot::String("res://U/Downloads")));
+        getConfig(config, "download_folder", godot::String("user://U/Downloads")));
 
     // Update the dimension of the page to the texture size
     browser->resize(texture_rect->get_size());

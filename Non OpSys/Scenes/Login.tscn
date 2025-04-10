@@ -23,13 +23,21 @@ position = Vector2(970, 546)
 texture = ExtResource("1_c0q4l")
 
 [node name="LineEdit" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 591.0
-offset_top = 483.0
-offset_right = 859.0
-offset_bottom = 514.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = -94.0
+offset_right = -39.9999
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(2.3871, 2.4809)
 placeholder_text = "Password"
+alignment = 1
 secret = true
 secret_character = "Δ"
 
@@ -63,4 +71,13 @@ script = ExtResource("3_b1fqk")
 [node name="Signaling" parent="." instance=ExtResource("4_utnes")]
 layout_mode = 1
 
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 545.0
+offset_right = 1035.0
+offset_bottom = 576.0
+text = "Show Password"
+
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="CheckBox" to="." method="_on_check_box_pressed"]

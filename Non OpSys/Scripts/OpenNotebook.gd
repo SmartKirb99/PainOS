@@ -44,9 +44,11 @@ func _on_button_press():
 	window.max_size = Vector2i(1600, 900)
 	window.close_requested.connect(func(): window.visible = false; self.disabled = false; self.text = "Notebook"; task.position = Vector2(0,114))
 	viewport.add_child(window)
+	viewport.gui_embed_subwindows = true
 	self.disabled = true
 	self.text = self.text + " - Open"
 	tween.tween_property(task, "position", Vector2(0, 31), 0.5)
+	task.pressed.connect(func(): window.grab_focus())
 	
 ## Gets the window parameters
 func get_window_params():

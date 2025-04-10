@@ -9,19 +9,19 @@ var window: Window
 var viewport: Window
 ## Used to ensure the scene is instantiated
 var window_control: Control
-
+## The button on the taskbar
 @onready var task: Button = $"../../Taskbar/VideoPlayer"
 
 
-# Called when the node enters the scene tree for the first time.
+##Allows the button to open up the video player
 func _ready():
 	self.connect("pressed", Callable(self, "_on_button_press")) # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-## Creates a new window meant for the Video Player Application
+
+## Creates a new window meant for the Video Player Application, and moves the taskbar button up. Also disables video player from being able to be opened when it's open
 func _on_button_press():
 	var tween = task.create_tween()
 	viewport = get_window()
@@ -44,3 +44,4 @@ func _on_button_press():
 	self.disabled = true
 	self.text = self.text + " - Open"
 	tween.tween_property(task, "position", Vector2(408, 31), 0.5)
+	task.pressed.connect(func(): window.grab_focus())

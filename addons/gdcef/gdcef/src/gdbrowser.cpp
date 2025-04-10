@@ -155,6 +155,7 @@ void GDBrowserView::_bind_methods()
                          &GDBrowserView::sendToJS);
 
     // Signals
+
     ADD_SIGNAL(MethodInfo("on_download_updated",
                           PropertyInfo(Variant::STRING, "file"),
                           PropertyInfo(Variant::INT, "percentage"),
