@@ -1,6 +1,7 @@
 # CEF gdscript API
 
 Two main classes:
+
 - The CEF node `GDCef` managing browsers. You only need a single `GDCef` node for your project.
 - The CEF browser nodes `GDBrowserView` displaying web documents (aka webviews). You should not create directly a `GDBrowserView` node manually in the scene graph. Use instead `GDCef.create_browser`. Browser are created as child nodes of the `GDCef` node (but Godot does not show them in the scene graph).
 
@@ -18,9 +19,9 @@ Two main classes:
 | `_process` | `dt`: float | void | Hidden function called automatically by Godot to process CEF internal messages (pump). `dt` is not used. |
 | `create_browser` | `url`: String, `texture_rect`: TextureRect, `settings`: Dictionary | GDBrowserView | Creates a browser tab and stores its instance as child node. `url`: the page link. `texture_rect`: the container holding the texture. `settings`: optional settings applied to newly created browsers. |
 | `get_error` | | String | Gives the reason of the failure of the latest GDCef function. |
-| `get_version` | | String | Returns the full CEF version as string |
+| `get_full_version` | | String | Returns the full CEF version as string |
 | `get_version_part` | `part`: int | int | Returns part of the CEF version as integer |
-| `initialize` | `config`: Dictionary | bool | Replaces Godot _init() and passes optional [CEF configuration](#cef-configuration-initialize). Returns false in case of failure or double initialization, in this case you should halt the execution of your application. |
+| `initialize` | `config`: Dictionary | bool | Replaces Godot _init() and passes optional [CEF configuration](#cef-settings). Returns false in case of failure or double initialization, in this case you should halt the execution of your application. |
 | `is_alive` | | bool | Returns if the `GDCef` is alive. |
 | `shutdown` | | | Releases CEF memory and notifies sub CEF processes that the application is exiting. All browsers are destroyed. `GDCef` becomes inactive |
 
@@ -49,7 +50,7 @@ Since Godot `_init` does not accept arguments, you must use the `initialize` fun
 | log_file | cef_folder_path / "debug.log" | Path for CEF log files. |
 | log_severity | "warning" | Log verbosity level. Options: "verbose", "info", "warning", "error", "fatal". |
 | remote_allow_origin | "*" | Controls which origins can connect for debugging. "*" allows all. |
-| remote_debugging_port | 7777 | Port for Chrome DevTools debugging. Access via http://localhost:7777. |
+| remote_debugging_port | 7777 | Port for Chrome DevTools debugging. Access via [http://localhost:7777](http://localhost:7777). |
 | exception_stack_size | 5 | Size of the exception stack. |
 | locale | "en-US" | Browser language setting. |
 | enable_media_stream | false | Controls access to camera and microphone. |
@@ -88,8 +89,11 @@ Nodes are created by `GDCef.create_browser` and are automatically destroyed when
 | `paste` | | | Paste clipboard content at cursor position. |
 | `previous_page` | | | Navigate to the previous page if possible. |
 | `redo` | | | Redo the last undone edit action. |
+| `register_method` | `callable`: Callable | bool | Register a GDScript method to be callable from JavaScript. Returns true if registration was successful. |
+| `reload` | | bool | Reload the current page. Returns true if reload was initiated. |
 | `request_html_content` | | | Request the current page HTML content. Result will be sent through the `on_html_content_requested` signal. |
 | `resize` | `size`: Vector2 | | Resize the browser viewport to the specified width and height. |
+| `emit_js` | `event_name`: String, `data`: Variant | bool | Send data to JavaScript. Returns true if the data was successfully sent. |
 | `set_download_folder` | `path`: String | | Set the folder where downloaded files will be saved. Accepts absolute paths or Godot paths (`res://`, `user://`). |
 | `set_key_pressed` | `key`: int, `pressed`: bool, `shift`: bool, `alt`: bool, `ctrl`: bool | | Send a keyboard event to the browser. |
 | `set_mouse_left_click` | | | Send a left mouse button click event (down then up). |
@@ -107,8 +111,13 @@ Nodes are created by `GDCef.create_browser` and are automatically destroyed when
 | `set_muted` | `mute`: bool | bool | Set the audio mute state. Returns true if the audio was successfully muted. |
 | `set_viewport` | `x`: float, `y`: float, `width`: float, `height`: float | | Set the viewport rectangle where the web content will be displayed. Values are in percent (0.0-1.0) of the surface dimensions. Default is x=0, y=0, width=1, height=1 (full surface). |
 | `set_zoom_level` | `delta`: float | | Set the browser zoom level. |
+| `set_audio_stream` | `audio`: AudioStreamGeneratorPlayback | | Set the audio stream playback for browser audio. |
+| `get_audio_stream` | | AudioStreamGeneratorPlayback | Get the current audio stream playback. |
 | `stop_loading` | | | Stop loading the current page. |
 | `undo` | | | Undo the last edit action. |
+| `add_ad_block_pattern` | `pattern`: String | bool | Add a custom regex pattern to block ads matching this pattern. Returns true if pattern was successfully added. |
+| `enable_ad_block` | `enable`: bool | void | Enable or disable the ad blocker. When enabled, common ad patterns are blocked by default. |
+| `is_ad_block_enabled` | | bool | Check if the ad blocker is currently enabled. |
 
 ### Browser signals
 
@@ -141,8 +150,12 @@ Browser settings are passed as a GDScript Dictionary to `create_browser`. Here a
 | image_loading | bool | true | Enable or disable image loading |
 | databases | bool | true | Enable or disable web database support |
 | webgl | bool | true | Enable or disable WebGL support |
-
-For more information about available settings, see [cef_types.h](../thirdparty/cef_binary/include/internal/cef_types.h).
+| enable_ad_block | bool | true | Enable or disable the ad blocker |
+| ad_block_patterns | Array[String] | [] | Additional regex patterns for blocking ads. Invalid patterns will be ignored. |
+| allow_downloads | bool | true | Allow the browser for downloading data. |
+| download_folder | string | "user://" | Desired location holding downloaded files. |
+| user_agent | string | "" | Custom user agent string to use for the browser. |
+| user_gesture_required | bool | true | false: Autoplay policy that does not require any user gesture. |
 
 ### CEF version
 
@@ -158,3 +171,80 @@ Part value for extraction CEF version with `get_version_part`:
 | 5 | CHROME_VERSION_MINOR |
 | 6 | CHROME_VERSION_BUILD |
 | 7 | CHROME_VERSION_PATCH |
+
+## JavaScript and GDScript Communication
+
+GDCef provides bidirectional communication between JavaScript executed in the browser and GDScript code in Godot. This communication is essential for creating interactive web interfaces that can exchange data with your game.
+
+### Binding JavaScript to GDScript
+
+Here's how to make your JavaScript code call GDScript functions:
+
+1. **Register a GDScript method** with the browser:
+
+```gdscript
+# In your GDScript code
+func my_function_for_js(data: Variant):
+    print("Data received from JavaScript:", data)
+    # Process data...
+```
+
+Better to register when the page has been loaded:
+
+```gdscript
+func _on_page_loaded(browser):
+    browser.register_method(Callable(self, "my_function_for_js"))
+
+browser.connect("on_page_loaded", _on_page_loaded)
+```
+
+2. **Call the GDScript method from JavaScript**:
+
+```javascript
+// In your JavaScript code
+window.godotMethods.my_function_for_js("Data to send to Godot");
+
+// You can send different data types
+window.godotMethods.my_function_for_js(42);                  // Number
+window.godotMethods.my_function_for_js(true);                // Boolean
+window.godotMethods.my_function_for_js({key: "value"});      // Object
+window.godotMethods.my_function_for_js([1, 2, 3]);           // Array
+```
+
+### Binding GDScript to JavaScript
+
+To make your GDScript code send data to JavaScript:
+
+1. **Set up an event listener in JavaScript**:
+
+```javascript
+// In your JavaScript code
+window.godotEvents.on('event_name', function(data) {
+    console.log('Data received from Godot:', data);
+    // Process data...
+});
+```
+
+2. **Send data from GDScript**:
+
+```gdscript
+# In your GDScript code
+browser.emit_js("event_name", "Data to send to JavaScript")
+
+# You can send different data types
+browser.emit_js("event_name", 42)                   // Number
+browser.emit_js("event_name", true)                 // Boolean
+browser.emit_js("event_name", {"key": "value"})     // Dictionary
+browser.emit_js("event_name", [1, 2, 3])            // Array
+browser.emit_js("event_name", PackedByteArray([...])) # Binary data
+```
+
+CheatSheet Example:
+
+See [this example](../tests/unit-test-js-gdscript/)
+
+### Example of User agent
+
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0"
+
+You can see the value, if you debug CEF (see [the FAQ section](../README.md)) and click on the "Network" menu. You will it in a GET method.

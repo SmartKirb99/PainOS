@@ -133,7 +133,7 @@ private: // Godot interfaces.
 
     // -------------------------------------------------------------------------
     //! \brief Godot reference counting. Beware can conflict with CEF reference
-    //! counting: this is why wehave to implement the sub class Impl.
+    //! counting: this is why we have to implement the sub class Impl.
     // -------------------------------------------------------------------------
     GDCLASS(GDCef, godot::Node);
 
@@ -293,18 +293,36 @@ private:
 
     //! \brief CEF interface implementation
     friend GDCef::Impl;
+
+    //! \brief Extra user settings passed from gdscript to the browser
+    //! instances (passed from gdcef to gdbrowser).
+    struct BrowsersSettings
+    {
+        //! \brief Allow accessing to camera and microphones
+        bool enable_media_stream = false;
+        //! \brief To be usable with cef_settings.remote_debugging_port.
+        std::string remote_allow_origin;
+        //! \brief Enable ad blocker
+        bool enable_ad_block = true;
+        //! \brief Custom patterns for ad blocker
+        godot::Array custom_patterns;
+        //! \brief User gesture required
+        bool user_gesture_required = true;
+        //! \brief User agent
+        std::string user_agent;
+    };
+
     //! \brief CEF interface implementation
     CefRefPtr<GDCef::Impl> m_impl = nullptr;
-    //! \brief
+    //! \brief Window info for the CEF browser instances
     CefWindowInfo m_window_info;
-    //! \brief
+    //! \brief Settings for the CEF browser process
     CefSettings m_cef_settings;
+    //! \brief Settings for the CEF browser instances (information set from
+    //! gdscript).
+    BrowsersSettings m_browsers_settings;
     //! \brief Hold last error messages
     mutable std::stringstream m_error;
-    //! \brief Allow accessing to camera and microphones
-    bool m_enable_media_stream = false;
-    //! \brief To be usable with cef_settings.remote_debugging_port.
-    std::string m_remote_allow_origin;
 };
 
 #if !defined(_WIN32)

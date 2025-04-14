@@ -1,0 +1,5 @@
+gdCEF Version: 0.17.0
+gdCEF Git Branch: unknown
+gdCEF Git SHA1: unknown
+CEF Version: 131.3.1+gcb062df+chromium-131.0.6778.109
+Godot Version: 4.2

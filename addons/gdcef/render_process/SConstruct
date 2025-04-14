@@ -53,22 +53,13 @@ opts.Add(PathVariable('cef_artifacts_folder', 'CEF artifacts folder', '', PathVa
 # Updates the environment with the option variables.
 opts.Update(env)
 
-# Process some arguments.
-# For the reference:
-# - CCFLAGS are compilation flags shared between C and C++
-# - CFLAGS are for C-specific compilation flags
-# - CXXFLAGS are for C++-specific compilation flags
-# - CPPFLAGS are for pre-processor flags
-# - CPPDEFINES are for pre-processor defines
-# - LINKFLAGS are for linking flags
-if env['use_llvm'] or env['platform'] == 'osx':
-    env['CC'] = 'clang'
-    env['CXX'] = 'clang++'
+# X86 or ARM
+archi = env['arch']
 
 # Process platform arguments. Here we use the same names as GDNative.
 platform = env['platform']
-if platform == 'macos':
-    platform = 'osx'
+if platform == 'osx':
+    platform = 'macos'
 elif platform in ('x11', 'linuxbsd'):
     platform = 'linux'
 elif platform == 'bsd':
@@ -77,14 +68,23 @@ if platform == '':
     print('No valid target platform selected.')
     quit()
 
-# X86 or ARM
-archi = env['arch']
+# Process some arguments.
+# For the reference:
+# - CCFLAGS are compilation flags shared between C and C++
+# - CFLAGS are for C-specific compilation flags
+# - CXXFLAGS are for C++-specific compilation flags
+# - CPPFLAGS are for pre-processor flags
+# - CPPDEFINES are for pre-processor defines
+# - LINKFLAGS are for linking flags
+if env['use_llvm'] or platform == 'macos':
+    env['CC'] = 'clang'
+    env['CXX'] = 'clang++'
 
 # Check if Godot exists
 godot_api_path = env['api_path']
 if not os.path.isdir(godot_api_path):
     print('The Godot path ' + godot_api_path + ' is invalid.')
-    quit();
+    quit()
 
 # Compile either in release or debug mode
 compile_mode = env['target']
@@ -100,12 +100,16 @@ cef_compile_mode = compile_mode.capitalize()
 target_path = env['build_path']
 target_binary = 'gdCefRenderProcess'
 sources = ['src/render_process.cpp']
-
-# Platform specific compilation
-if platform == 'osx':
+if platform == 'macos':
     # FIXME sources += ['src/main_macos.mm']
     sys.exit('MacOS is not implemented, currently we are taking the cefsimple example')
+elif platform == 'linux':
+    sources += ['src/main_unix.cpp']
+elif platform == 'windows':
+    sources += ['src/main_windows.cpp']
 
+# Platform specific compilation
+if platform == 'macos':
     env.Append(CXXFLAGS=['--std=c++17'])
     env.Append(LINKFLAGS=['-arch', archi])
     env.Append(CCFLAGS=['-arch', archi])
@@ -120,9 +124,7 @@ if platform == 'osx':
                          '-D__STDC_FORMAT_MACROS'])
 
 elif platform == 'linux':
-    sources += ['src/main_unix.cpp']
-    # C++20 may not available on all Linux distros
-    env.Append(CXXFLAGS=['--std=c++17'])
+    # C++20 may not available on all Linux distributions
     env.Append(CXXFLAGS=['--std=c++17'])
     if compile_mode == 'debug':
         env.Append(CCFLAGS=['-g3', '-Og'])
@@ -133,23 +135,15 @@ elif platform == 'linux':
     env.Append(CCFLAGS=['-fPIC'])
     env.Append(CXXFLAGS=['-DCEF_USE_SANDBOX', '-D_FILE_OFFSET_BITS=64',
                          '-D__STDC_CONSTANT_MACROS', '-D__STDC_FORMAT_MACROS'])
-    # Add compilation flags
-    env.Append(CCFLAGS=['-Wall', '-Wextra'])
-
-    # Remove some important compilation flags because of external libs
-    # does not compile with correct flags
-    env.Append(CCFLAGS=['-Wno-unused-parameter', '-Wno-parentheses'])
 
 elif platform == 'windows':
-    sources += ['src/main_windows.cpp']
+    # C++17 seems buggy on Windows and std::filesystem
+    env.Append(CXXFLAGS='/std:c++20')
     # This makes sure to keep the session environment variables on windows,
     # that way you can run scons in a vs 2017 prompt and it will find all the required tools
     env.Append(ENV=os.environ)
-
     env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
     env.Append(CCFLAGS=['/W3', '/GR'])
-    # C++17 seems buggy on Windows and std::filessytem
-    env.Append(CXXFLAGS='/std:c++20')
     if compile_mode == 'debug':
         env.Append(CPPDEFINES=['_DEBUG', '_ITERATOR_DEBUG_LEVEL=0'])
         env.Append(CCFLAGS=['/EHsc', '/MDd', '/ZI'])
@@ -159,7 +153,7 @@ elif platform == 'windows':
         env.Append(CCFLAGS=['/O2', '/EHsc', '/MD'])
 
 # Unix compilation flags
-if platform == 'linux' or platform == 'osx':
+if platform == 'linux' or platform == 'macos':
     # gcc/clang compilation flags
     env.Append(CXXFLAGS=['-Wall', '-Wextra', '-Wuninitialized', '-Wundef',
                          '-Wunused', '-Wunused-result', '-Wunused-parameter',
@@ -182,39 +176,23 @@ if platform == 'linux' or platform == 'osx':
                              '-Werror=implicit-function-declaration',
                              '-Wtautological-compare'])
 
-# Pathes of Godot header files
-env.Append(CPPPATH=['.',
-                    godot_api_path + '/godot-headers',
-                    godot_api_path + '/include',
-                    godot_api_path + '/include/core',
-                    godot_api_path + '/include/gen'])
-
 # Godot library that is linked against our library
 libgodot = 'libgodot-cpp.' + platform + '.template_' + compile_mode + '.' + archi
 env.Append(LIBS=[libgodot], LIBPATH=[godot_api_path + '/bin'])
 
-# Pathes of CEF header files
+# Paths of CEF header files
 cef_folder = '../thirdparty/cef_binary'
-cef_include_folder = cef_folder + '/include'
-env.Append(CPPPATH = [cef_folder,
-                      cef_include_folder,
-                      cef_include_folder + '/base',
-                      cef_include_folder + '/base/internal',
-                      cef_include_folder + '/capi',
-                      cef_include_folder + '/capi/views',
-                      cef_include_folder + '/internal',
-                      cef_include_folder + '/views',
-                      cef_include_folder + '/wrapper'])
+env.Append(CPPPATH = [cef_folder, cef_folder + '/include'])
 
 # CEF libraries that are linked against our application
-libcef = 'libcef' if platform != 'osx' else 'libcef_sandbox'
+libcef = 'libcef' if platform != 'macos' else 'libcef_sandbox'
 env.Append(LIBS = [libcef, 'libcef_dll_wrapper'],
            LIBPATH = [cef_folder + '/' + cef_compile_mode,
                       cef_folder + '/build',
                       cef_folder + '/build/libcef_dll_wrapper',
                       cef_folder + '/libcef_dll_wrapper/' + cef_compile_mode])
 
-# Pathes header files of our module
+# Paths header files of our module
 env.Append(CPPPATH=['src/'])
 
 # Add artifacts folder to (embedded into output binary file) list of paths to search for shared libraries

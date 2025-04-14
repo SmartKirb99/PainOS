@@ -69,6 +69,8 @@
 #include <chrono>
 #include <iostream>
 
+#include "ad_blocker.hpp"
+
 // ****************************************************************************
 //! \brief Class wrapping the CefBrowser class and export methods for Godot
 //! script. This class is instantiate by GDCef.
@@ -118,7 +120,9 @@ private: // CEF interfaces
                 public CefLoadHandler,
                 public CefAudioHandler,
                 public CefLifeSpanHandler,
-                public CefDownloadHandler
+                public CefDownloadHandler,
+                public CefRequestHandler,
+                public CefResourceRequestHandler
     {
     public:
 
@@ -127,7 +131,11 @@ private: // CEF interfaces
         // ---------------------------------------------------------------------
         //! \brief Pass the owner instance.
         // ---------------------------------------------------------------------
-        Impl(GDBrowserView& view) : m_owner(view) {}
+        Impl(GDBrowserView& view) : m_owner(view)
+        {
+            m_ad_blocker = new AdBlocker();
+            assert((m_ad_blocker != nullptr) && "Failed allocating AdBlocker");
+        }
 
         // ---------------------------------------------------------------------
         //! \brief Destructor
@@ -185,6 +193,14 @@ private: // CEF interfaces
         //! \brief Return the handler for download events.
         // ---------------------------------------------------------------------
         virtual CefRefPtr<CefDownloadHandler> GetDownloadHandler() override
+        {
+            return this;
+        }
+
+        // ---------------------------------------------------------------------
+        //! \brief Return the handler for request filtering.
+        // ---------------------------------------------------------------------
+        virtual CefRefPtr<CefRequestHandler> GetRequestHandler() override
         {
             return this;
         }
@@ -254,13 +270,6 @@ private: // CEF interfaces
             m_owner.onLoadEnd(browser, frame, httpStatusCode);
         }
 
-        virtual void OnLoadEnd1(CefRefPtr<CefBrowser> browser,
-                               CefRefPtr<CefFrame> frame,
-                               int httpStatusCode) override
-        {
-            m_owner.onLoadEnd1(browser, frame, httpStatusCode);
-        }
-
         // ---------------------------------------------------------------------
         //! \brief Called when a navigation fails or is canceled. This method
         //! may be called by itself if before commit or in combination with
@@ -307,19 +316,20 @@ private: // CEF interfaces
 
     private: // CefLifeSpanHandler interfaces
 
-        virtual bool OnBeforePopup(CefRefPtr<CefBrowser> browser,
-                                   CefRefPtr<CefFrame> frame,
-                                   int popup_id,
-                                   const CefString& target_url,
-                                   const CefString& target_frame_name,
-                                   WindowOpenDisposition target_disposition,
-                                   bool user_gesture,
-                                   const CefPopupFeatures& popupFeatures,
-                                   CefWindowInfo& windowInfo,
-                                   CefRefPtr<CefClient>& client,
-                                   CefBrowserSettings& settings,
-                                   CefRefPtr<CefDictionaryValue>& extra_info,
-                                   bool* no_javascript_access) override
+        virtual bool OnBeforePopup(
+            CefRefPtr<CefBrowser> browser,
+            CefRefPtr<CefFrame> frame,
+            int popup_id,
+            const CefString& target_url,
+            const CefString& target_frame_name,
+            CefLifeSpanHandler::WindowOpenDisposition target_disposition,
+            bool user_gesture,
+            const CefPopupFeatures& popupFeatures,
+            CefWindowInfo& windowInfo,
+            CefRefPtr<CefClient>& client,
+            CefBrowserSettings& settings,
+            CefRefPtr<CefDictionaryValue>& extra_info,
+            bool* no_javascript_access) override
         {
             return m_owner.onBeforePopup(browser, target_url);
         }
@@ -351,9 +361,34 @@ private: // CEF interfaces
             m_owner.onDownloadUpdated(browser, download_item, callback);
         }
 
+    private: // CefRequestContextHandler interfaces
+
+        virtual CefResourceRequestHandler::ReturnValue
+        OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,
+                             CefRefPtr<CefFrame> frame,
+                             CefRefPtr<CefRequest> request,
+                             CefRefPtr<CefCallback> callback) override
+        {
+            return m_ad_blocker->OnBeforeResourceLoad(
+                browser, frame, request, callback);
+        }
+
+        virtual CefRefPtr<CefResourceRequestHandler>
+        GetResourceRequestHandler(CefRefPtr<CefBrowser> browser,
+                                  CefRefPtr<CefFrame> frame,
+                                  CefRefPtr<CefRequest> request,
+                                  bool is_navigation,
+                                  bool is_download,
+                                  const CefString& request_initiator,
+                                  bool& disable_default_handling) override
+        {
+            return m_ad_blocker;
+        }
+
     private:
 
         GDBrowserView& m_owner;
+        CefRefPtr<AdBlocker> m_ad_blocker;
         RoutingAudio m_audio;
     };
 
@@ -691,10 +726,10 @@ public:
     // -------------------------------------------------------------------------
     //! \brief Register a GDScript method in the JavaScript context.
     //! The registered GDScript method can be called from JavaScript using:
-    //!     window.godot.methodName(args)
+    //!     window.godotMethods.methodName(args)
     //!
-    //! \param[in] callable the GDScript method to register. The callable must
-    //! be  a valid GDScript method that can receive string parameters.
+    //! \param[in] object The object to register the method from.
+    //! \param[in] method_name The name of the method to register.
     //!
     //! \return true if the method has been successfully registered, false
     //! otherwise.
@@ -707,32 +742,51 @@ public:
     //!     func my_method(data: String) -> void:
     //!         print("Received from JS: ", data)
     //!
-    //!     browser.register_method(Callable(self, "my_method"))
+    //!     browser.register_method(self, "my_method")
     //!
     //! Example in JavaScript:
-    //!     window.godot.my_method("Hello from JS!");
+    //!     window.godotMethods.my_method("Hello from JS!");
     //!
     // -------------------------------------------------------------------------
-    bool registerGodotMethod(const godot::Callable& callable);
+    bool registerGodotMethod(godot::Object* object, godot::String method_name);
 
     // -------------------------------------------------------------------------
     //! \brief Send a message to the JavaScript side.
     //! The message will be received in JavaScript as a JSON object.
     //!
-    //! \param[in] eventName Name of the event to trigger in JavaScript.
+    //! \param[in] event_name Name of the event to trigger in JavaScript.
     //! \param[in] data Godot::Variant to send.
     //! \return true if the message has been sent, false otherwise.
     //!
     //! Example in GDScript:
-    //!     browser.sendToJS("myEvent", {"key": "value"})
+    //!     browser.js_emit("myEvent", {"key": "value"})
     //!
     //! Example in JavaScript:
-    //!     window.addEventListener("myEvent", function(event) {
+    //!     window.godotEvents.on("myEvent", function(event) {
     //!         const data = JSON.parse(event.data);
     //!         console.log(data.key); // outputs: "value"
     //!     });
     // -------------------------------------------------------------------------
-    bool sendToJS(godot::String eventName, const godot::Variant& data);
+    bool jsEmit(godot::String event_name, const godot::Variant& data);
+
+    // -------------------------------------------------------------------------
+    //! \brief Add a custom pattern to the ad blocker
+    //! \param[in] pattern Regex pattern to match URLs to block
+    //! \return true if pattern was successfully added
+    // -------------------------------------------------------------------------
+    bool addAdBlockPattern(godot::String pattern);
+
+    // -------------------------------------------------------------------------
+    //! \brief Enable or disable ad blocking
+    //! \param[in] enable True to enable ad blocking, false to disable
+    // -------------------------------------------------------------------------
+    void enableAdBlock(bool enable);
+
+    // -------------------------------------------------------------------------
+    //! \brief Check if ad blocking is enabled
+    //! \return True if ad blocking is enabled
+    // -------------------------------------------------------------------------
+    bool isAdBlockEnabled() const;
 
 private:
 
@@ -766,10 +820,6 @@ private:
     //! \brief Called by GDBrowserView::Impl::OnLoadEnd
     // -------------------------------------------------------------------------
     void onLoadEnd(CefRefPtr<CefBrowser> browser,
-                   CefRefPtr<CefFrame> frame,
-                   int httpStatusCode);
-
-    void onLoadEnd1(CefRefPtr<CefBrowser> browser,
                    CefRefPtr<CefFrame> frame,
                    int httpStatusCode);
 
@@ -840,12 +890,34 @@ private:
                            CefRefPtr<CefDownloadItemCallback> callback);
 
     // -------------------------------------------------------------------------
-    //! \brief Called when a message is received from a different process.
+    //! \brief Called when an IPC message is received from the render process.
+    //! Execute the requested Godot method.
     // -------------------------------------------------------------------------
     bool onProcessMessageReceived(CefRefPtr<CefBrowser> browser,
                                   CefRefPtr<CefFrame> frame,
                                   CefProcessId source_process,
                                   CefRefPtr<CefProcessMessage> message);
+
+    // -------------------------------------------------------------------------
+    //! \brief Recursively convert JSON data to Godot Variant types
+    //! \param[in] json JSON value to convert
+    //! \return Converted Godot Variant
+    // -------------------------------------------------------------------------
+    godot::Variant JsonToGodot(const godot::Dictionary& json);
+
+    // -------------------------------------------------------------------------
+    //! \brief Recursively convert JSON array to Godot Variant types
+    //! \param[in] json_array JSON array to convert
+    //! \return Converted Godot Array
+    // -------------------------------------------------------------------------
+    godot::Variant JsonToGodot(const godot::Array& json_array);
+
+    // -------------------------------------------------------------------------
+    //! \brief Generic converter for any JSON value to Godot Variant types
+    //! \param[in] json_value JSON value to convert
+    //! \return Converted Godot Variant
+    // -------------------------------------------------------------------------
+    godot::Variant JsonToGodot(const godot::Variant& json_value);
 
 private:
 
@@ -897,7 +969,7 @@ private:
     //! \brief Download folder (configured from Browser config)
     fs::path m_download_folder;
 
-    //! \brief
+    //! \brief JS bindings
     std::unordered_map<std::string, godot::Callable> m_js_bindings;
 };
 

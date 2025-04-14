@@ -4,7 +4,7 @@ This repository contains the source code of some C++ classes wrapping a subset
 of the [Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef/wiki/Home)
 API into a Godot 4.3 GDExtension which allows you to implement a web
 browser for your 2D and 3D games through your gdscripts for Linux, Windows
-and MacOS. We have named this CEF GDExtension `gdcef`.
+and MacOS. We have named this CEF GDExtension `gdCEF`.
 
 This document supposes you want to compile gdCEF module for Godot 4.2+ for Linux, Windows and MacOS. Otherwise, you can find prebuilt artifacts at https://github.com/Lecrapouille/gdcef/releases.
 
@@ -21,6 +21,7 @@ Install the following tools: `scons, g++, ninja, cmake, git, python3` (version 3
 - For Linux, depending on your distribution you can use `sudo apt-get install`.
 - For macOS X you can install [homebrew](https://brew.sh/).
 - For Windows users you will have to install:
+-
   - Visual Studio: https://visualstudio.microsoft.com/en/vs/ (mandatory). Do not forget to install Windows SDK (i.e. 10.0.20348.0) in Visual Studio.
   - Python3: https://www.python.org/downloads/windows/
   - CMake: https://cmake.org/download/
@@ -34,6 +35,7 @@ Please check your PATH variables for Python3, CMake, Ninja, Scons and Git are se
 ![PATH](pics/windows_path.png)
 
 To compile GDCef for Windows:
+
 - Make sure VS2022 is installed.
 - Open an **x64 Native Tools Command Prompt for VS 2022** with **Administrator** privileges (this should be available in the start menu under Visual Studio 2022). This ensures the environment is properly set up to use the VS tools (for example we use aliases which are disabled in the standard command prompt).
 
@@ -43,11 +45,20 @@ To compile GDCef for Windows:
 
 Our [build.py](../build.py) script is written in **Python3** to be compatible with all operating systems (Linux, macOS X, Windows). Please do not use Python 2. Install the required Python packages with pip by typing the following command in a terminal:
 
-```
+```bash
 python3 -m pip install -r requirements.txt
 ```
 
 You can also use the virtual environment `venv` to install the required packages.
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r addons/gdcef/requirements.txt
+
+cd addons/gdcef
+python3 build.py
+```
 
 ## Compilation for Linux, Windows and MacOS
 
@@ -55,7 +66,7 @@ You can also use the virtual environment `venv` to install the required packages
 
 For GDCEF versions prior to 0.10.0, after compilation, the system cannot find the shared libraries `libcef.so` (CEF), `libgdcef.so` (Godot native) and other libraries (`libvulkan.so` ...) as artifacts, even when specified in the .gdnlib file. As a temporary solution, you need to add the build path to your `LD_LIBRARY_PATH` (for example in your `~/.bashrc` file):
 
-```
+```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/your/path/gdcef/examples/build
 ```
 
@@ -75,18 +86,20 @@ This module is not compatible with Godot 4.0 and 4.1. Please use Godot 4.2 or hi
 
 The [build.py](../build.py) script does not require command-line arguments. It automatically handles all aspects of the build process (detecting your operating system, CPU cores, etc.). By default, it uses predefined versions for Godot and CEF, builds in release mode, and enables OpenMP for parallel processing. You can customize these settings by modifying the variables at the beginning of the script.
 
-```
+```bash
 cd addons/gdcef
 ./build.py
 ```
 
 Alternative methods:
-```
+
+````bash
 cd addons/gdcef
 python3 build.py
 ```
 
 Please be patient! The script performs several time-consuming tasks:
+
 - Downloads CEF (~600 MB) from https://cef-builds.spotifycdn.com/index.html, extracts it to `../thirdparty/cef_binary`, compiles it.
 - Clones and compiles [godot-cpp](https://github.com/godotengine/godot-cpp) into `../thirdparty/godot-4.2`
 - Compiles the [primary CEF process](../gdcef/).
@@ -117,7 +130,7 @@ If you want to change the Godot version (4.2 or 4.3), you can do it by modifying
 
 You can change the default folder name! Look for the line `CEF_ARTIFACTS_FOLDER = "cef_artifacts"` in the [build.py](../build.py) script and modify it. Then rerun `build.py`. This method will set the default path for Godot. Alternatively, you can specify the path in your GDScript code (see the API documentation for more details):
 
-```
+``````bash
 $CEF.initialize({"artifacts": "res://cef_artifacts/", ... })
 ```
 
@@ -125,16 +138,17 @@ $CEF.initialize({"artifacts": "res://cef_artifacts/", ... })
 
 If you prefer not to compile GDCEF, there is an option in the [build.py](../build.py) script. Modify this line:
 
-```
+``````bash
 GITHUB_GDCEF_RELEASE = None
 ```
 
 Visit https://github.com/Lecrapouille/gdcef/releases to find your desired version (omit the 'v' prefix and Godot version). For example:
 
-```
+``````bash
 GITHUB_GDCEF_RELEASE = "0.12.0"
 ```
 
 Limitations:
+
 - You cannot choose the Godot version
 - You cannot choose the CEF version

@@ -23,9 +23,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Panel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 
 [node name="HBox" type="HBoxContainer" parent="Panel/VBox"]
@@ -34,11 +37,15 @@ layout_mode = 2
 [node name="New" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "New empty document"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "New"
 
 [node name="Home" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "Go to home page"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Home"
 
 [node name="URL" type="Label" parent="Panel/VBox/HBox"]
@@ -54,21 +61,29 @@ tooltip_text = "Type your desired URl and then click on the go button"
 [node name="Go" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "Load a page given its URL"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Go"
 
 [node name="Refresh" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "Reload the page"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Refresh"
 
 [node name="Prev" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "Go to previous page"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "<"
 
 [node name="Next" type="Button" parent="Panel/VBox/HBox"]
 layout_mode = 2
 tooltip_text = "Go to next page"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = ">"
 
 [node name="TabBar" type="Label" parent="Panel/VBox/HBox"]
@@ -85,7 +100,7 @@ tooltip_text = "Select opened pages"
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 0
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 3
 
 [node name="HBox2" type="HBoxContainer" parent="Panel/VBox"]
@@ -94,11 +109,15 @@ layout_mode = 2
 [node name="BGColor" type="Button" parent="Panel/VBox/HBox2"]
 layout_mode = 2
 tooltip_text = "Inject java script changing the body color of the html page"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Body color"
 
 [node name="Radio" type="Button" parent="Panel/VBox/HBox2"]
 layout_mode = 2
 tooltip_text = "Load a page with sound"
+shortcut_feedback = false
+shortcut_in_tooltip = false
 text = "Radio"
 
 [node name="RoutingAudio" type="CheckBox" parent="Panel/VBox/HBox2"]
@@ -109,6 +128,12 @@ text = " Audio routing"
 [node name="Mute" type="CheckBox" parent="Panel/VBox/HBox2"]
 layout_mode = 2
 text = "Mute sound"
+
+[node name="AddBlocker" type="CheckBox" parent="Panel/VBox/HBox2"]
+layout_mode = 2
+tooltip_text = "Block or allows adds"
+button_pressed = true
+text = "Adds blocker"
 
 [node name="Info2" type="Label" parent="Panel/VBox/HBox2"]
 layout_mode = 2
@@ -141,8 +166,8 @@ presets_visible = false
 [connection signal="pressed" from="Panel/VBox/HBox/Go" to="." method="_on_go_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Prev" to="." method="_on_Prev_pressed"]
-[connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Next_pressed"]
+[connection signal="pressed" from="Panel/VBox/HBox/Next" to="." method="_on_Prev_pressed"]
 [connection signal="item_selected" from="Panel/VBox/HBox/BrowserList" to="." method="_on_BrowserList_item_selected"]
 [connection signal="gui_input" from="Panel/VBox/TextureRect" to="." method="_on_TextureRect_gui_input"]
 [connection signal="resized" from="Panel/VBox/TextureRect" to="." method="_on_texture_rect_resized"]
@@ -150,4 +175,5 @@ presets_visible = false
 [connection signal="pressed" from="Panel/VBox/HBox2/Radio" to="." method="_on_radio_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox2/RoutingAudio" to="." method="_on_routing_audio_pressed"]
 [connection signal="pressed" from="Panel/VBox/HBox2/Mute" to="." method="_on_mute_pressed"]
+[connection signal="pressed" from="Panel/VBox/HBox2/AddBlocker" to="." method="_on_add_blocker_pressed"]
 [connection signal="color_changed" from="ColorPopup/ColorPicker" to="." method="_on_ColorPicker_color_changed"]

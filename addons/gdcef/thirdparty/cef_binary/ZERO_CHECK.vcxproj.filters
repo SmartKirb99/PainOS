@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ra0002\Documents\GitHub\Godot Games\PainOS\addons\gdcef\thirdparty\cef_binary\CMakeFiles\fff4fee3330e9012dba1e59ccc345d34\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{814DDB10-79AD-3EA5-A6A3-3CB4B8B35AF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

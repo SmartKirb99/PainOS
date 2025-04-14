@@ -73,10 +73,10 @@ func _on_page_loaded(browser):
 # ==============================================================================
 func _on_page_failed_loading(err_code, err_msg, browser):
 	var html = "<html><body bgcolor=\"white\">" \
-		+ "<h2>Failed to load URL " + browser.get_url() + "!</h2>" \
-		+ "<p>Error code: " + str(err_code) + "</p>" \
-		+ "<p>Error message: " + err_msg + "!</p>" \
-		+ "</body></html>"
+		+"<h2>Failed to load URL " + browser.get_url() + "!</h2>" \
+		+"<p>Error code: " + str(err_code) + "</p>" \
+		+"<p>Error message: " + err_msg + "!</p>" \
+		+"</body></html>"
 	browser.load_data_uri(html, "text/html")
 	pass
 
@@ -88,17 +88,25 @@ func create_browser(url):
 	await get_tree().process_frame
 
 	# See API.md for more details. Possible browser configuration is:
-	#   {"frame_rate": 30}
-	#   {"javascript": true}
-	#   {"javascript_close_windows": false}
-	#   {"javascript_access_clipboard": false}
-	#   {"javascript_dom_paste": false}
-	#   {"image_loading": true}
-	#   {"databases": true}
-	#   {"webgl": true}
-	#   {"allow_downloads": false}
-	#   {"download_folder": "res://"}
-	var browser = $CEF.create_browser(url, $Panel/VBox/TextureRect, {"javascript": true})
+	# {
+	#   "frame_rate": 30,
+	#   "javascript": true,
+	#   "javascript_close_windows": false,
+	#   "javascript_access_clipboard": false,
+	#   "javascript_dom_paste": false,
+	#   "image_loading": true,
+	#   "databases": true,
+	#   "webgl": true,
+	#   "allow_downloads": false,
+	#   "download_folder": "res://",
+	#   "user_gesture_required": true,
+	# }
+	var browser = $CEF.create_browser(url, $Panel/VBox/TextureRect,
+		{
+			"javascript": true,
+			"webgl": true,
+			"user_gesture_required": true
+		})
 	if browser == null:
 		$Panel/VBox/HBox2/Info.set_text($CEF.get_error())
 		return null
@@ -233,6 +241,15 @@ func _on_mute_pressed():
 	$AudioStreamPlayer2D.stream_paused = $Panel/VBox/HBox2/Mute.button_pressed
 	pass
 
+# ==============================================================================
+# Block/Unblock adds
+# ==============================================================================
+func _on_add_blocker_pressed() -> void:
+	if current_browser == null:
+		return
+	current_browser.enable_ad_block($Panel/VBox/HBox2/AddBlocker.button_pressed)
+	pass
+
 ####
 #### CEF inputs
 ####
@@ -324,20 +341,24 @@ func _ready():
 	create_default_page()
 
 	# See API.md for more details. CEF Configuration is:
-	#   resource_path := {"artifacts", CEF_ARTIFACTS_FOLDER}
-	#   resource_path := {"exported_artifacts", application_real_path()}
-	#   {"incognito": false}
-	#   {"cache_path": resource_path / "cache"}
-	#   {"root_cache_path": resource_path / "cache"}
-	#   {"browser_subprocess_path": resource_path / SUBPROCESS_NAME }
-	#   {"log_file": resource_path / "debug.log"}
-	#   {log_severity": "warning"}
-	#   {"remote_debugging_port": 7777}
-	#   {"remote_allow_origin": "*"}
-	#   {"exception_stack_size": 5}
-	#   {"enable_media_stream": false}
+	# {
+	#   "incognito": false,
+	#   "cache_path": resource_path / "cache",
+	#   "root_cache_path": resource_path / "cache",
+	#   "browser_subprocess_path": resource_path / SUBPROCESS_NAME,
+	#   "log_file": resource_path / "debug.log",
+	#   "log_severity": "warning",
+	#   "remote_debugging_port": 7777,
+	#   "remote_allow_origin": "*",
+	#   "exception_stack_size": 5,
+	#   "enable_media_stream": false,
+	#   "user_gesture_required": true,
+	#   "allow_downloads": false,
+	#   "download_folder": "res://",
+	#   "user_agent": "",
+	# }
 	#
-	# Configurate CEF. In incognito mode cache directories not used and in-memory
+	# Configure CEF. In incognito mode cache directories not used and in-memory
 	# caches are used instead and no data is persisted to disk.
 	#
 	# artifacts: allows path such as "build" or "res://cef_artifacts/". Note that "res://"

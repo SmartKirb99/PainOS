@@ -26,7 +26,6 @@
 //------------------------------------------------------------------------------
 #include "gdcef.hpp"
 #include "gdbrowser.hpp"
-#include "godot_js_binder.hpp"
 #include "helper_config.hpp"
 #include "helper_files.hpp"
 
@@ -177,7 +176,7 @@ bool GDCef::initialize(godot::Dictionary config)
         GDCEF_DEBUG("OpenMP number of threads = " << omp_get_num_threads());
     }
 #else
-    GDCEF_ERROR("OpenMP is not enabled");
+    GDCEF_DEBUG("OpenMP is not enabled");
 #endif
 
     if (m_impl != nullptr)
@@ -238,9 +237,18 @@ bool GDCef::initialize(godot::Dictionary config)
     // Since we cannot configure CEF from the command line main(argc, argv)
     // because we cannot access to it, we have to configure CEF directly.
     configureCEF(cef_folder_path, m_cef_settings, m_window_info, config);
-    m_enable_media_stream = getConfig(config, "enable_media_stream", false);
-    m_remote_allow_origin =
+    m_browsers_settings.enable_media_stream =
+        getConfig(config, "enable_media_stream", false);
+    m_browsers_settings.remote_allow_origin =
         getConfig(config, "remote_allow_origin", std::string{});
+    m_browsers_settings.enable_ad_block =
+        getConfig(config, "enable_ad_block", true);
+    m_browsers_settings.custom_patterns =
+        getConfig(config, "ad_block_patterns", godot::Array());
+    m_browsers_settings.user_gesture_required =
+        getConfig(config, "user_gesture_required", true);
+    m_browsers_settings.user_agent =
+        getConfig(config, "user_agent", std::string{});
 
     // This function should be called on the main application thread to
     // initialize the CEF browser process. A return value of true indicates
@@ -596,7 +604,18 @@ GDBrowserView* GDCef::createBrowser(godot::String const& url,
     // Allow browser to download files
     browser->allowDownloads(getConfig(config, "allow_downloads", true));
     browser->setDownloadFolder(
-        getConfig(config, "download_folder", godot::String("user://U/Downloads")));
+        getConfig(config, "download_folder", godot::String("user://")));
+
+    // Configure ad blocker from browser settings
+    browser->enableAdBlock(m_browsers_settings.enable_ad_block);
+    if (m_browsers_settings.enable_ad_block)
+    {
+        for (int i = 0; i < m_browsers_settings.custom_patterns.size(); i++)
+        {
+            godot::String pattern = m_browsers_settings.custom_patterns[i];
+            browser->addAdBlockPattern(pattern.utf8().get_data());
+        }
+    }
 
     // Update the dimension of the page to the texture size
     browser->resize(texture_rect->get_size());
@@ -707,9 +726,11 @@ void GDCef::Impl::OnBeforeCommandLineProcessing(
     if (command_line == nullptr)
         return;
 
+    auto& settings = m_owner.m_browsers_settings;
+
     // Allow accessing to the camera and microphones.
     // See https://github.com/Lecrapouille/gdcef/issues/49
-    if (m_owner.m_enable_media_stream)
+    if (settings.enable_media_stream)
     {
         GDCEF_DEBUG("Allow enable-media-stream");
         command_line->AppendSwitch("enable-media-stream");
@@ -717,16 +738,36 @@ void GDCef::Impl::OnBeforeCommandLineProcessing(
 
     // To be usable with cef_settings.remote_debugging_port.
     // Set to "*".
-    if (!m_owner.m_remote_allow_origin.empty())
+    if (!settings.remote_allow_origin.empty())
     {
         command_line->AppendSwitch("allow-cef-debugger");
         command_line->AppendSwitchWithValue(
-            "remote-allow-origins", m_owner.m_remote_allow_origin.c_str());
+            "remote-allow-origins", settings.remote_allow_origin.c_str());
     }
 
     // https://magpcss.org/ceforum/viewtopic.php?f=17&t=18970
     command_line->AppendSwitchWithValue("use-angle", "swiftshader");
     command_line->AppendSwitchWithValue("use-gl", "angle");
+
+    // https://github.com/Lecrapouille/gdcef/issues/79
+    if (settings.user_gesture_required)
+    {
+        command_line->AppendSwitchWithValue("autoplay-policy",
+                                            "user-gesture-required");
+    }
+    else
+    {
+        command_line->AppendSwitchWithValue("autoplay-policy",
+                                            "no-user-gesture-required");
+    }
+
+    // Set the user agent
+    // https://github.com/Lecrapouille/gdcef/issues/75
+    if (!settings.user_agent.empty())
+    {
+        command_line->AppendSwitchWithValue("user-agent",
+                                            settings.user_agent.c_str());
+    }
 
     // TBD: Do we have to allow gdscript to give command line ?
     // https://peter.sh/experiments/chromium-command-line-switches/

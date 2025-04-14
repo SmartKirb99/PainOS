@@ -84,33 +84,35 @@ It is mandatory to for offscreen rendering (avoiding native window creation). Th
 
 ### JavaScript/Godot Communication
 
-The module implements bidirectional communication between JavaScript and Godot through an IPC (Inter-Process Communication) system:
+The module implements bidirectional communication between JavaScript and Godot script methods through an IPC (Inter-Process Communication) system between the main process and the render process:
 
 ![JS Communication Sequence](architecture/sequence_js_communication.png)
 
-#### Godot to JavaScript
+#### Godot calls JavaScript
 
-When Godot needs to send data to JavaScript:
-1. GDScript calls `send_to_js(event_name, data)`.
-2. The Main Process sends an IPC message to the Render Process.
-3. The Render Process executes JavaScript code that emits an event.
-4. JavaScript callbacks registered with `godotEventSystem.on()` receive the data.
+When Godot wants to call a JS function `event_name` with `data` as parameters:
 
-#### JavaScript to Godot
+1. JS register events with `window.godotEvents.on(event_name, function)`.
+2. GDScript calls `browser.emit_js(event_name, data)`.
+3. The Main Process sends an IPC message to the Render Process. Godot Variants are serialized to JSON format in the message.
+4. The Render Process executes JavaScript code that emits an event.
+5. JavaScript callbacks registered with `godotEvents.on()` receive the data through `godotEvents.emit()`.
+
+#### JavaScript calls GDScript methods
 
 When JavaScript needs to call Godot methods:
+
 1. JavaScript calls methods through the `window.godot` proxy.
-2. The Render Process converts JavaScript arguments to CEF types.
+2. The Render Process converts JavaScript arguments to JSON format.
 3. An IPC message is sent to the Main Process.
-4. The Main Process executes the corresponding GDScript callable.
+4. The Main Process parse the JSON format, create Variants and executes the corresponding GDScript callable with these variants.
 
 ### Event System
 
 The module injects a JavaScript event system into web pages:
-- `window.godotEventSystem.on(event_name, callback)`: Register event listeners.
-- `window.godot.methodName()`: Call Godot methods directly.
 
-Example usage:
+- `window.godotEvents.on(event_name, callback)`: Register event `event_name` to the listener system which will call the `callback` when the `window.godotEvents.emit(event_name)` will be called.
+- `window.godotMethods.method_name()`: Call Godot methods `method_name`directly.
 
 ## Class Relationships
 

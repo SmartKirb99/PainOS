@@ -24,9 +24,9 @@
 //*****************************************************************************
 
 #include "gdbrowser.hpp"
-#include "godot_js_binder.hpp"
 #include "helper_config.hpp"
 #include "helper_files.hpp"
+#include <godot_cpp/classes/json.hpp>
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
@@ -35,6 +35,10 @@
 
 #ifdef _OPENMP
 #    include <omp.h>
+#    define OPENMP_PARALLEL_FOR #pragma omp parallel for
+#    define PARALLEL_FOR OPENMP_PARALLEL_FOR for
+#else
+#    define PARALLEL_FOR for
 #endif
 
 //------------------------------------------------------------------------------
@@ -104,8 +108,6 @@ void GDBrowserView::_bind_methods()
     ClassDB::bind_method(D_METHOD("redo"), &GDBrowserView::redo);
     ClassDB::bind_method(D_METHOD("request_html_content"),
                          &GDBrowserView::requestHtmlContent);
-    ClassDB::bind_method(D_METHOD("execute_javascript"),
-                         &GDBrowserView::executeJavaScript);
     ClassDB::bind_method(D_METHOD("has_previous_page"),
                          &GDBrowserView::canNavigateBackward);
     ClassDB::bind_method(D_METHOD("has_next_page"),
@@ -149,21 +151,26 @@ void GDBrowserView::_bind_methods()
                          &GDBrowserView::getAudioStreamer);
     ClassDB::bind_method(D_METHOD("get_pixel_color", "x", "y"),
                          &GDBrowserView::getPixelColor);
-    ClassDB::bind_method(D_METHOD("register_method"),
+    ClassDB::bind_method(D_METHOD("register_method", "object", "method"),
                          &GDBrowserView::registerGodotMethod);
-    ClassDB::bind_method(D_METHOD("send_to_js", "event_name", "data"),
-                         &GDBrowserView::sendToJS);
+    ClassDB::bind_method(D_METHOD("js_emit", "event_name", "data"),
+                         &GDBrowserView::jsEmit);
+    ClassDB::bind_method(D_METHOD("execute_javascript"),
+                         &GDBrowserView::executeJavaScript);
+    ClassDB::bind_method(D_METHOD("add_ad_block_pattern", "pattern"),
+                         &GDBrowserView::addAdBlockPattern);
+    ClassDB::bind_method(D_METHOD("enable_ad_block", "enable"),
+                         &GDBrowserView::enableAdBlock);
+    ClassDB::bind_method(D_METHOD("is_ad_block_enabled"),
+                         &GDBrowserView::isAdBlockEnabled);
 
     // Signals
-
     ADD_SIGNAL(MethodInfo("on_download_updated",
                           PropertyInfo(Variant::STRING, "file"),
                           PropertyInfo(Variant::INT, "percentage"),
                           PropertyInfo(Variant::OBJECT, "browser")));
     ADD_SIGNAL(
         MethodInfo("on_page_loaded", PropertyInfo(Variant::OBJECT, "browser")));
-    ADD_SIGNAL(
-        MethodInfo("on_page_loaded1", PropertyInfo(Variant::OBJECT, "browser")));
     ADD_SIGNAL(MethodInfo("on_page_failed_loading",
                           PropertyInfo(Variant::INT, "err_code"),
                           PropertyInfo(Variant::STRING, "err_msg"),
@@ -208,6 +215,12 @@ int GDBrowserView::init(godot::String const& url,
                         CefBrowserSettings const& settings,
                         CefWindowInfo const& window_info)
 {
+    if (m_impl == nullptr)
+    {
+        GDCEF_ERROR("GDBrowserView::init: m_impl is nullptr");
+        return -1;
+    }
+
     // Create a new browser using the window parameters specified by
     // |windowInfo|.  If |request_context| is empty the global request context
     // will be used. This method can only be called on the browser process UI
@@ -305,12 +318,7 @@ void GDBrowserView::onPaint(CefRefPtr<CefBrowser> /*browser*/,
 
     if (bResized)
     {
-        // PPL
-        // concurrency::parallel_for(0, height,
-        //    std::bind(doCopyLine, std::placeholders::_1, 0, width));
-
-#pragma omp parallel for
-        for (int y = 0; y < height; ++y)
+        PARALLEL_FOR(int y = 0; y < height; ++y)
         {
             doCopyLine(y, 0, width);
         }
@@ -324,13 +332,7 @@ void GDBrowserView::onPaint(CefRefPtr<CefBrowser> /*browser*/,
     {
         for (const CefRect& rect : dirtyRects)
         {
-            // PPL
-            // concurrency::parallel_for(rect.y, rect.y + rect.height,
-            //     std::bind(doCopyLine, std::placeholders::_1, rect.x,
-            //     rect.width));
-
-#pragma omp parallel for
-            for (int y = rect.y; y < rect.y + rect.height; ++y)
+            PARALLEL_FOR(int y = rect.y; y < rect.y + rect.height; ++y)
             {
                 doCopyLine(y, rect.x, rect.width);
             }
@@ -357,20 +359,6 @@ void GDBrowserView::onLoadEnd(CefRefPtr<CefBrowser> /*browser*/,
 
         // Emit signal for Godot script
         emit_signal("on_page_loaded", this);
-    }
-}
-
-void GDBrowserView::onLoadEnd1(CefRefPtr<CefBrowser> /*browser*/,
-                              CefRefPtr<CefFrame> frame,
-                              int httpStatusCode)
-{
-    // Emit signal only when top-level frame has succeeded.
-    if ((httpStatusCode == 200) && (frame->IsMain()))
-    {
-        BROWSER_DEBUG("has ended loading " << frame->GetURL());
-
-        // Emit signal for Godot script
-        emit_signal("on_page_loaded1", this);
     }
 }
 
@@ -917,12 +905,13 @@ void GDBrowserView::onDownloadUpdated(
 }
 
 //------------------------------------------------------------------------------
-bool GDBrowserView::registerGodotMethod(const godot::Callable& callable)
+bool GDBrowserView::registerGodotMethod(godot::Object* object,
+                                        godot::String method_name)
 {
-    godot::String method_name = callable.get_method();
     BROWSER_DEBUG("Registering gdscript method "
                   << method_name.utf8().get_data());
 
+    godot::Callable callable(object, method_name);
     if (!callable.is_valid())
     {
         BROWSER_ERROR("Invalid callable gdscript method "
@@ -930,9 +919,147 @@ bool GDBrowserView::registerGodotMethod(const godot::Callable& callable)
         return false;
     }
 
-    std::string key = method_name.utf8().get_data();
-    m_js_bindings[key] = callable;
+    // Register the method
+    if (method_name.begins_with("_"))
+    {
+        m_js_bindings[method_name.substr(1).utf8().get_data()] = callable;
+    }
+    else
+    {
+        m_js_bindings[method_name.utf8().get_data()] = callable;
+    }
+
     return true;
+}
+
+//------------------------------------------------------------------------------
+// Recursive method to convert JSON data to native Godot types
+godot::Variant GDBrowserView::JsonToGodot(const godot::Dictionary& json)
+{
+    // Special case for binary data encoded in base64
+    if (json.has("type") && json["type"] == "binary" && json.has("format") &&
+        json["format"] == "base64" && json.has("data") && json.has("size"))
+    {
+        godot::String base64_data = json["data"];
+        int expected_size = json["size"];
+
+        // Decode base64 to binary data
+        std::string base64_str = base64_data.utf8().get_data();
+
+        // Get binary data
+        CefRefPtr<CefBinaryValue> binary = CefBase64Decode(base64_str);
+        if (binary.get() && binary->GetSize() > 0)
+        {
+            // Convert to Godot PackedByteArray
+            godot::PackedByteArray byte_array;
+            byte_array.resize(binary->GetSize());
+
+            // Copy decoded data to Godot byte array
+            binary->GetData(byte_array.ptrw(), binary->GetSize(), 0);
+
+            if (byte_array.size() != expected_size)
+            {
+                BROWSER_DEBUG("Binary size mismatch: expected "
+                              << expected_size << " but got "
+                              << byte_array.size());
+            }
+
+            return byte_array;
+        }
+        else
+        {
+            BROWSER_ERROR("Failed to decode base64 data");
+            return godot::Variant();
+        }
+    }
+
+    // Recursive processing of nested JSON structures
+    godot::Dictionary result;
+
+    // Iterate over all elements of the dictionary
+    godot::Array keys = json.keys();
+    for (int i = 0; i < keys.size(); i++)
+    {
+        godot::Variant key = keys[i];
+        godot::Variant value = json[key];
+
+        // Recursive processing of nested dictionaries
+        if (value.get_type() == godot::Variant::Type::DICTIONARY)
+        {
+            godot::Dictionary dict = value;
+            result[key] = JsonToGodot(dict);
+        }
+        // Recursive processing of arrays
+        else if (value.get_type() == godot::Variant::Type::ARRAY)
+        {
+            godot::Array array = value;
+            result[key] = JsonToGodot(array);
+        }
+        // Simple types are copied directly
+        else
+        {
+            result[key] = value;
+        }
+    }
+
+    return result;
+}
+
+//------------------------------------------------------------------------------
+// Overload to handle a Godot Array directly
+godot::Variant GDBrowserView::JsonToGodot(const godot::Array& json_array)
+{
+    godot::Array result;
+    result.resize(json_array.size());
+
+    for (int i = 0; i < json_array.size(); i++)
+    {
+        godot::Variant element = json_array[i];
+
+        if (element.get_type() == godot::Variant::Type::DICTIONARY)
+        {
+            godot::Dictionary dict = element;
+            result[i] = JsonToGodot(dict);
+        }
+        else if (element.get_type() == godot::Variant::Type::ARRAY)
+        {
+            godot::Array arr = element;
+            result[i] = JsonToGodot(arr);
+        }
+        else
+        {
+            result[i] = element;
+        }
+    }
+
+    return result;
+}
+
+//------------------------------------------------------------------------------
+// Generic overload to handle all Godot Variant types
+godot::Variant GDBrowserView::JsonToGodot(const godot::Variant& json_value)
+{
+    switch (json_value.get_type())
+    {
+        case godot::Variant::Type::DICTIONARY: {
+            godot::Dictionary dict = json_value;
+            return JsonToGodot(dict);
+        }
+
+        case godot::Variant::Type::ARRAY: {
+            godot::Array arr = json_value;
+            return JsonToGodot(arr);
+        }
+
+        case godot::Variant::Type::NIL:
+        case godot::Variant::Type::BOOL:
+        case godot::Variant::Type::INT:
+        case godot::Variant::Type::FLOAT:
+        case godot::Variant::Type::STRING:
+        default:
+            // Primitive types: return as is
+            return json_value;
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -943,68 +1070,84 @@ bool GDBrowserView::onProcessMessageReceived(
     CefRefPtr<CefProcessMessage> message)
 {
     BROWSER_DEBUG("Received message " << message->GetName().ToString());
+
+    // Check that this is a callGodotMethod message
     if (message->GetName() != "callGodotMethod")
     {
         BROWSER_DEBUG("Expecting IPC command 'callGodotMethod'");
         return false;
     }
 
-    if (message->GetArgumentList()->GetSize() < 1)
+    // Check that we have at least the method name and arguments
+    CefRefPtr<CefListValue> args_list = message->GetArgumentList();
+    if (args_list->GetSize() < 2)
     {
-        BROWSER_ERROR("Expected method name as first argument for "
+        BROWSER_ERROR("Expected method name and JSON arguments for "
                       "'callGodotMethod' IPC command");
         return false;
     }
 
-    // Create the Godot Callable key
-    std::string key = message->GetArgumentList()->GetString(0).ToString();
+    // Get the method name
+    std::string method_name = args_list->GetString(0).ToString();
 
-    // Does the Godot Callable exist ?
-    auto callable = m_js_bindings[key];
+    // Check that the method exists in the bindings
+    auto callable = m_js_bindings[method_name];
     if (!callable.is_valid())
     {
-        BROWSER_ERROR("Callable not found for method " << key);
+        BROWSER_ERROR("Callable not found for method " << method_name);
         return false;
     }
 
-    // Convert the IPC message arguments to a Godot Array
-    godot::Array args;
-    auto message_args = message->GetArgumentList();
-    for (size_t i = 1; i < message_args->GetSize(); ++i)
+    try
     {
-        switch (message_args->GetType(i))
-        {
-            case VTYPE_BOOL:
-                args.push_back(message_args->GetBool(i));
-                break;
-            case VTYPE_INT:
-                args.push_back(message_args->GetInt(i));
-                break;
-            case VTYPE_DOUBLE:
-                args.push_back(message_args->GetDouble(i));
-                break;
-            case VTYPE_STRING:
-                args.push_back(godot::String(
-                    message_args->GetString(i).ToString().c_str()));
-                break;
-            default:
-                // For unsupported types, pass as string
-                args.push_back(godot::String(
-                    message_args->GetString(i).ToString().c_str()));
-                break;
-        }
-    }
+        // Get the JSON string of the arguments
+        std::string json_args = args_list->GetString(1).ToString();
+        godot::String json_godot(json_args.c_str());
 
-    // Call the function
-    callable.callv(args);
-    return true;
+        // Parse the JSON to a Godot Variant
+        godot::Variant parsed = godot::JSON::parse_string(json_godot);
+
+        // Check that the parsing succeeded
+        if (parsed.get_type() == godot::Variant::Type::NIL &&
+            !json_godot.is_empty() && json_godot != "null")
+        {
+            BROWSER_ERROR("Failed to parse JSON arguments: "
+                          << json_godot.utf8().get_data());
+            return false;
+        }
+
+        // GodotMethodHandler::Execute always sends an array
+        godot::Array args;
+
+        if (parsed.get_type() == godot::Variant::Type::ARRAY)
+        {
+            // Convert the types in the received array
+            godot::Array array = parsed;
+            args = JsonToGodot(array);
+        }
+        else if (parsed.get_type() != godot::Variant::Type::NIL)
+        {
+            // Unexpected case, but we handle it: create an array with
+            // the element
+            args.push_back(JsonToGodot(parsed));
+        }
+
+        // Call the function
+        callable.callv(args);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        BROWSER_ERROR("Exception in onProcessMessageReceived: " << e.what());
+        return false;
+    }
 }
 
 //------------------------------------------------------------------------------
-bool GDBrowserView::sendToJS(godot::String eventName,
-                             const godot::Variant& data)
+bool GDBrowserView::jsEmit(godot::String event_name, const godot::Variant& data)
 {
-    BROWSER_DEBUG("Sending event '" << eventName.utf8().get_data() << "'");
+    BROWSER_DEBUG("Sending message to render process '"
+                  << event_name.utf8().get_data() << "'");
 
     if (!m_browser || !m_browser->GetMainFrame())
     {
@@ -1012,28 +1155,104 @@ bool GDBrowserView::sendToJS(godot::String eventName,
         return false;
     }
 
-    // Create message
-    CefRefPtr<CefProcessMessage> message =
-        CefProcessMessage::Create("GodotToJS");
-    CefRefPtr<CefListValue> args = message->GetArgumentList();
-
-    // Add event name using the helper function
-    args->SetString(0, eventName.utf8().get_data());
-
-    // Convert Godot Variant to CefValue and add it
-    // directly to args
-    CefRefPtr<CefValue> cef_data = GodotToCefVal(data);
-    if (!cef_data)
+    try
     {
-        BROWSER_ERROR("Failed to convert Godot data to CefValue");
+        // Create IPC message to the render process
+        CefRefPtr<CefProcessMessage> message =
+            CefProcessMessage::Create("godotEvents.emit");
+        CefRefPtr<CefListValue> args = message->GetArgumentList();
+
+        // Add event name
+        args->SetString(0, event_name.utf8().get_data());
+
+        // Handle binary data specifically.
+        // If the data is a PackedByteArray, serialize it to base64 and
+        // convert it to a JSON object since Godot will convert it to a
+        // simple array and we want to differentiate from regular array.
+        if (data.get_type() == godot::Variant::Type::PACKED_BYTE_ARRAY)
+        {
+            godot::PackedByteArray binary_data = data;
+
+            // Encode to base64
+            std::string base64 =
+                CefBase64Encode(binary_data.ptr(), binary_data.size());
+
+            // Create a JSON object with the appropriate properties
+            std::string json = "{";
+            json += "\"type\":\"binary\",";
+            json += "\"format\":\"base64\",";
+            json += "\"data\":\"" + base64 + "\",";
+            json += "\"size\":" + std::to_string(binary_data.size());
+            json += "}";
+
+            args->SetString(1, json);
+        }
+        else
+        {
+            // Convert other data types to JSON string
+            godot::String json_data = godot::JSON::stringify(data);
+            args->SetString(1, json_data.utf8().get_data());
+        }
+
+        // Send the message to the render process.
+        // The GodotMethodHandler::Execute method in
+        // gdcef/addons/gdcef/render_process/src/render_process.cpp will be
+        // called.
+        m_browser->GetMainFrame()->SendProcessMessage(PID_RENDERER, message);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        BROWSER_ERROR("Error sending message to render process: " << e.what());
+        return false;
+    }
+}
+
+//------------------------------------------------------------------------------
+bool GDBrowserView::addAdBlockPattern(godot::String pattern)
+{
+    BROWSER_DEBUG("Adding ad block pattern " << pattern.utf8().get_data());
+
+    if ((m_impl == nullptr) || (m_impl->m_ad_blocker == nullptr))
+    {
+        BROWSER_ERROR("Ad blocker not initialized");
         return false;
     }
 
-    // Add the CefValue directly to arguments
-    args->SetValue(1, cef_data);
+    if (m_impl->m_ad_blocker->addPattern(pattern.utf8().get_data()))
+    {
+        return true;
+    }
+    else
+    {
+        BROWSER_ERROR(
+            "Invalid ad blocking pattern: " << pattern.utf8().get_data());
+        return false;
+    }
+}
 
-    // Send to render process
-    BROWSER_DEBUG("Sending message to render process");
-    m_browser->GetMainFrame()->SendProcessMessage(PID_RENDERER, message);
-    return true;
+//------------------------------------------------------------------------------
+void GDBrowserView::enableAdBlock(bool enable)
+{
+    BROWSER_DEBUG("Enabling ad blocker " << (enable ? "true" : "false"));
+
+    if ((m_impl == nullptr) || (m_impl->m_ad_blocker == nullptr))
+    {
+        BROWSER_ERROR("Ad blocker not initialized");
+        return;
+    }
+
+    m_impl->m_ad_blocker->enable(enable);
+}
+
+//------------------------------------------------------------------------------
+bool GDBrowserView::isAdBlockEnabled() const
+{
+    BROWSER_DEBUG("")
+    if ((m_impl == nullptr) || (m_impl->m_ad_blocker == nullptr))
+    {
+        BROWSER_ERROR("Ad blocker not initialized");
+        return false;
+    }
+    return m_impl->m_ad_blocker->is_enabled();
 }

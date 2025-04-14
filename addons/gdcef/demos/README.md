@@ -15,6 +15,7 @@ Just open your Godot editor 4.2+ and search for the `project.godot` file of the 
 ## Understanding the architecture
 
 Please refer to the [architecture](../doc/architecture.md) documentation for more details.
+
 ### Demo 00: Hello CEF
 
 A "Hello-world" demo showing a 2D GUI split vertically into two browsers. Only the left browser accepts mouse and keyboard events. The right browser does not allow interaction since a timer is used for loading different URLs one by one. No keyboard events and mouse events are sent to the browser.
@@ -33,7 +34,7 @@ Type inside the URL entry your desired URL then click on the `Go` button. Once t
 
 A demo showing a 3D GUI with a single CEF browser tab showing a radio website. The tab is rotating inside a 3D scene. The sound is routed to Godot for applying 3D sound effects. You can surf to the web while the purpose of this demo is to show how to use CEF in a 3D environment.
 
-This demo is based on the asset library: https://godotengine.org/asset-library/asset/127
+This demo is based on the [asset library](https://godotengine.org/asset-library/asset/127)
 
 ![Screenshot](3D/icon.png)
 
@@ -42,3 +43,7 @@ This demo is based on the asset library: https://godotengine.org/asset-library/a
 A demo showing a 2D GUI made in HTML/CSS/JavaScript and loaded in a CEF browser. The demo shows how to bind Godot methods to JavaScript functions using JS Binder.
 
 ![Screenshot](JS/icon.png)
+
+### Demo 04: Wattesigma
+
+The ultimate web browser, built with a game engine made by FaceDev. See the [video](https://github.com/face-hh/wattesigma).

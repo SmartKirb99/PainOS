@@ -1,0 +1,10 @@
+^C:\USERS\RA0002\DOCUMENTS\GITHUB\GODOT GAMES\PAINOS\ADDONS\GDCEF\THIRDPARTY\CEF_BINARY\CMAKEFILES\FFF4FEE3330E9012DBA1E59CCC345D34\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/ra0002/Documents/GitHub/Godot Games/PainOS/addons/gdcef/thirdparty/cef_binary" "-BC:/Users/ra0002/Documents/GitHub/Godot Games/PainOS/addons/gdcef/thirdparty/cef_binary" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/ra0002/Documents/GitHub/Godot Games/PainOS/addons/gdcef/thirdparty/cef_binary/cef.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -49,11 +49,11 @@ import re
 ###
 ###############################################################################
 
-# If set, then download prebuilt GDCEF artifacts instead of compiling from
+# If set, then download prebuilt gdCEF artifacts instead of compiling from
 # code source. See https://github.com/Lecrapouille/gdcef/releases to get the
 # desired version (without 'v' and without godot version). You cannot choose
 # neither Godot version not CEF version.
-# If unset, then compile GCEF sources.
+# If unset, then compile gdCEF sources.
 GITHUB_GDCEF_RELEASE = None                              # or "0.14.0"
 
 # The hard-coded name of the folder that will hold all CEF built artifacts.
@@ -73,8 +73,8 @@ CEF_VERSION = "131.3.1+gcb062df+chromium-131.0.6778.109"
 #  - or a "<version>"" branch on https://github.com/godotengine/godot-cpp/branches
 # /!\ BEWARE /!\
 #  - Do not use version 4.1 since gdextension is not compatible.
-#  - Do not use version 3.x since not compatible. git checkout godot-3.x the gdcef branch instead.
-GODOT_VERSION = "4.3"                                     # or "4.2" or tag
+#  - Do not use version 3.x since not compatible. git checkout godot-3.x the gdCEF branch instead.
+GODOT_VERSION = "4.2"                                     # or "4.2" or tag
 
 # Use "godot-<version>-stable" for a tag on https://github.com/godotengine/godot-cpp/tags
 # Else "<version>" to track the HEAD of a branch https://github.com/godotengine/godot-cpp/branches
@@ -82,18 +82,18 @@ GODOT_CPP_GIT_TAG_OR_BRANCH = GODOT_VERSION               # or "godot-" + GODOT_
 
 # Compilation mode
 COMPILATION_MODE = "release"                              # or "debug"
-# Compilation mode for the thirdpart CEF
+# Compilation mode for the third party CEF
 CEF_TARGET = COMPILATION_MODE.title()                     # "Release" or "Debug" (with upper 1st letter !!!)
-# Compilation mode for the thirdpart godot-cpp
+# Compilation mode for the third party godot-cpp
 GODOT_CPP_TARGET = "template_" + COMPILATION_MODE         # "template_release" or "template_debug"
-# Compilation mode for gdcef as Godot module
+# Compilation mode for gdCEF as Godot module
 MODULE_TARGET = COMPILATION_MODE                          # "release" or "debug"
 
 # Use OpenMP for using CPU parallelism (i.e. for copying CEF textures to Godot)
 # FIXME no openmp installed by default on MacOS :(
-CEF_USE_CPU_PARALLELISM = "yes"                           # or "no"
+CEF_USE_CPU_PARALLELISM = "no"                           # or "yes"
 
-# Minimun CMake version needed for compiling CEF
+# Minimum CMake version needed for compiling CEF
 CMAKE_MIN_VERSION = "3.19"
 
 # Scons is the build system used by Godot. For some people "scons" command is not recognized.
@@ -116,6 +116,7 @@ GODOT_CPP_API_PATH = os.path.join(THIRDPARTY_GODOT_PATH, "cpp")
 PATCHES_PATH = os.path.join(PWD, "patches")
 GDCEF_EXAMPLES_PATH = os.path.join(PWD, "demos")
 CEF_ARTIFACTS_BUILD_PATH = os.path.realpath(os.path.join("../../" + CEF_ARTIFACTS_FOLDER_NAME))
+GDCEF_TESTS_PATH = os.path.join(PWD, "tests")
 
 ###############################################################################
 ###
@@ -339,11 +340,11 @@ def check_paths():
 
 ###############################################################################
 ###
-### Download prebuild CEF artifacts from GitHub releases
+### Download prebuilt gdCEF artifacts from GitHub releases
 ###
 ###############################################################################
 def download_gdcef_release():
-    info("Download prebuilt GDCEF artifacts from GitHub instead of compiling sources")
+    info("Download prebuilt gdCEF artifacts from GitHub instead of compiling sources")
     if not ((OSTYPE == "Linux" or OSTYPE == "Windows") and (ARCHI == "x86_64")):
         fatal("OS " + OSTYPE + " architecture " + ARCHI + " is not available as GitHub release")
 
@@ -622,19 +623,13 @@ def compile_godot_cpp():
 ###
 ###############################################################################
 def gdnative_scons_cmd(platform):
-    use_openmp = CEF_USE_CPU_PARALLELISM
-    # FIXME no openmp installed by default on MacOS :(
-    # https://gist.github.com/ijleesw/4f863543a50294e3ba54acf588a4a421
-    if OSTYPE == "Darwin":
-        warning("Sorry for MacOS I have to disable openmp !!!")
-        use_openmp = "no"
     scons("api_path=" + GODOT_CPP_API_PATH,
           "cef_artifacts_folder=\\\"" + CEF_ARTIFACTS_FOLDER_NAME + "\\\"",
           "build_path=" + CEF_ARTIFACTS_BUILD_PATH,
           "target=" + MODULE_TARGET,
           "platform=" + platform,
           "arch=" + ARCHI,
-          "cpu_parallelism=" + use_openmp)
+          "cpu_parallelism=" + CEF_USE_CPU_PARALLELISM)
 
 ###############################################################################
 ###
@@ -678,6 +673,8 @@ def check_compiler():
         with open(cppfile, "w") as f:
             f.write("#include <windows.h>\n")
             f.write("int main(int argc, char **argv) { return 0; }")
+        current_directory = os.getcwd()
+        print("Current Working Directory:", current_directory)
         if os.system("cl.exe /Fe:" + binfile + " " + cppfile) != 0:
             os.remove(cppfile)
             fatal("MS C++ compiler is not found. "
@@ -731,13 +728,13 @@ def check_build_chain():
         fatal("You need to install either 'ninja' or 'gnu makefile' tool")
     if (shutil.which('ninja') == None and OSTYPE == "Darwin"):
         fatal("You need to install 'ninja' tool")
-    if type(SCONS) == str:
+    if isinstance(SCONS, str):
         if not(shutil.which(SCONS)):
-            fatal("You need to install 'scons' tool")
+            fatal("You need to insbhkmtall 'scons' tool")
     elif importlib.import_module("scons") == None:
-        fatal("You need to install 'scons' tool")
+        fatal("You need to instal444l 'scons' tool")
     check_cmake_version()
-    check_compiler()
+    #check_compiler()
 
 ###############################################################################
 ###
@@ -755,13 +752,14 @@ def check_run_as_windows_administrator():
 ### Since we have multiple demos and CEF artifacts are heavy (> 1 GB) we use
 ### aliases to fake Godot using a real local folder. This is an hack to save
 ### space on the hard disk. But for Windows users, this maybe problematic since
-### Windows only allows aliases in admnistration mode.
+### Windows only allows aliases in administration mode.
 ###
 ###############################################################################
-def prepare_godot_examples():
-    info("Adding CEF artifacts for Godot demos:")
-    for filename in os.listdir(GDCEF_EXAMPLES_PATH):
-        path = os.path.join(GDCEF_EXAMPLES_PATH, filename)
+def copy_gdcef_artifacts(folder_paths):
+    info("Adding gdCEF artifacts for Godot demos and tests:")
+    for folder_path in folder_paths:
+        for filename in os.listdir(folder_path):
+            path = os.path.join(folder_path, filename)
         if os.path.isdir(path) and os.path.isfile(os.path.join(path, "project.godot")):
             info("  - Demo " + path)
             artifacts_path = os.path.join(path, CEF_ARTIFACTS_FOLDER_NAME)
@@ -853,5 +851,5 @@ if __name__ == "__main__":
     else:
         download_gdcef_release()
     clone_github_projects()
-    prepare_godot_examples()
+    copy_gdcef_artifacts([GDCEF_EXAMPLES_PATH, GDCEF_TESTS_PATH])
     final_instructions()

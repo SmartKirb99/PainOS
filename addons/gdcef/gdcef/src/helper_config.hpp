@@ -40,7 +40,7 @@
 //! \brief Godot dictionary getter with default value.
 // ****************************************************************************
 template <class T>
-static T getConfig(godot::Dictionary const& config,
+inline T getConfig(godot::Dictionary const& config,
                    const char* property,
                    T const& default_value)
 {
@@ -50,9 +50,9 @@ static T getConfig(godot::Dictionary const& config,
 }
 
 template <>
-std::string getConfig<std::string>(godot::Dictionary const& config,
-                                   const char* property,
-                                   std::string const& default_value)
+inline std::string getConfig<std::string>(godot::Dictionary const& config,
+                                          const char* property,
+                                          std::string const& default_value)
 {
     if ((property != nullptr) && config.has(property))
     {
@@ -63,9 +63,9 @@ std::string getConfig<std::string>(godot::Dictionary const& config,
 }
 
 template <>
-fs::path getConfig<fs::path>(godot::Dictionary const& config,
-                             const char* property,
-                             fs::path const& default_value)
+inline fs::path getConfig<fs::path>(godot::Dictionary const& config,
+                                    const char* property,
+                                    fs::path const& default_value)
 {
     if ((property != nullptr) && config.has(property))
     {
@@ -76,9 +76,9 @@ fs::path getConfig<fs::path>(godot::Dictionary const& config,
 }
 
 template <>
-cef_state_t getConfig<cef_state_t>(godot::Dictionary const& config,
-                                   const char* property,
-                                   cef_state_t const& default_value)
+inline cef_state_t getConfig<cef_state_t>(godot::Dictionary const& config,
+                                          const char* property,
+                                          cef_state_t const& default_value)
 {
     if ((property != nullptr) && config.has(property))
         return config[property] ? STATE_ENABLED : STATE_DISABLED;

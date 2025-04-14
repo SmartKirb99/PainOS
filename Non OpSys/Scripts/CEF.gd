@@ -90,7 +90,7 @@ func create_browser(url):
 	#   {"webgl": true}
 	#   {"allow_downloads": false}
 	#   {"download_folder": "res://"}
-	var browser = $CEF.create_browser(url, $Panel/VBox/TextureRect, {"javascript": true})
+	var browser = $CEF.create_browser(url, $Panel/VBox/TextureRect, {"javascript": true}, {"download_folder": "user://U/Downloads"})
 	if browser == null:
 		$Panel/VBox/HBox2/Info.set_text($CEF.get_error())
 		return null
@@ -100,7 +100,6 @@ func create_browser(url):
 	browser.connect("on_page_loaded", _on_page_loaded)
 	browser.connect("on_page_failed_loading", _on_page_failed_loading)
 	browser.connect("on_download_updated", _on_download_updated)
-
 	# Add the URL to the list
 	$Panel/VBox/HBox/BrowserList.add_item(url)
 	$Panel/VBox/HBox/BrowserList.select($Panel/VBox/HBox/BrowserList.get_item_count() - 1)

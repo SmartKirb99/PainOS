@@ -24,6 +24,7 @@
 //*****************************************************************************
 
 #include "render_process.hpp"
+#include "cef_parser.h" // For CefBase64Encode and CefBase64Decode
 
 //------------------------------------------------------------------------------
 #define DEBUG_RENDER_PROCESS(txt)                                       \
@@ -52,20 +53,20 @@ bool GodotMethodHandler::Execute(const CefString& name,
 {
     DEBUG_RENDER_PROCESS(name.ToString());
 
-    // Function does not exist.
-    if (name != "callGodotMethod")
-    {
-        exception = "Function does not exist";
-        DEBUG_RENDER_PROCESS(exception.ToString());
-        return false;
-    }
-
     // No browser created, we cannot call the method.
     if (m_browser == nullptr)
     {
         exception = "Browser pointer at NULL";
         DEBUG_RENDER_PROCESS(exception.ToString());
         return true;
+    }
+
+    // Function does not exist.
+    if (name != "callGodotMethod")
+    {
+        exception = "Function does not exist";
+        DEBUG_RENDER_PROCESS(exception.ToString());
+        return false;
     }
 
     // Check that there is at least the method name as argument.
@@ -84,32 +85,18 @@ bool GodotMethodHandler::Execute(const CefString& name,
     // Add the method name as first argument.
     args->SetString(0, arguments[0]->GetStringValue());
 
-    // Add the arguments directly from V8 types.
+    // Convert remaining arguments to JSON string
+    std::string json_args = "[";
     for (size_t i = 1; i < arguments.size(); ++i)
     {
-        auto arg = arguments[i];
-        if (arg->IsBool())
-        {
-            args->SetBool(i, arg->GetBoolValue());
-        }
-        else if (arg->IsInt())
-        {
-            args->SetInt(i, arg->GetIntValue());
-        }
-        else if (arg->IsDouble())
-        {
-            args->SetDouble(i, arg->GetDoubleValue());
-        }
-        else if (arg->IsString())
-        {
-            args->SetString(i, arg->GetStringValue());
-        }
-        else
-        {
-            // For other types, convert them to string
-            args->SetString(i, arg->GetStringValue());
-        }
+        if (i > 1)
+            json_args += ",";
+        json_args += V8ToJSON(arguments[i]);
     }
+    json_args += "]";
+
+    // Add JSON string as second argument
+    args->SetString(1, json_args);
 
     // Send the message to the main process
     m_browser->GetMainFrame()->SendProcessMessage(PID_BROWSER, msg);
@@ -119,7 +106,6 @@ bool GodotMethodHandler::Execute(const CefString& name,
 }
 
 //------------------------------------------------------------------------------
-// TODO Faire OnContextReleased ?
 void RenderProcess::OnContextCreated(CefRefPtr<CefBrowser> browser,
                                      CefRefPtr<CefFrame> frame,
                                      CefRefPtr<CefV8Context> context)
@@ -152,17 +138,21 @@ void RenderProcess::OnContextCreated(CefRefPtr<CefBrowser> browser,
     // 1. Setup JS -> Godot communication
     const char* jsToGodotSetup = R"(
         // Setup Godot proxy for method calls
-        const rawGodot = godot;
-        window.godot = new Proxy({}, {
-            get: function(target, prop) {
-                if (prop === 'callGodotMethod') {
-                    return rawGodot.callGodotMethod;
+        try {
+            window.godotMethods = new Proxy({}, {
+                get: function(target, prop) {
+                    if (prop === 'callGodotMethod') {
+                        return godot.callGodotMethod;
+                    }
+                    return function(...args) {
+                        return godot.callGodotMethod(prop, ...args);
+                    };
                 }
-                return function(...args) {
-                    return rawGodot.callGodotMethod(prop, ...args);
-                };
-            }
-        });
+            });
+            console.log('[GDCef] Communication bridge initialized');
+        } catch (e) {
+            console.error('[GDCef] Error setting up communication bridge:', e);
+        }
     )";
 
     frame->ExecuteJavaScript(jsToGodotSetup, frame->GetURL(), 0);
@@ -171,48 +161,55 @@ void RenderProcess::OnContextCreated(CefRefPtr<CefBrowser> browser,
     // 2. Setup Godot -> JS communication
     const char* godotToJsSetup = R"(
         // Setup Event System for receiving Godot events
-        window.godotEventSystem = {
-            listeners: new Map(),
+        try {
+            // Reset or create the event system
+            window.godotEvents = window.godotEvents || {
+                listeners: new Map(),
 
-            // Register a listener for an event.
-            // The listener is a callback function that will be called when the event is emitted.
-            // It takes two arguments: the event name and the data.
-            // - The event name is the name of the event to listen for.
-            // - The callback is the function to call when the event is emitted.
-            on: function(eventName, callback) {
-                if (!this.listeners.has(eventName)) {
-                    this.listeners.set(eventName, new Set());
-                }
-                this.listeners.get(eventName).add(callback);
-                console.log(`[GodotEventSystem] Registered listener for: ${eventName}`);
-            },
-
-            // Emit an event. It is called to signal that an event has occurred.
-            // It executes all the callbacks associated with the event.
-            // It takes two arguments: the event name and the data.
-            // - The event name is the name of the event to emit.
-            // - The data is the data to pass to the event listeners.
-            emit: function(eventName, data) {
-                console.log(`[GodotEventSystem] Emitting: ${eventName}`, data);
-                if (!this.listeners.has(eventName)) {
-                    console.warn(`[GodotEventSystem] No listeners for: ${eventName}`);
-                    return;
-                }
-
-                this.listeners.get(eventName).forEach(callback => {
-                    try {
-                        callback(data);
-                    } catch (error) {
-                        console.error(`[GodotEventSystem] Error in listener for ${eventName}:`, error);
+                // Register a listener for an event.
+                // The listener is a callback function that will be called when the event is emitted.
+                // It takes two arguments: the event name and the data.
+                // - The event name is the name of the event to listen for.
+                // - The callback is the function to call when the event is emitted.
+                on: function(eventName, callback) {
+                    if (!this.listeners.has(eventName)) {
+                        this.listeners.set(eventName, new Set());
                     }
-                });
-            }
-        };
+                    this.listeners.get(eventName).add(callback);
+                    console.log(`[GodotEventSystem] Registered listener for: ${eventName}`);
+                },
 
-        // Helper function to register event listeners
-        window.registerGodotEvent = function(eventName, callback) {
-            window.godotEventSystem.on(eventName, callback);
-        };
+                // Emit an event. It is called to signal that an event has occurred.
+                // It executes all the callbacks associated with the event.
+                // It takes two arguments: the event name and the data.
+                // - The event name is the name of the event to emit.
+                // - The data is the data to pass to the event listeners.
+                emit: function(eventName, data) {
+                    console.log(`[GodotEventSystem] Emitting: ${eventName}`, data);
+                    if (!this.listeners.has(eventName)) {
+                        console.warn(`[GodotEventSystem] No listeners for: ${eventName}`);
+                        return;
+                    }
+
+                    this.listeners.get(eventName).forEach(callback => {
+                        try {
+                            callback(data);
+                        } catch (error) {
+                            console.error(`[GodotEventSystem] Error in listener for ${eventName}:`, error);
+                        }
+                    });
+                }
+            };
+
+            // Helper function to register event listeners
+            window.registerGodotEvent = function(eventName, callback) {
+                window.godotEvents.on(eventName, callback);
+            };
+
+            console.log('[GDCef] Event system initialized');
+        } catch (e) {
+            console.error('[GDCef] Error setting up event system:', e);
+        }
     )";
 
     frame->ExecuteJavaScript(godotToJsSetup, frame->GetURL(), 0);
@@ -220,59 +217,37 @@ void RenderProcess::OnContextCreated(CefRefPtr<CefBrowser> browser,
 }
 
 //------------------------------------------------------------------------------
-std::string RenderProcess::ConvertCefValueToJS(CefRefPtr<CefValue> value)
+void RenderProcess::OnContextReleased(CefRefPtr<CefBrowser> browser,
+                                      CefRefPtr<CefFrame> frame,
+                                      CefRefPtr<CefV8Context> context)
 {
-    switch (value->GetType())
+    DEBUG_RENDER_PROCESS(browser->GetIdentifier());
+
+    // If the released context is the one we stored, we clean it
+    if (m_context && m_context->IsSame(context))
     {
-        case VTYPE_DICTIONARY: {
-            CefRefPtr<CefDictionaryValue> dict = value->GetDictionary();
-            std::string result = "{";
-            bool first = true;
-
-            CefDictionaryValue::KeyList keys;
-            dict->GetKeys(keys);
-            for (const auto& key : keys)
-            {
-                if (!first)
-                    result += ",";
-                result += "'" + key.ToString() + "':";
-                result += ConvertCefValueToJS(dict->GetValue(key));
-                first = false;
+        // Execute a script to clean rawGodot before releasing the context
+        const char* cleanup = R"(
+            try {
+                // Clean references
+                window.godotMethods = undefined;
+                window.godotEvents = undefined;
+                window.registerGodotEvent = undefined;
+                console.log('[GDCef] Cleanup completed');
+            } catch (e) {
+                console.error('[GDCef] Cleanup error:', e);
             }
-            return result + "}";
-        }
+        )";
 
-        case VTYPE_LIST: {
-            CefRefPtr<CefListValue> list = value->GetList();
-            std::string result = "[";
-            for (size_t i = 0; i < list->GetSize(); ++i)
-            {
-                if (i > 0)
-                    result += ",";
-                result += ConvertCefValueToJS(list->GetValue(i));
-            }
-            return result + "]";
-        }
+        // Execute the cleanup script
+        frame->ExecuteJavaScript(cleanup, frame->GetURL(), 0);
 
-        case VTYPE_STRING:
-            return "'" + value->GetString().ToString() + "'";
+        // Reset our references
+        m_context = nullptr;
+        m_frame = nullptr;
+        m_handler = nullptr;
 
-        case VTYPE_INT:
-            return std::to_string(value->GetInt());
-
-        case VTYPE_DOUBLE:
-            return std::to_string(value->GetDouble());
-
-        case VTYPE_BOOL:
-            return value->GetBool() ? "true" : "false";
-
-        case VTYPE_NULL:
-            return "null";
-
-        default:
-            DEBUG_RENDER_PROCESS(
-                "Unsupported type in conversion: " << value->GetType());
-            return "null";
+        DEBUG_RENDER_PROCESS("Context released and cleaned up");
     }
 }
 
@@ -283,9 +258,10 @@ bool RenderProcess::OnProcessMessageReceived(
     CefProcessId source_process,
     CefRefPtr<CefProcessMessage> message)
 {
-    DEBUG_RENDER_PROCESS("Received message: " << message->GetName().ToString());
+    DEBUG_RENDER_PROCESS(
+        "Received IPC message: " << message->GetName().ToString());
 
-    if (message->GetName() == "GodotToJS")
+    if (message->GetName() == "godotEvents.emit")
     {
         // Get message arguments
         CefRefPtr<CefListValue> args = message->GetArgumentList();
@@ -297,25 +273,129 @@ bool RenderProcess::OnProcessMessageReceived(
 
         // Get event name and data
         CefString eventName = args->GetString(0);
-        CefRefPtr<CefValue> data = args->GetValue(1);
-
-        // Convert data to JS
-        std::string jsData = ConvertCefValueToJS(data);
+        CefString jsonData = args->GetString(1);
 
         DEBUG_RENDER_PROCESS("Event: " << eventName.ToString()
-                                       << " Data: " << jsData);
+                                       << " Data: " << jsonData.ToString());
 
         // Create JavaScript to emit the event
         std::string jsCode =
-            "if (window.godotEventSystem) { "
-            "window.godotEventSystem.emit('" +
-            eventName.ToString() + "', " + jsData +
+            "if (window.godotEvents) { "
+            "window.godotEvents.emit('" +
+            eventName.ToString() + "', " + jsonData.ToString() +
             "); "
-            "} else { console.error('godotEventSystem not found'); }";
+            "} else { console.error('godotEvents not found'); }";
 
         // Execute in the browser context
         frame->ExecuteJavaScript(jsCode, frame->GetURL(), 0);
         return true;
     }
     return false;
+}
+
+//------------------------------------------------------------------------------
+std::string GodotMethodHandler::V8ToJSON(CefRefPtr<CefV8Value> value)
+{
+    if (value->IsNull() || value->IsUndefined())
+    {
+        return "null";
+    }
+    else if (value->IsBool())
+    {
+        return value->GetBoolValue() ? "true" : "false";
+    }
+    else if (value->IsInt())
+    {
+        return std::to_string(value->GetIntValue());
+    }
+    else if (value->IsDouble())
+    {
+        return std::to_string(value->GetDoubleValue());
+    }
+    else if (value->IsString())
+    {
+        std::string str = value->GetStringValue();
+        // Escape special characters
+        std::string escaped;
+        escaped.reserve(str.length() + 2);
+        escaped += '"';
+        for (char c : str)
+        {
+            switch (c)
+            {
+                case '"':
+                    escaped += "\\\"";
+                    break;
+                case '\\':
+                    escaped += "\\\\";
+                    break;
+                case '\b':
+                    escaped += "\\b";
+                    break;
+                case '\f':
+                    escaped += "\\f";
+                    break;
+                case '\n':
+                    escaped += "\\n";
+                    break;
+                case '\r':
+                    escaped += "\\r";
+                    break;
+                case '\t':
+                    escaped += "\\t";
+                    break;
+                default:
+                    escaped += c;
+                    break;
+            }
+        }
+        escaped += '"';
+        return escaped;
+    }
+    else if (value->IsArray())
+    {
+        std::string result = "[";
+        for (int i = 0; i < value->GetArrayLength(); ++i)
+        {
+            if (i > 0)
+                result += ",";
+            result += V8ToJSON(value->GetValue(i));
+        }
+        result += "]";
+        return result;
+    }
+    else if (value->IsArrayBuffer())
+    {
+        size_t length = value->GetArrayBufferByteLength();
+        void* data = value->GetArrayBufferData();
+
+        if (data && length > 0)
+        {
+            // Convert to base64
+            std::string base64 = CefBase64Encode(data, length);
+
+            return "{ \"type\": \"binary\", \"format\": \"base64\", \"data\": "
+                   "\"" +
+                   base64 + "\", \"size\": " + std::to_string(length) + " }";
+        }
+        return "{ \"type\": \"binary\", \"format\": \"base64\", \"data\": "
+               "\"\", \"size\": 0 }";
+    }
+    else if (value->IsObject())
+    {
+        std::string result = "{";
+        std::vector<CefString> keys;
+        value->GetKeys(keys);
+        for (size_t i = 0; i < keys.size(); ++i)
+        {
+            if (i > 0)
+                result += ",";
+            result += V8ToJSON(CefV8Value::CreateString(keys[i]));
+            result += ":";
+            result += V8ToJSON(value->GetValue(keys[i]));
+        }
+        result += "}";
+        return result;
+    }
+    return "null";
 }

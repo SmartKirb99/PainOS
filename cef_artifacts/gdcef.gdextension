@@ -1,6 +1,6 @@
 [configuration]
 entry_symbol = "gdcef_library_init"
-compatibility_minimum = 4.1
+compatibility_minimum = 4.2
 
 [libraries]
 linux.x86_64.debug = "res://cef_artifacts/libgdcef.so"
@@ -13,5 +13,5 @@ windows.x86_64.release = "res://cef_artifacts/libgdcef.dll"
 windows.x86_32.debug = "res://cef_artifacts/libgdcef.dll"
 windows.x86_32.release = "res://cef_artifacts/libgdcef.dll"
 
-macos.debug = "res://cef_artifacts/Frameworks/Chromium\ Embedded\ Framework.framework/Libraries/libgdcef.dylib"
-macos.release = "res://cef_artifacts/Frameworks/Chromium\ Embedded\ Framework.framework/Libraries/libgdcef.dylib"
+macos.debug = "res://cef_artifacts/libgdcef.dylib"
+macos.release = "res://cef_artifacts/libgdcef.dylib"

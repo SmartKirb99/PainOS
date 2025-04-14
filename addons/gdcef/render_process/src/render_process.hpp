@@ -63,23 +63,44 @@
 #endif
 
 // *****************************************************************************
-//! \brief JavaScript Method Handler
+//! \brief Class called by the JavaScript layer to call a GDScript method.
 // *****************************************************************************
 class GodotMethodHandler: public CefV8Handler
 {
 public:
 
+    // -------------------------------------------------------------------------
+    //! \brief Constructor
+    //! \param[in] browser The browser instance
+    // -------------------------------------------------------------------------
     GodotMethodHandler(CefRefPtr<CefBrowser> browser) : m_browser(browser) {}
 
+    // -------------------------------------------------------------------------
+    //! \brief Called to execute a Godot method.
+    //! Send an IPC message to the main process to execute the Godot method.
+    //! The GDBrowserView::onProcessMessageReceived method will be called.
+    //! \param[in] name The method name.
+    //! \param[in] object The object.
+    //! \param[in] arguments The arguments.
+    //! \param[out] retval The return value.
+    //! \param[out] exception The exception.
+    // -------------------------------------------------------------------------
     bool Execute(const CefString& name,
                  CefRefPtr<CefV8Value> object,
                  const CefV8ValueList& arguments,
                  CefRefPtr<CefV8Value>& retval,
-                 CefString& exception) override;
+                 CefString& exception);
 
     IMPLEMENT_REFCOUNTING(GodotMethodHandler);
 
 private:
+
+    //------------------------------------------------------------------------------
+    //! \brief Convert a V8 value to a JSON string
+    //! \param[in] value The V8 value to convert
+    //! \return The JSON string representation
+    //------------------------------------------------------------------------------
+    std::string V8ToJSON(CefRefPtr<CefV8Value> value);
 
     CefRefPtr<CefBrowser> m_browser;
 };
@@ -93,6 +114,14 @@ public:
 
     IMPLEMENT_REFCOUNTING(RenderProcess);
 
+    // -------------------------------------------------------------------------
+    //! \brief Called when the IPC message is received from the main process.
+    //! Used here to execute JS code.
+    //! \param[in] browser The browser instance.
+    //! \param[in] frame The frame instance.
+    //! \param[in] source_process The source process.
+    //! \param[in] message The message.
+    // -------------------------------------------------------------------------
     virtual bool
     OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
                              CefRefPtr<CefFrame> frame,
@@ -111,17 +140,32 @@ private: // CefApp methods
 private: // CefRenderProcessHandler methods
 
     // -------------------------------------------------------------------------
+    //! \brief Called when a new context is created.
+    //! Add JS code to the context to allow communication between JS and
+    //! GDScript.
+    //! \param[in] browser The browser instance.
+    //! \param[in] frame The frame instance.
+    //! \param[in] context The context instance.
+    // -------------------------------------------------------------------------
     virtual void OnContextCreated(CefRefPtr<CefBrowser> browser,
                                   CefRefPtr<CefFrame> frame,
                                   CefRefPtr<CefV8Context> context) override;
+
+    // -------------------------------------------------------------------------
+    //! \brief Called when a context is released. Clean JS/Godot bindings.
+    //! \param[in] browser The browser instance.
+    //! \param[in] frame The frame instance.
+    //! \param[in] context The context instance.
+    // -------------------------------------------------------------------------
+    virtual void OnContextReleased(CefRefPtr<CefBrowser> browser,
+                                   CefRefPtr<CefFrame> frame,
+                                   CefRefPtr<CefV8Context> context) override;
 
 private:
 
     CefRefPtr<GodotMethodHandler> m_handler;
     CefRefPtr<CefV8Context> m_context;
     CefRefPtr<CefFrame> m_frame;
-
-    std::string ConvertCefValueToJS(CefRefPtr<CefValue> value);
 };
 
 #if !defined(_WIN32)
