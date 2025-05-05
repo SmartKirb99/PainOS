@@ -1,5 +1,3 @@
-gdCEF Version: 0.17.0
-gdCEF Git Branch: unknown
-gdCEF Git SHA1: unknown
-CEF Version: 131.3.1+gcb062df+chromium-131.0.6778.109
-Godot Version: 4.2
+version https://git-lfs.github.com/spec/v1
+oid sha256:8864dfe0fcd2b89486635a0e3ee58549cc45f7c52755ace979b75f93b5b48dc5
+size 185

@@ -1,4 +1,0 @@
-[18260:16948:0414/125357.443:WARNING:chrome_main_delegate.cc(675)] This is Chrome version 131.0.6778.109 (not a warning)
-[18260:16948:0414/125357.492:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[14568:15992:0414/125357.611:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
-[18260:16948:0414/125407.541:ERROR:download_manager_delegate_impl.cc(408)] Should return true from OnBeforeDownload when executing the callback

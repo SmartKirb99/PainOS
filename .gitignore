@@ -3,4 +3,8 @@
 cef_artifacts\~libgdcef.dll
 cef_artifacts\libcef.dll
 cef_artifacts/libcef.dll
+bin\libcef.dll
+bin\libgdcef.dll
+bin/libcef.dll
+bin/libgdcef.dll
 cef_artifacts/~libgdcef.dll

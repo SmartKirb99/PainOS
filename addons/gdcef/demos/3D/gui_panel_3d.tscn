@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dvl383ispakmn"]
 
-[ext_resource type="Script" path="res://gui_3d.gd" id="1"]
+[ext_resource type="Script" uid="uid://dsg4sx3oq28m7" path="res://gui_3d.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://omfv5yo3uhfr" path="res://CEF.tscn" id="2_06vtd"]
 
 [sub_resource type="QuadMesh" id="1"]
@@ -34,6 +34,7 @@ mesh = SubResource("1")
 surface_material_override/0 = SubResource("3")
 
 [node name="Area3D" type="Area3D" parent="Quad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0563948, 0)
 collision_layer = 2
 input_capture_on_drag = true
 
