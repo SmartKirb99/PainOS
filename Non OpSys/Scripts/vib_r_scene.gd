@@ -27,7 +27,10 @@ func _on_load_song_pressed() -> void:
 
 ##When a file is selected
 func _on_file_dialog_file_selected(path: String) -> void:
-	$AudioStreamPlayer.stream = load(path)
+	$AudioStreamPlayer.stream = AudioStreamWAV.load_from_file(path, {
+		"force/max_rate":true,
+		"force/max_rate_hz": 11025
+	})
 	$Loop.disabled = false
 	$Timer.start()
 	$AudioStreamPlayer.play()
