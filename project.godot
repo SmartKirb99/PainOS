@@ -16,7 +16,7 @@ config/name_localized={
 }
 config/tags=PackedStringArray("os")
 run/main_scene="res://Non OpSys/Scenes/LoadingYourPain.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="uid://iaddtt1q4thj"
@@ -39,6 +39,10 @@ window/size/resizable=false
 window/size/borderless=true
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="res://Non OpSys/Cursor/Mouse.png"
+
+[dotnet]
+
+project/assembly_name="PainOS"
 
 [editor_plugins]
 

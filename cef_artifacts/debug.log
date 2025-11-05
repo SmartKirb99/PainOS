@@ -1,0 +1,4 @@
+[9100:11232:1105/092341.870:WARNING:chrome_main_delegate.cc(675)] This is Chrome version 131.0.6778.109 (not a warning)
+[9100:11232:1105/092341.932:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[9100:11232:1105/092341.976:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[23332:23252:1105/092342.085:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
